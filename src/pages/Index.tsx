@@ -1,8 +1,8 @@
-
 import React, { useState, useEffect } from 'react';
 import AttendanceForm from '@/components/AttendanceForm';
 import AttendanceResult from '@/components/AttendanceResult';
 import AttendanceHistory, { AttendanceRecord } from '@/components/AttendanceHistory';
+import Header from '@/components/Header';
 import { calculateAttendance } from '@/utils/attendanceCalculator';
 import { 
   saveAttendanceRecord, 
@@ -80,14 +80,12 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-violet-50 via-purple-50 to-indigo-100">
+      <Header />
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-violet-600 to-purple-600 rounded-2xl mb-6">
-            <span className="text-2xl">📊</span>
-          </div>
           <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-4">
-            StudyTrack
+            Track Your Progress
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
             Keep track of your class attendance with style. Calculate your percentage, 

@@ -4,7 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { History, Trash2, Clock, Edit3, Check, X, Plus, Minus } from 'lucide-react';
+import { History, Trash2, Clock, Edit3, Check, X, Plus, Minus, TrendingUp, TrendingDown } from 'lucide-react';
+import { calculateAttendance } from '@/utils/attendanceCalculator';
 
 export interface AttendanceRecord {
   id: string;
@@ -129,47 +130,172 @@ const AttendanceHistory = ({ records, onDeleteRecord, onUpdateRecord }: Attendan
               {/* Desktop Table */}
               <div className="hidden md:block">
                 <div className="bg-slate-800 border-2 border-emerald-600 pixel-stat-box">
-                  <div className="grid grid-cols-7 gap-4 p-4 border-b-2 border-emerald-600 bg-slate-700">
+                  <div className="grid grid-cols-8 gap-4 p-4 border-b-2 border-emerald-600 bg-slate-700">
                     <div className="font-bold text-emerald-400 font-mono text-sm uppercase">Name</div>
                     <div className="font-bold text-emerald-400 font-mono text-sm uppercase text-center">Attended</div>
                     <div className="font-bold text-emerald-400 font-mono text-sm uppercase text-center">Total</div>
                     <div className="font-bold text-emerald-400 font-mono text-sm uppercase text-center">Percentage</div>
+                    <div className="font-bold text-emerald-400 font-mono text-sm uppercase text-center">Recommendation</div>
                     <div className="font-bold text-emerald-400 font-mono text-sm uppercase text-center">Quick Update</div>
                     <div className="font-bold text-emerald-400 font-mono text-sm uppercase text-center">Date</div>
                     <div className="font-bold text-emerald-400 font-mono text-sm uppercase text-center">Actions</div>
                   </div>
                   
-                  {subjectRecords.map((record) => (
-                    <div key={record.id} className="grid grid-cols-7 gap-4 p-4 border-b border-emerald-700 last:border-b-0 hover:bg-slate-750">
-                      <div className="font-bold text-emerald-100 font-mono">{record.name}</div>
-                      
-                      <div className="text-center">
-                        {editingId === record.id ? (
-                          <Input
-                            type="number"
-                            value={editData.attended}
-                            onChange={(e) => setEditData(prev => ({ ...prev, attended: parseInt(e.target.value) || 0 }))}
-                            className="w-16 h-8 text-center bg-slate-700 border border-emerald-600 text-emerald-100 font-mono pixel-input"
-                          />
-                        ) : (
-                          <span className="font-mono text-emerald-100">{record.attended}</span>
-                        )}
+                  {subjectRecords.map((record) => {
+                    const calculation = calculateAttendance(record.attended, record.total);
+                    
+                    return (
+                      <div key={record.id} className="grid grid-cols-8 gap-4 p-4 border-b border-emerald-700 last:border-b-0 hover:bg-slate-750">
+                        <div className="font-bold text-emerald-100 font-mono">{record.name}</div>
+                        
+                        <div className="text-center">
+                          {editingId === record.id ? (
+                            <Input
+                              type="number"
+                              value={editData.attended}
+                              onChange={(e) => setEditData(prev => ({ ...prev, attended: parseInt(e.target.value) || 0 }))}
+                              className="w-16 h-8 text-center bg-slate-700 border border-emerald-600 text-emerald-100 font-mono pixel-input"
+                            />
+                          ) : (
+                            <span className="font-mono text-emerald-100">{record.attended}</span>
+                          )}
+                        </div>
+                        
+                        <div className="text-center">
+                          {editingId === record.id ? (
+                            <Input
+                              type="number"
+                              value={editData.total}
+                              onChange={(e) => setEditData(prev => ({ ...prev, total: parseInt(e.target.value) || 0 }))}
+                              className="w-16 h-8 text-center bg-slate-700 border border-emerald-600 text-emerald-100 font-mono pixel-input"
+                            />
+                          ) : (
+                            <span className="font-mono text-emerald-100">{record.total}</span>
+                          )}
+                        </div>
+                        
+                        <div className="text-center">
+                          <Badge 
+                            className={`font-mono text-sm pixel-badge ${
+                              record.percentage >= 75 
+                                ? 'bg-emerald-400 text-slate-900 border-emerald-300' 
+                                : 'bg-orange-400 text-slate-900 border-orange-300'
+                            }`}
+                          >
+                            {record.percentage.toFixed(1)}%
+                          </Badge>
+                        </div>
+                        
+                        <div className="text-center">
+                          <div className={`p-2 border-2 pixel-recommendation-box text-xs ${
+                            calculation.recommendation.type === 'can_miss'
+                              ? 'bg-emerald-900/30 border-emerald-600'
+                              : 'bg-orange-900/30 border-orange-600'
+                          }`}>
+                            <div className="flex items-center gap-1 mb-1">
+                              {calculation.recommendation.type === 'can_miss' ? (
+                                <TrendingUp className="w-3 h-3 text-emerald-400" />
+                              ) : (
+                                <TrendingDown className="w-3 h-3 text-orange-400" />
+                              )}
+                              <span className={`font-mono font-bold uppercase ${
+                                calculation.recommendation.type === 'can_miss'
+                                  ? 'text-emerald-400'
+                                  : 'text-orange-400'
+                              }`}>
+                                {calculation.recommendation.type === 'can_miss' ? 'CAN MISS' : 'MUST ATTEND'}
+                              </span>
+                            </div>
+                            <div className={`font-mono ${
+                              calculation.recommendation.type === 'can_miss'
+                                ? 'text-emerald-300'
+                                : 'text-orange-300'
+                            }`}>
+                              {calculation.recommendation.classes} {calculation.recommendation.classes === 1 ? 'CLASS' : 'CLASSES'}
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className="flex justify-center gap-2">
+                          {editingId !== record.id && (
+                            <>
+                              <Button
+                                size="sm"
+                                onClick={() => handleQuickUpdate(record, 'attend')}
+                                className="h-8 w-8 p-0 bg-emerald-500 hover:bg-emerald-400 text-slate-900 border-2 border-emerald-300 pixel-button"
+                              >
+                                <Plus className="w-3 h-3" />
+                              </Button>
+                              <Button
+                                size="sm"
+                                onClick={() => handleQuickUpdate(record, 'miss')}
+                                className="h-8 w-8 p-0 bg-orange-500 hover:bg-orange-400 text-slate-900 border-2 border-orange-300 pixel-button"
+                              >
+                                <Minus className="w-3 h-3" />
+                              </Button>
+                            </>
+                          )}
+                        </div>
+                        
+                        <div className="text-center">
+                          <span className="text-xs text-emerald-300 font-mono flex items-center justify-center gap-1">
+                            <Clock className="w-3 h-3" />
+                            {formatDate(record.date)}
+                          </span>
+                        </div>
+                        
+                        <div className="flex justify-center gap-2">
+                          {editingId === record.id ? (
+                            <>
+                              <Button
+                                size="sm"
+                                onClick={() => handleSave(record)}
+                                className="h-8 w-8 p-0 bg-emerald-500 hover:bg-emerald-400 text-slate-900 border-2 border-emerald-300 pixel-button"
+                              >
+                                <Check className="w-3 h-3" />
+                              </Button>
+                              <Button
+                                size="sm"
+                                onClick={handleCancel}
+                                className="h-8 w-8 p-0 bg-orange-500 hover:bg-orange-400 text-slate-900 border-2 border-orange-300 pixel-button"
+                              >
+                                <X className="w-3 h-3" />
+                              </Button>
+                            </>
+                          ) : (
+                            <>
+                              <Button
+                                size="sm"
+                                onClick={() => handleEdit(record)}
+                                className="h-8 w-8 p-0 bg-emerald-500 hover:bg-emerald-400 text-slate-900 border-2 border-emerald-300 pixel-button"
+                              >
+                                <Edit3 className="w-3 h-3" />
+                              </Button>
+                              <Button
+                                size="sm"
+                                onClick={() => onDeleteRecord(record.id)}
+                                className="h-8 w-8 p-0 bg-red-500 hover:bg-red-400 text-white border-2 border-red-300 pixel-button"
+                              >
+                                <Trash2 className="w-3 h-3" />
+                              </Button>
+                            </>
+                          )}
+                        </div>
                       </div>
-                      
-                      <div className="text-center">
-                        {editingId === record.id ? (
-                          <Input
-                            type="number"
-                            value={editData.total}
-                            onChange={(e) => setEditData(prev => ({ ...prev, total: parseInt(e.target.value) || 0 }))}
-                            className="w-16 h-8 text-center bg-slate-700 border border-emerald-600 text-emerald-100 font-mono pixel-input"
-                          />
-                        ) : (
-                          <span className="font-mono text-emerald-100">{record.total}</span>
-                        )}
-                      </div>
-                      
-                      <div className="text-center">
+                    );
+                  })}
+                </div>
+              </div>
+              
+              {/* Mobile Cards */}
+              <div className="md:hidden space-y-4">
+                {subjectRecords.map((record) => {
+                  const calculation = calculateAttendance(record.attended, record.total);
+                  
+                  return (
+                    <div key={record.id} className="bg-slate-800 border-4 border-emerald-600 p-5 pixel-recommendation-box">
+                      <div className="flex justify-between items-start mb-4">
+                        <h4 className="font-bold text-emerald-100 text-lg font-mono uppercase">{record.name}</h4>
                         <Badge 
                           className={`font-mono text-sm pixel-badge ${
                             record.percentage >= 75 
@@ -181,148 +307,95 @@ const AttendanceHistory = ({ records, onDeleteRecord, onUpdateRecord }: Attendan
                         </Badge>
                       </div>
                       
-                      <div className="flex justify-center gap-2">
-                        {editingId !== record.id && (
-                          <>
-                            <Button
-                              size="sm"
-                              onClick={() => handleQuickUpdate(record, 'attend')}
-                              className="h-8 w-8 p-0 bg-emerald-500 hover:bg-emerald-400 text-slate-900 border-2 border-emerald-300 pixel-button"
-                            >
-                              <Plus className="w-3 h-3" />
-                            </Button>
-                            <Button
-                              size="sm"
-                              onClick={() => handleQuickUpdate(record, 'miss')}
-                              className="h-8 w-8 p-0 bg-orange-500 hover:bg-orange-400 text-slate-900 border-2 border-orange-300 pixel-button"
-                            >
-                              <Minus className="w-3 h-3" />
-                            </Button>
-                          </>
-                        )}
+                      <div className="grid grid-cols-2 gap-3 mb-4">
+                        <div className="bg-slate-700 border-2 border-emerald-600 p-3 pixel-stat-box">
+                          <span className="text-emerald-300 block text-xs font-mono uppercase">Attended:</span>
+                          <span className="font-bold text-lg text-emerald-100 font-mono">{record.attended}</span>
+                        </div>
+                        <div className="bg-slate-700 border-2 border-emerald-600 p-3 pixel-stat-box">
+                          <span className="text-emerald-300 block text-xs font-mono uppercase">Total:</span>
+                          <span className="font-bold text-lg text-emerald-100 font-mono">{record.total}</span>
+                        </div>
                       </div>
                       
-                      <div className="text-center">
-                        <span className="text-xs text-emerald-300 font-mono flex items-center justify-center gap-1">
-                          <Clock className="w-3 h-3" />
-                          {formatDate(record.date)}
-                        </span>
+                      {/* Recommendation Section */}
+                      <div className={`p-4 border-4 mb-4 pixel-recommendation-box ${
+                        calculation.recommendation.type === 'can_miss'
+                          ? 'bg-emerald-900/30 border-emerald-400'
+                          : 'bg-orange-900/30 border-orange-400'
+                      }`}>
+                        <div className="flex items-start gap-3">
+                          <div className={`w-8 h-8 flex items-center justify-center border-2 pixel-icon ${
+                            calculation.recommendation.type === 'can_miss'
+                              ? 'bg-emerald-400 border-emerald-300'
+                              : 'bg-orange-400 border-orange-300'
+                          }`}>
+                            {calculation.recommendation.type === 'can_miss' ? (
+                              <TrendingUp className="w-4 h-4 text-slate-900" />
+                            ) : (
+                              <TrendingDown className="w-4 h-4 text-slate-900" />
+                            )}
+                          </div>
+                          <div>
+                            <p className={`font-bold text-sm mb-2 font-mono uppercase tracking-wider ${
+                              calculation.recommendation.type === 'can_miss' ? 'text-emerald-400' : 'text-orange-400'
+                            }`}>
+                              {calculation.recommendation.type === 'can_miss' ? 'CAN MISS' : 'MUST ATTEND'}
+                            </p>
+                            <p className={`text-xs leading-relaxed font-mono ${
+                              calculation.recommendation.type === 'can_miss' ? 'text-emerald-300' : 'text-orange-300'
+                            }`}>
+                              {calculation.recommendation.message}
+                            </p>
+                          </div>
+                        </div>
                       </div>
                       
-                      <div className="flex justify-center gap-2">
-                        {editingId === record.id ? (
-                          <>
-                            <Button
-                              size="sm"
-                              onClick={() => handleSave(record)}
-                              className="h-8 w-8 p-0 bg-emerald-500 hover:bg-emerald-400 text-slate-900 border-2 border-emerald-300 pixel-button"
-                            >
-                              <Check className="w-3 h-3" />
-                            </Button>
-                            <Button
-                              size="sm"
-                              onClick={handleCancel}
-                              className="h-8 w-8 p-0 bg-orange-500 hover:bg-orange-400 text-slate-900 border-2 border-orange-300 pixel-button"
-                            >
-                              <X className="w-3 h-3" />
-                            </Button>
-                          </>
-                        ) : (
-                          <>
-                            <Button
-                              size="sm"
-                              onClick={() => handleEdit(record)}
-                              className="h-8 w-8 p-0 bg-emerald-500 hover:bg-emerald-400 text-slate-900 border-2 border-emerald-300 pixel-button"
-                            >
-                              <Edit3 className="w-3 h-3" />
-                            </Button>
-                            <Button
-                              size="sm"
-                              onClick={() => onDeleteRecord(record.id)}
-                              className="h-8 w-8 p-0 bg-red-500 hover:bg-red-400 text-white border-2 border-red-300 pixel-button"
-                            >
-                              <Trash2 className="w-3 h-3" />
-                            </Button>
-                          </>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              
-              {/* Mobile Cards */}
-              <div className="md:hidden space-y-4">
-                {subjectRecords.map((record) => (
-                  <div key={record.id} className="bg-slate-800 border-4 border-emerald-600 p-5 pixel-recommendation-box">
-                    <div className="flex justify-between items-start mb-4">
-                      <h4 className="font-bold text-emerald-100 text-lg font-mono uppercase">{record.name}</h4>
-                      <Badge 
-                        className={`font-mono text-sm pixel-badge ${
-                          record.percentage >= 75 
-                            ? 'bg-emerald-400 text-slate-900 border-emerald-300' 
-                            : 'bg-orange-400 text-slate-900 border-orange-300'
-                        }`}
-                      >
-                        {record.percentage.toFixed(1)}%
-                      </Badge>
-                    </div>
-                    
-                    <div className="grid grid-cols-2 gap-3 mb-4">
-                      <div className="bg-slate-700 border-2 border-emerald-600 p-3 pixel-stat-box">
-                        <span className="text-emerald-300 block text-xs font-mono uppercase">Attended:</span>
-                        <span className="font-bold text-lg text-emerald-100 font-mono">{record.attended}</span>
-                      </div>
-                      <div className="bg-slate-700 border-2 border-emerald-600 p-3 pixel-stat-box">
-                        <span className="text-emerald-300 block text-xs font-mono uppercase">Total:</span>
-                        <span className="font-bold text-lg text-emerald-100 font-mono">{record.total}</span>
-                      </div>
-                    </div>
-                    
-                    <div className="flex justify-between items-center mb-4">
-                      <div className="flex gap-2">
-                        <Button
-                          size="sm"
-                          onClick={() => handleQuickUpdate(record, 'attend')}
-                          className="bg-emerald-500 hover:bg-emerald-400 text-slate-900 border-2 border-emerald-300 font-mono text-xs pixel-button"
-                        >
-                          <Plus className="w-3 h-3 mr-1" />
-                          ATTEND
-                        </Button>
-                        <Button
-                          size="sm"
-                          onClick={() => handleQuickUpdate(record, 'miss')}
-                          className="bg-orange-500 hover:bg-orange-400 text-slate-900 border-2 border-orange-300 font-mono text-xs pixel-button"
-                        >
-                          <Minus className="w-3 h-3 mr-1" />
-                          MISS
-                        </Button>
+                      <div className="flex justify-between items-center mb-4">
+                        <div className="flex gap-2">
+                          <Button
+                            size="sm"
+                            onClick={() => handleQuickUpdate(record, 'attend')}
+                            className="bg-emerald-500 hover:bg-emerald-400 text-slate-900 border-2 border-emerald-300 font-mono text-xs pixel-button"
+                          >
+                            <Plus className="w-3 h-3 mr-1" />
+                            ATTEND
+                          </Button>
+                          <Button
+                            size="sm"
+                            onClick={() => handleQuickUpdate(record, 'miss')}
+                            className="bg-orange-500 hover:bg-orange-400 text-slate-900 border-2 border-orange-300 font-mono text-xs pixel-button"
+                          >
+                            <Minus className="w-3 h-3 mr-1" />
+                            MISS
+                          </Button>
+                        </div>
+                        
+                        <div className="flex gap-2">
+                          <Button
+                            size="sm"
+                            onClick={() => handleEdit(record)}
+                            className="bg-emerald-500 hover:bg-emerald-400 text-slate-900 border-2 border-emerald-300 pixel-button"
+                          >
+                            <Edit3 className="w-3 h-3" />
+                          </Button>
+                          <Button
+                            size="sm"
+                            onClick={() => onDeleteRecord(record.id)}
+                            className="bg-red-500 hover:bg-red-400 text-white border-2 border-red-300 pixel-button"
+                          >
+                            <Trash2 className="w-3 h-3" />
+                          </Button>
+                        </div>
                       </div>
                       
-                      <div className="flex gap-2">
-                        <Button
-                          size="sm"
-                          onClick={() => handleEdit(record)}
-                          className="bg-emerald-500 hover:bg-emerald-400 text-slate-900 border-2 border-emerald-300 pixel-button"
-                        >
-                          <Edit3 className="w-3 h-3" />
-                        </Button>
-                        <Button
-                          size="sm"
-                          onClick={() => onDeleteRecord(record.id)}
-                          className="bg-red-500 hover:bg-red-400 text-white border-2 border-red-300 pixel-button"
-                        >
-                          <Trash2 className="w-3 h-3" />
-                        </Button>
+                      <div className="text-xs text-emerald-300 font-mono flex items-center gap-1">
+                        <Clock className="w-3 h-3" />
+                        {formatDate(record.date)}
                       </div>
                     </div>
-                    
-                    <div className="text-xs text-emerald-300 font-mono flex items-center gap-1">
-                      <Clock className="w-3 h-3" />
-                      {formatDate(record.date)}
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           ))}

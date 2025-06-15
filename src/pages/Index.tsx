@@ -173,9 +173,88 @@ const Index = () => {
             </span>
           </div>
           <Accordion type="multiple" className="rounded-2xl shadow-lg">
+            {/* 5th Semester Accordion */}
+            <AccordionItem value="5th-sem">
+              <AccordionTrigger className="bg-slate-800 border-4 border-emerald-400 p-3 px-6 rounded-2xl focus:outline-none group text-lg font-bold text-emerald-400 font-mono uppercase tracking-wider">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-emerald-400 border-2 border-emerald-300 flex items-center justify-center pixel-icon rounded-md shadow-[2px_2px_0_0_rgba(52,211,153,0.8)]">
+                    <span className="text-slate-900 text-2xl font-bold">5</span>
+                  </div>
+                  5TH SEMESTER QUICK ACCESS
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="bg-slate-800 border-x-4 border-b-4 border-emerald-400 rounded-b-2xl">
+                <p className="text-emerald-300 font-mono text-sm mb-4 mt-2 uppercase tracking-wider">
+                  Click on any subject to track attendance with dedicated sidebar navigation
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                  {[
+                    { code: 'cet-305', name: 'Process Equipment Design– I' },
+                    { code: 'cet-306', name: 'Chemical Reaction Engineering' },
+                    { code: 'cet-307', name: 'Mass Transfer-I' },
+                    { code: 'cet-308', name: 'Chemical Technology – I' },
+                    { code: 'hst-309', name: 'Basic Management Principles' },
+                    { code: 'mat-310', name: 'Numerical Methods' },
+                    { code: 'cel-311', name: 'Heat Transfer Lab' },
+                    { code: 'cel-312', name: 'Computer Simulation Lab' }
+                  ].map((subject) => (
+                    <a
+                      key={subject.code}
+                      href={`/subject/${subject.code}`}
+                      className="block p-3 bg-slate-700 border-2 border-slate-600 hover:border-emerald-400 hover:bg-slate-600 transition-colors pixel-button rounded-md"
+                    >
+                      <span className="text-emerald-300 font-mono text-xs uppercase tracking-wider block truncate">
+                        {subject.name}
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+            
+            {/* 6th Semester Accordion */}
+            <AccordionItem value="6th-sem">
+              <AccordionTrigger className="bg-slate-800 border-4 border-emerald-400 p-3 px-6 rounded-2xl focus:outline-none group text-lg font-bold text-emerald-400 font-mono uppercase tracking-wider mt-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-emerald-400 border-2 border-emerald-300 flex items-center justify-center pixel-icon rounded-md shadow-[2px_2px_0_0_rgba(52,211,153,0.8)]">
+                    <span className="text-slate-900 text-2xl font-bold">6</span>
+                  </div>
+                  6TH SEMESTER QUICK ACCESS
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="bg-slate-800 border-x-4 border-b-4 border-emerald-400 rounded-b-2xl">
+                <p className="text-emerald-300 font-mono text-sm mb-4 mt-2 uppercase tracking-wider">
+                  Click on any subject to track attendance with dedicated sidebar navigation
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                  {[
+                    { code: 'cet-355', name: 'Process Equipment Design -II' },
+                    { code: 'cet-356', name: 'Mass Transfer – II' },
+                    { code: 'cet-357', name: 'Chemical Technology – II' },
+                    { code: 'cet-358', name: 'Energy Technology' },
+                    { code: 'cet-359', name: 'Chemical Process Safety' },
+                    { code: 'cet-360', name: 'Transport Phenomena' },
+                    { code: 'cel-361', name: 'Energy Technology Lab' },
+                    { code: 'cel-362', name: 'Thermodynamics & Reaction Engineering Lab' },
+                    { code: 'cei-363', name: 'Industrial Training & Presentation' }
+                  ].map((subject) => (
+                    <a
+                      key={subject.code}
+                      href={`/subject/${subject.code}`}
+                      className="block p-3 bg-slate-700 border-2 border-slate-600 hover:border-emerald-400 hover:bg-slate-600 transition-colors pixel-button rounded-md"
+                    >
+                      <span className="text-emerald-300 font-mono text-xs uppercase tracking-wider block truncate">
+                        {subject.name}
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+            
             {/* 7th Semester Accordion */}
             <AccordionItem value="7th-sem">
-              <AccordionTrigger className="bg-slate-800 border-4 border-emerald-400 p-3 px-6 rounded-2xl focus:outline-none group text-lg font-bold text-emerald-400 font-mono uppercase tracking-wider">
+              <AccordionTrigger className="bg-slate-800 border-4 border-emerald-400 p-3 px-6 rounded-2xl focus:outline-none group text-lg font-bold text-emerald-400 font-mono uppercase tracking-wider mt-4">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-emerald-400 border-2 border-emerald-300 flex items-center justify-center pixel-icon rounded-md shadow-[2px_2px_0_0_rgba(52,211,153,0.8)]">
                     <span className="text-slate-900 text-2xl font-bold">7</span>
@@ -212,6 +291,7 @@ const Index = () => {
                 </div>
               </AccordionContent>
             </AccordionItem>
+            
             {/* 8th Semester Accordion */}
             <AccordionItem value="8th-sem">
               <AccordionTrigger className="bg-slate-800 border-4 border-emerald-400 p-3 px-6 rounded-2xl focus:outline-none group text-lg font-bold text-emerald-400 font-mono uppercase tracking-wider mt-4">

@@ -163,42 +163,27 @@ const Index = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Header */}
-      <div className="text-center mb-12">
-        <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent mb-4 font-mono">
-          TRACK YOUR PROGRESS
-        </h1>
-        <p className="text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed font-mono mb-8">
-          Keep track of your class attendance with style. Calculate your percentage, 
-          get smart recommendations, and stay above the 75% requirement effortlessly.
-        </p>
-        
-        {/* Quick Access to 7th and 8th Semester Subjects */}
-        <div className="space-y-4 max-w-4xl mx-auto mb-8">
+      <div className="mb-12">
+        {/* Left-aligned Quick Access Section */}
+        <div className="space-y-4 max-w-4xl mx-0 mb-8">
           {/* Chemical Engineering header above accordions */}
-          <div className="flex flex-col md:flex-row md:gap-8 mb-2">
-            <div className="w-full md:w-1/2 flex flex-col items-center">
-              <span className="block text-lg font-extrabold text-emerald-400 mb-2 font-mono uppercase tracking-wide">
-                Chemical Engineering
-              </span>
-            </div>
-            <div className="w-full md:w-1/2 flex flex-col items-center">
-              <span className="block text-lg font-extrabold text-emerald-400 mb-2 font-mono uppercase tracking-wide md:hidden">
-                Chemical Engineering
-              </span>
-            </div>
+          <div className="flex flex-col">
+            <span className="block text-lg font-extrabold text-emerald-400 mb-4 font-mono uppercase tracking-wide text-left">
+              CHEMICAL ENGINEERING
+            </span>
           </div>
-          <Accordion type="multiple" className="rounded-lg">
+          <Accordion type="multiple" className="rounded-2xl shadow-lg">
             {/* 7th Semester Accordion */}
             <AccordionItem value="7th-sem">
-              <AccordionTrigger className="bg-slate-800 border-4 border-emerald-600 p-3 px-6 rounded-t-lg focus:outline-none group text-lg font-bold text-emerald-400 font-mono uppercase tracking-wider">
+              <AccordionTrigger className="bg-slate-800 border-4 border-emerald-400 p-3 px-6 rounded-2xl focus:outline-none group text-lg font-bold text-emerald-400 font-mono uppercase tracking-wider">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-emerald-400 border-2 border-emerald-300 flex items-center justify-center pixel-icon">
-                    <span className="text-slate-900 text-lg font-bold">7</span>
+                  <div className="w-10 h-10 bg-emerald-400 border-2 border-emerald-300 flex items-center justify-center pixel-icon rounded-md shadow-[2px_2px_0_0_rgba(52,211,153,0.8)]">
+                    <span className="text-slate-900 text-2xl font-bold">7</span>
                   </div>
-                  7th Semester Quick Access
+                  7TH SEMESTER QUICK ACCESS
                 </div>
               </AccordionTrigger>
-              <AccordionContent className="bg-slate-800 border-x-4 border-b-4 border-emerald-600 rounded-b-lg">
+              <AccordionContent className="bg-slate-800 border-x-4 border-b-4 border-emerald-400 rounded-b-2xl">
                 <p className="text-emerald-300 font-mono text-sm mb-4 mt-2 uppercase tracking-wider">
                   Click on any subject to track attendance with dedicated sidebar navigation
                 </p>
@@ -217,7 +202,7 @@ const Index = () => {
                     <a
                       key={subject.code}
                       href={`/subject/${subject.code}`}
-                      className="block p-3 bg-slate-700 border-2 border-slate-600 hover:border-emerald-400 hover:bg-slate-600 transition-colors pixel-button"
+                      className="block p-3 bg-slate-700 border-2 border-slate-600 hover:border-emerald-400 hover:bg-slate-600 transition-colors pixel-button rounded-md"
                     >
                       <span className="text-emerald-300 font-mono text-xs uppercase tracking-wider block truncate">
                         {subject.name}
@@ -229,31 +214,31 @@ const Index = () => {
             </AccordionItem>
             {/* 8th Semester Accordion */}
             <AccordionItem value="8th-sem">
-              <AccordionTrigger className="bg-slate-800 border-4 border-emerald-600 p-3 px-6 rounded-t-lg focus:outline-none group text-lg font-bold text-emerald-400 font-mono uppercase tracking-wider">
+              <AccordionTrigger className="bg-slate-800 border-4 border-emerald-400 p-3 px-6 rounded-2xl focus:outline-none group text-lg font-bold text-emerald-400 font-mono uppercase tracking-wider mt-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-emerald-400 border-2 border-emerald-300 flex items-center justify-center pixel-icon">
-                    <span className="text-slate-900 text-lg font-bold">8</span>
+                  <div className="w-10 h-10 bg-emerald-400 border-2 border-emerald-300 flex items-center justify-center pixel-icon rounded-md shadow-[2px_2px_0_0_rgba(52,211,153,0.8)]">
+                    <span className="text-slate-900 text-2xl font-bold">8</span>
                   </div>
-                  8th Semester Quick Access
+                  8TH SEMESTER QUICK ACCESS
                 </div>
               </AccordionTrigger>
-              <AccordionContent className="bg-slate-800 border-x-4 border-b-4 border-emerald-600 rounded-b-lg">
+              <AccordionContent className="bg-slate-800 border-x-4 border-b-4 border-emerald-400 rounded-b-2xl">
                 <p className="text-emerald-300 font-mono text-sm mb-4 mt-2 uppercase tracking-wider">
                   Click on any subject to track attendance with dedicated sidebar navigation
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                   {[
-                    { code: 'cet-465', name: 'CET-465 Project Work' },
-                    { code: 'cel-466', name: 'CEL-466 Biochemical Engineering Lab' },
-                    { code: 'cet-467', name: 'CET-467 Modeling & Simulation of Chemical Process Systems' },
-                    { code: 'cet-468', name: 'CET-468 Industrial Pollution Abatement' },
-                    { code: 'cet-069-72', name: 'CET-069-72 Elective – III' },
-                    { code: 'cet-073-76', name: 'CET-073-76 Elective – IV' }
+                    { code: 'cet-465', name: 'Project Work' },
+                    { code: 'cel-466', name: 'Biochemical Engineering Lab' },
+                    { code: 'cet-467', name: 'Modeling & Simulation of Chemical Process Systems' },
+                    { code: 'cet-468', name: 'Industrial Pollution Abatement' },
+                    { code: 'cet-069-72', name: 'Elective – III' },
+                    { code: 'cet-073-76', name: 'Elective – IV' }
                   ].map((subject) => (
                     <a
                       key={subject.code}
                       href={`/subject/${subject.code}`}
-                      className="block p-3 bg-slate-700 border-2 border-slate-600 hover:border-emerald-400 hover:bg-slate-600 transition-colors pixel-button"
+                      className="block p-3 bg-slate-700 border-2 border-slate-600 hover:border-emerald-400 hover:bg-slate-600 transition-colors pixel-button rounded-md"
                     >
                       <span className="text-emerald-300 font-mono text-xs uppercase tracking-wider block truncate">
                         {subject.name}

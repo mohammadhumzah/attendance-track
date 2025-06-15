@@ -28,18 +28,38 @@ const Auth = () => {
     e.preventDefault();
     setLoading(true);
 
-    const { error } = await signUp(email, password);
+    try {
+      const { error } = await signUp(email, password);
 
-    if (error) {
+      if (error) {
+        console.error('Signup error:', error);
+        
+        // Handle specific error cases
+        if (error.message?.includes('User already registered')) {
+          toast({
+            title: "Account already exists",
+            description: "This email is already registered. Please try signing in instead.",
+            variant: "destructive",
+          });
+        } else {
+          toast({
+            title: "Sign up failed",
+            description: error.message || "An error occurred during sign up",
+            variant: "destructive",
+          });
+        }
+      } else {
+        toast({
+          title: "Check your email",
+          description: "We've sent you a confirmation link.",
+        });
+      }
+    } catch (err) {
+      console.error('Signup catch error:', err);
       toast({
         title: "Sign up failed",
-        description: error.message,
+        description: "An unexpected error occurred",
         variant: "destructive",
-      });
-    } else {
-      toast({
-        title: "Check your email",
-        description: "We've sent you a confirmation link.",
       });
     }
 
@@ -50,18 +70,44 @@ const Auth = () => {
     e.preventDefault();
     setLoading(true);
 
-    const { error } = await signIn(email, password);
+    try {
+      const { error } = await signIn(email, password);
 
-    if (error) {
+      if (error) {
+        console.error('Signin error:', error);
+        
+        // Handle specific error cases
+        if (error.message?.includes('Invalid login credentials')) {
+          toast({
+            title: "Invalid credentials",
+            description: "Please check your email and password and try again.",
+            variant: "destructive",
+          });
+        } else if (error.message?.includes('Email not confirmed')) {
+          toast({
+            title: "Email not confirmed",
+            description: "Please check your email and click the confirmation link.",
+            variant: "destructive",
+          });
+        } else {
+          toast({
+            title: "Sign in failed",
+            description: error.message || "An error occurred during sign in",
+            variant: "destructive",
+          });
+        }
+      } else {
+        toast({
+          title: "Welcome back!",
+          description: "You've been signed in successfully.",
+        });
+      }
+    } catch (err) {
+      console.error('Signin catch error:', err);
       toast({
         title: "Sign in failed",
-        description: error.message,
+        description: "An unexpected error occurred",
         variant: "destructive",
-      });
-    } else {
-      toast({
-        title: "Welcome back!",
-        description: "You've been signed in successfully.",
       });
     }
 
@@ -70,12 +116,25 @@ const Auth = () => {
 
   const handleGoogleSignIn = async () => {
     setLoading(true);
-    const { error } = await signInWithGoogle();
+    
+    try {
+      const { error } = await signInWithGoogle();
 
-    if (error) {
+      if (error) {
+        console.error('Google signin error:', error);
+        toast({
+          title: "Google sign in failed",
+          description: error.message || "An error occurred during Google sign in",
+          variant: "destructive",
+        });
+        setLoading(false);
+      }
+      // Note: Loading state will be handled by the auth state change
+    } catch (err) {
+      console.error('Google signin catch error:', err);
       toast({
         title: "Google sign in failed",
-        description: error.message,
+        description: "An unexpected error occurred",
         variant: "destructive",
       });
       setLoading(false);

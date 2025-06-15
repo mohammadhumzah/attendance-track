@@ -77,8 +77,8 @@ export function SubjectSidebar() {
   const isCollapsed = state === 'collapsed';
 
   return (
-    <Sidebar className="border-r-4 border-emerald-600 bg-slate-900">
-      <SidebarHeader className="border-b-4 border-emerald-600 p-4">
+    <Sidebar className="border-r-4 border-emerald-600 !bg-slate-900">
+      <SidebarHeader className="border-b-4 border-emerald-600 p-4 bg-slate-900">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 bg-emerald-400 border-2 border-emerald-300 flex items-center justify-center pixel-icon">
             <span className="text-slate-900 text-lg font-bold">7</span>
@@ -96,7 +96,7 @@ export function SubjectSidebar() {
         </div>
       </SidebarHeader>
       
-      <SidebarContent>
+      <SidebarContent className="bg-slate-900">
         <SidebarGroup>
           <SidebarGroupLabel className="text-emerald-400 font-mono uppercase tracking-wider">
             Subjects

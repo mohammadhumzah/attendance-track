@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Plus } from 'lucide-react';
+import { Plus, UserCheck } from 'lucide-react';
 
 interface AttendanceFormProps {
   onSubmit: (data: {
@@ -61,68 +61,75 @@ const AttendanceForm = ({ onSubmit }: AttendanceFormProps) => {
   };
 
   return (
-    <Card className="w-full max-w-md mx-auto">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-blue-600">
-          <Plus className="w-5 h-5" />
-          Add Attendance Record
+    <Card className="w-full max-w-md mx-auto shadow-lg border-0 bg-white/80 backdrop-blur-sm">
+      <CardHeader className="pb-4">
+        <CardTitle className="flex items-center gap-3 text-violet-700">
+          <div className="p-2 bg-gradient-to-r from-violet-500 to-purple-500 rounded-lg">
+            <Plus className="w-5 h-5 text-white" />
+          </div>
+          Add New Record
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="name">Name (Optional)</Label>
-            <Input
-              id="name"
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Enter your name"
-              className="transition-all duration-200 focus:ring-2 focus:ring-blue-500"
-            />
+            <Label htmlFor="name" className="text-gray-700 font-medium">Name (Optional)</Label>
+            <div className="relative">
+              <UserCheck className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+              <Input
+                id="name"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Enter your name"
+                className="pl-10 border-gray-200 focus:border-violet-500 focus:ring-violet-500 rounded-lg h-12"
+              />
+            </div>
           </div>
           
-          <div className="space-y-2">
-            <Label htmlFor="attended">Classes Attended *</Label>
-            <Input
-              id="attended"
-              type="number"
-              min="0"
-              value={attended}
-              onChange={(e) => setAttended(e.target.value)}
-              placeholder="e.g., 18"
-              className={`transition-all duration-200 focus:ring-2 focus:ring-blue-500 ${
-                errors.attended ? 'border-red-500' : ''
-              }`}
-              required
-            />
-            {errors.attended && (
-              <p className="text-sm text-red-500">{errors.attended}</p>
-            )}
-          </div>
-          
-          <div className="space-y-2">
-            <Label htmlFor="total">Total Classes Held *</Label>
-            <Input
-              id="total"
-              type="number"
-              min="1"
-              value={total}
-              onChange={(e) => setTotal(e.target.value)}
-              placeholder="e.g., 24"
-              className={`transition-all duration-200 focus:ring-2 focus:ring-blue-500 ${
-                errors.total ? 'border-red-500' : ''
-              }`}
-              required
-            />
-            {errors.total && (
-              <p className="text-sm text-red-500">{errors.total}</p>
-            )}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="attended" className="text-gray-700 font-medium">Attended *</Label>
+              <Input
+                id="attended"
+                type="number"
+                min="0"
+                value={attended}
+                onChange={(e) => setAttended(e.target.value)}
+                placeholder="18"
+                className={`border-gray-200 focus:border-violet-500 focus:ring-violet-500 rounded-lg h-12 ${
+                  errors.attended ? 'border-red-500 focus:border-red-500' : ''
+                }`}
+                required
+              />
+              {errors.attended && (
+                <p className="text-sm text-red-500">{errors.attended}</p>
+              )}
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="total" className="text-gray-700 font-medium">Total *</Label>
+              <Input
+                id="total"
+                type="number"
+                min="1"
+                value={total}
+                onChange={(e) => setTotal(e.target.value)}
+                placeholder="24"
+                className={`border-gray-200 focus:border-violet-500 focus:ring-violet-500 rounded-lg h-12 ${
+                  errors.total ? 'border-red-500 focus:border-red-500' : ''
+                }`}
+                required
+              />
+              {errors.total && (
+                <p className="text-sm text-red-500">{errors.total}</p>
+              )}
+            </div>
           </div>
           
           <Button 
             type="submit" 
-            className="w-full bg-blue-600 hover:bg-blue-700 transition-colors duration-200"
+            className="w-full bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white rounded-lg h-12 font-medium transition-all duration-200 shadow-lg hover:shadow-xl"
           >
             Calculate Attendance
           </Button>

@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { CheckCircle, AlertCircle, Calendar } from 'lucide-react';
+import { CheckCircle, AlertTriangle, Calendar, TrendingUp, TrendingDown } from 'lucide-react';
 
 interface AttendanceResultProps {
   name: string;
@@ -20,65 +20,92 @@ const AttendanceResult = ({ name, attended, total, percentage, recommendation }:
   const isAbove75 = percentage >= 75;
   
   return (
-    <Card className="w-full max-w-md mx-auto mt-6">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          {isAbove75 ? (
-            <CheckCircle className="w-5 h-5 text-green-500" />
-          ) : (
-            <AlertCircle className="w-5 h-5 text-red-500" />
-          )}
-          Attendance Report
+    <Card className="w-full max-w-md mx-auto shadow-lg border-0 bg-white/80 backdrop-blur-sm">
+      <CardHeader className="pb-4">
+        <CardTitle className="flex items-center gap-3">
+          <div className={`p-2 rounded-lg ${
+            isAbove75 
+              ? 'bg-gradient-to-r from-emerald-500 to-green-500' 
+              : 'bg-gradient-to-r from-orange-500 to-red-500'
+          }`}>
+            {isAbove75 ? (
+              <CheckCircle className="w-5 h-5 text-white" />
+            ) : (
+              <AlertTriangle className="w-5 h-5 text-white" />
+            )}
+          </div>
+          <span className="text-gray-800">Attendance Report</span>
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-6">
         <div className="text-center">
-          <h3 className="text-lg font-semibold text-gray-800 mb-2">{name}</h3>
-          <div className="flex justify-center items-center gap-4 text-sm text-gray-600 mb-4">
-            <span>Attended: {attended}</span>
-            <span>Total: {total}</span>
+          <h3 className="text-xl font-bold text-gray-800 mb-4">{name}</h3>
+          
+          <div className="grid grid-cols-2 gap-4 mb-6">
+            <div className="bg-gray-50 rounded-xl p-4">
+              <div className="text-2xl font-bold text-gray-800">{attended}</div>
+              <div className="text-sm text-gray-600">Attended</div>
+            </div>
+            <div className="bg-gray-50 rounded-xl p-4">
+              <div className="text-2xl font-bold text-gray-800">{total}</div>
+              <div className="text-sm text-gray-600">Total</div>
+            </div>
           </div>
           
-          <div className="relative">
-            <div className="text-4xl font-bold mb-2">
-              <span className={isAbove75 ? 'text-green-600' : 'text-red-600'}>
+          <div className="relative mb-6">
+            <div className="text-5xl font-bold mb-3">
+              <span className={`bg-gradient-to-r bg-clip-text text-transparent ${
+                isAbove75 
+                  ? 'from-emerald-600 to-green-600' 
+                  : 'from-orange-600 to-red-600'
+              }`}>
                 {percentage.toFixed(1)}%
               </span>
             </div>
             <Badge 
               variant={isAbove75 ? "default" : "destructive"}
-              className="mb-4"
+              className={`text-sm px-4 py-1 ${
+                isAbove75 
+                  ? 'bg-gradient-to-r from-emerald-500 to-green-500 text-white' 
+                  : 'bg-gradient-to-r from-orange-500 to-red-500 text-white'
+              }`}
             >
               {isAbove75 ? 'Above 75%' : 'Below 75%'}
             </Badge>
           </div>
           
           {/* Progress Bar */}
-          <div className="w-full bg-gray-200 rounded-full h-3 mb-4">
+          <div className="w-full bg-gray-200 rounded-full h-4 mb-6 overflow-hidden">
             <div 
-              className={`h-3 rounded-full transition-all duration-500 ${
-                isAbove75 ? 'bg-green-500' : 'bg-red-500'
+              className={`h-4 rounded-full transition-all duration-700 ${
+                isAbove75 
+                  ? 'bg-gradient-to-r from-emerald-500 to-green-500' 
+                  : 'bg-gradient-to-r from-orange-500 to-red-500'
               }`}
               style={{ width: `${Math.min(percentage, 100)}%` }}
             ></div>
           </div>
         </div>
         
-        <div className={`p-4 rounded-lg ${
-          isAbove75 ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'
+        <div className={`p-5 rounded-xl border-2 ${
+          isAbove75 
+            ? 'bg-gradient-to-r from-emerald-50 to-green-50 border-emerald-200' 
+            : 'bg-gradient-to-r from-orange-50 to-red-50 border-orange-200'
         }`}>
-          <div className="flex items-start gap-2">
-            <Calendar className={`w-5 h-5 mt-0.5 ${
-              isAbove75 ? 'text-green-600' : 'text-red-600'
-            }`} />
+          <div className="flex items-start gap-3">
+            {isAbove75 ? (
+              <TrendingUp className="w-6 h-6 mt-0.5 text-emerald-600" />
+            ) : (
+              <TrendingDown className="w-6 h-6 mt-0.5 text-orange-600" />
+            )}
             <div>
-              <p className={`font-semibold ${
-                isAbove75 ? 'text-green-800' : 'text-red-800'
+              <p className={`font-bold text-lg mb-2 ${
+                isAbove75 ? 'text-emerald-800' : 'text-orange-800'
               }`}>
-                {recommendation.type === 'can_miss' ? 'Good News!' : 'Action Required'}
+                {recommendation.type === 'can_miss' ? 'Great Job! 🎉' : 'Action Needed! ⚡'}
               </p>
-              <p className={`text-sm ${
-                isAbove75 ? 'text-green-700' : 'text-red-700'
+              <p className={`text-sm leading-relaxed ${
+                isAbove75 ? 'text-emerald-700' : 'text-orange-700'
               }`}>
                 {recommendation.message}
               </p>

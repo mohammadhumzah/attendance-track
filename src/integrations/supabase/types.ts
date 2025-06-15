@@ -9,6 +9,36 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      entries_history: {
+        Row: {
+          created_at: string | null
+          entry_data: Json | null
+          entry_description: string | null
+          entry_type: string
+          id: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          entry_data?: Json | null
+          entry_description?: string | null
+          entry_type: string
+          id?: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          entry_data?: Json | null
+          entry_description?: string | null
+          entry_type?: string
+          id?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -33,6 +63,42 @@ export type Database = {
           full_name?: string | null
           id?: string
           updated_at?: string | null
+        }
+        Relationships: []
+      }
+      user_signups: {
+        Row: {
+          created_at: string | null
+          email_verified: boolean | null
+          id: string
+          ip_address: unknown | null
+          signup_date: string
+          signup_method: string
+          updated_at: string | null
+          user_agent: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          email_verified?: boolean | null
+          id?: string
+          ip_address?: unknown | null
+          signup_date?: string
+          signup_method: string
+          updated_at?: string | null
+          user_agent?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          email_verified?: boolean | null
+          id?: string
+          ip_address?: unknown | null
+          signup_date?: string
+          signup_method?: string
+          updated_at?: string | null
+          user_agent?: string | null
+          user_id?: string
         }
         Relationships: []
       }

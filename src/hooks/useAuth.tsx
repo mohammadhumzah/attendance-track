@@ -2,6 +2,7 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
+import { trackUserSignup } from '@/utils/supabaseUtils';
 
 interface AuthContextType {
   user: User | null;
@@ -31,10 +32,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
+      async (event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
         setLoading(false);
+
+        // Track signup when a new user is created
+        if (event === 'SIGNED_UP' && session?.user) {
+          // Determine signup method based on user metadata
+          const signupMethod = session.user.app_metadata?.provider === 'google' ? 'google' : 'email';
+          setTimeout(() => {
+            trackUserSignup(signupMethod);
+          }, 0);
+        }
       }
     );
 

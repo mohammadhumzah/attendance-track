@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import AttendanceForm from '@/components/AttendanceForm';
 import AttendanceResult from '@/components/AttendanceResult';
@@ -5,10 +6,10 @@ import AttendanceHistory, { AttendanceRecord } from '@/components/AttendanceHist
 import Header from '@/components/Header';
 import { calculateAttendance } from '@/utils/attendanceCalculator';
 import { 
-  saveAttendanceRecord, 
-  getAttendanceRecords, 
-  deleteAttendanceRecord 
-} from '@/utils/localStorage';
+  saveAttendanceEntry, 
+  getAttendanceHistory, 
+  deleteAttendanceEntry 
+} from '@/utils/supabaseUtils';
 import { useToast } from '@/hooks/use-toast';
 
 const Index = () => {
@@ -25,13 +26,40 @@ const Index = () => {
   } | null>(null);
   
   const [records, setRecords] = useState<AttendanceRecord[]>([]);
+  const [loading, setLoading] = useState(true);
   const { toast } = useToast();
 
   useEffect(() => {
-    setRecords(getAttendanceRecords());
+    loadAttendanceHistory();
   }, []);
 
-  const handleFormSubmit = (data: {
+  const loadAttendanceHistory = async () => {
+    setLoading(true);
+    const { data, error } = await getAttendanceHistory();
+    
+    if (error) {
+      console.error('Error loading attendance history:', error);
+      toast({
+        title: "Error",
+        description: "Failed to load attendance history.",
+        variant: "destructive",
+      });
+    } else {
+      // Convert Supabase data to AttendanceRecord format
+      const formattedRecords: AttendanceRecord[] = data.map(entry => ({
+        id: entry.id,
+        name: entry.entry_data.name,
+        attended: entry.entry_data.attended,
+        total: entry.entry_data.total,
+        percentage: entry.entry_data.percentage,
+        date: entry.created_at,
+      }));
+      setRecords(formattedRecords);
+    }
+    setLoading(false);
+  };
+
+  const handleFormSubmit = async (data: {
     name: string;
     attended: number;
     total: number;
@@ -46,31 +74,50 @@ const Index = () => {
     
     setCurrentResult(result);
     
-    // Save to localStorage
-    const savedRecord = saveAttendanceRecord({
+    // Save to Supabase
+    const { data: savedRecord, error } = await saveAttendanceEntry({
       name: data.name,
       attended: data.attended,
       total: data.total,
       percentage: calculation.percentage,
-      date: new Date().toISOString(),
     });
     
-    setRecords(prev => [savedRecord, ...prev]);
-    
-    toast({
-      title: "Attendance Calculated!",
-      description: `Your attendance is ${calculation.percentage.toFixed(1)}%`,
-    });
+    if (error) {
+      console.error('Error saving attendance record:', error);
+      toast({
+        title: "Error",
+        description: "Failed to save attendance record.",
+        variant: "destructive",
+      });
+    } else {
+      // Reload the history to get the latest data
+      loadAttendanceHistory();
+      
+      toast({
+        title: "Attendance Calculated!",
+        description: `Your attendance is ${calculation.percentage.toFixed(1)}%`,
+      });
+    }
   };
 
-  const handleDeleteRecord = (id: string) => {
-    deleteAttendanceRecord(id);
-    setRecords(prev => prev.filter(record => record.id !== id));
+  const handleDeleteRecord = async (id: string) => {
+    const { error } = await deleteAttendanceEntry(id);
     
-    toast({
-      title: "Record Deleted",
-      description: "Attendance record has been removed.",
-    });
+    if (error) {
+      console.error('Error deleting attendance record:', error);
+      toast({
+        title: "Error",
+        description: "Failed to delete attendance record.",
+        variant: "destructive",
+      });
+    } else {
+      setRecords(prev => prev.filter(record => record.id !== id));
+      
+      toast({
+        title: "Record Deleted",
+        description: "Attendance record has been removed.",
+      });
+    }
   };
 
   const handleUpdateRecord = (record: AttendanceRecord) => {
@@ -116,11 +163,20 @@ const Index = () => {
           </div>
           
           {/* History Section */}
-          <AttendanceHistory
-            records={records}
-            onDeleteRecord={handleDeleteRecord}
-            onUpdateRecord={handleUpdateRecord}
-          />
+          {loading ? (
+            <div className="text-center py-8">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-violet-600 to-purple-600 rounded-2xl mb-4">
+                <span className="text-2xl">📊</span>
+              </div>
+              <p className="text-violet-700">Loading attendance history...</p>
+            </div>
+          ) : (
+            <AttendanceHistory
+              records={records}
+              onDeleteRecord={handleDeleteRecord}
+              onUpdateRecord={handleUpdateRecord}
+            />
+          )}
           
           {/* Info Section */}
           <div className="mt-12 text-center">

@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -99,5 +100,156 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* Pixel Art Styles */
+@layer components {
+  .pixel-card {
+    border-radius: 0;
+    image-rendering: pixelated;
+    box-shadow: 
+      0 0 0 2px rgba(16, 185, 129, 0.3),
+      0 0 20px rgba(16, 185, 129, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .pixel-icon {
+    border-radius: 0;
+    image-rendering: pixelated;
+    box-shadow: 
+      inset 1px 1px 0 rgba(255, 255, 255, 0.3),
+      inset -1px -1px 0 rgba(0, 0, 0, 0.3);
+  }
+
+  .pixel-icon-small {
+    border-radius: 0;
+    image-rendering: pixelated;
+  }
+
+  .pixel-input {
+    border-radius: 0;
+    image-rendering: pixelated;
+    font-family: 'Courier New', monospace;
+    box-shadow: 
+      inset 2px 2px 0 rgba(0, 0, 0, 0.3),
+      inset -2px -2px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .pixel-button {
+    border-radius: 0;
+    image-rendering: pixelated;
+    font-family: 'Courier New', monospace;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pixel-button:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.5s;
+  }
+
+  .pixel-button:hover:before {
+    left: 100%;
+  }
+
+  .pixel-stat-box {
+    border-radius: 0;
+    image-rendering: pixelated;
+    box-shadow: 
+      inset 1px 1px 0 rgba(255, 255, 255, 0.1),
+      inset -1px -1px 0 rgba(0, 0, 0, 0.3);
+  }
+
+  .pixel-badge {
+    border-radius: 0;
+    image-rendering: pixelated;
+    box-shadow: 
+      2px 2px 0 rgba(0, 0, 0, 0.3),
+      inset 1px 1px 0 rgba(255, 255, 255, 0.3);
+  }
+
+  .pixel-progress-container {
+    border-radius: 0;
+    image-rendering: pixelated;
+    box-shadow: 
+      inset 2px 2px 0 rgba(0, 0, 0, 0.5),
+      inset -2px -2px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .pixel-progress-bar {
+    border-radius: 0;
+    image-rendering: pixelated;
+    position: relative;
+  }
+
+  .pixel-recommendation-box {
+    border-radius: 0;
+    image-rendering: pixelated;
+    box-shadow: 
+      inset 1px 1px 0 rgba(255, 255, 255, 0.1),
+      inset -1px -1px 0 rgba(0, 0, 0, 0.3);
+  }
+
+  /* Reactive Button Animations */
+  .pixel-button {
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .pixel-button:hover {
+    animation: buttonPulse 0.6s ease-in-out infinite alternate;
+  }
+
+  .pixel-button:active {
+    animation: buttonPress 0.1s ease-in-out;
+  }
+
+  @keyframes buttonPulse {
+    0% {
+      box-shadow: 
+        4px 4px 0px 0px rgba(16, 185, 129, 0.8),
+        0 0 10px rgba(16, 185, 129, 0.3);
+    }
+    100% {
+      box-shadow: 
+        6px 6px 0px 0px rgba(16, 185, 129, 0.8),
+        0 0 20px rgba(16, 185, 129, 0.5);
+    }
+  }
+
+  @keyframes buttonPress {
+    0% {
+      transform: translate(0, 0);
+      box-shadow: 4px 4px 0px 0px rgba(16, 185, 129, 0.8);
+    }
+    100% {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0px 0px rgba(16, 185, 129, 0.8);
+    }
+  }
+
+  /* Input Focus Effects */
+  .pixel-input:focus {
+    animation: inputGlow 0.3s ease-in-out;
+  }
+
+  @keyframes inputGlow {
+    0% {
+      box-shadow: 
+        inset 2px 2px 0 rgba(0, 0, 0, 0.3),
+        inset -2px -2px 0 rgba(255, 255, 255, 0.1);
+    }
+    100% {
+      box-shadow: 
+        inset 2px 2px 0 rgba(0, 0, 0, 0.3),
+        inset -2px -2px 0 rgba(255, 255, 255, 0.1),
+        0 0 10px rgba(16, 185, 129, 0.5);
+    }
   }
 }

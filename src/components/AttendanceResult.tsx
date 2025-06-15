@@ -20,92 +20,99 @@ const AttendanceResult = ({ name, attended, total, percentage, recommendation }:
   const isAbove75 = percentage >= 75;
   
   return (
-    <Card className="w-full max-w-md mx-auto shadow-lg border-0 bg-white/80 backdrop-blur-sm">
-      <CardHeader className="pb-4">
+    <Card className={`w-full max-w-md mx-auto border-4 bg-slate-900 shadow-[0_0_20px_rgba(16,185,129,0.3)] pixel-card ${
+      isAbove75 ? 'border-emerald-400' : 'border-orange-400'
+    }`}>
+      <CardHeader className={`pb-4 border-b-4 ${isAbove75 ? 'border-emerald-400' : 'border-orange-400'}`}>
         <CardTitle className="flex items-center gap-3">
-          <div className={`p-2 rounded-lg ${
+          <div className={`w-8 h-8 flex items-center justify-center border-2 pixel-icon ${
             isAbove75 
-              ? 'bg-gradient-to-r from-emerald-500 to-green-500' 
-              : 'bg-gradient-to-r from-orange-500 to-red-500'
+              ? 'bg-emerald-400 border-emerald-300' 
+              : 'bg-orange-400 border-orange-300'
           }`}>
-            {isAbove75 ? (
-              <CheckCircle className="w-5 h-5 text-white" />
-            ) : (
-              <AlertTriangle className="w-5 h-5 text-white" />
-            )}
+            <span className="text-slate-900 text-xl">
+              {isAbove75 ? '✓' : '!'}
+            </span>
           </div>
-          <span className="text-gray-800">Attendance Report</span>
+          <span className={`font-mono text-lg uppercase tracking-wider ${
+            isAbove75 ? 'text-emerald-400' : 'text-orange-400'
+          }`}>
+            ATTENDANCE REPORT
+          </span>
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent className="space-y-6 p-6">
         <div className="text-center">
-          <h3 className="text-xl font-bold text-gray-800 mb-4">{name}</h3>
+          <h3 className="text-xl font-bold text-emerald-100 mb-6 font-mono uppercase tracking-wider">{name}</h3>
           
-          <div className="grid grid-cols-2 gap-4 mb-6">
-            <div className="bg-gray-50 rounded-xl p-4">
-              <div className="text-2xl font-bold text-gray-800">{attended}</div>
-              <div className="text-sm text-gray-600">Attended</div>
+          <div className="grid grid-cols-2 gap-4 mb-8">
+            <div className="bg-slate-800 border-2 border-emerald-600 p-4 pixel-stat-box">
+              <div className="text-3xl font-bold text-emerald-400 font-mono">{attended}</div>
+              <div className="text-xs text-emerald-300 font-mono uppercase tracking-wider">ATTENDED</div>
             </div>
-            <div className="bg-gray-50 rounded-xl p-4">
-              <div className="text-2xl font-bold text-gray-800">{total}</div>
-              <div className="text-sm text-gray-600">Total</div>
+            <div className="bg-slate-800 border-2 border-emerald-600 p-4 pixel-stat-box">
+              <div className="text-3xl font-bold text-emerald-400 font-mono">{total}</div>
+              <div className="text-xs text-emerald-300 font-mono uppercase tracking-wider">TOTAL</div>
             </div>
           </div>
           
-          <div className="relative mb-6">
-            <div className="text-5xl font-bold mb-3">
-              <span className={`bg-gradient-to-r bg-clip-text text-transparent ${
+          <div className="relative mb-8">
+            <div className="text-6xl font-bold mb-4 font-mono">
+              <span className={`${
                 isAbove75 
-                  ? 'from-emerald-600 to-green-600' 
-                  : 'from-orange-600 to-red-600'
+                  ? 'text-emerald-400' 
+                  : 'text-orange-400'
               }`}>
                 {percentage.toFixed(1)}%
               </span>
             </div>
-            <Badge 
-              variant={isAbove75 ? "default" : "destructive"}
-              className={`text-sm px-4 py-1 ${
-                isAbove75 
-                  ? 'bg-gradient-to-r from-emerald-500 to-green-500 text-white' 
-                  : 'bg-gradient-to-r from-orange-500 to-red-500 text-white'
-              }`}
-            >
-              {isAbove75 ? 'Above 75%' : 'Below 75%'}
-            </Badge>
+            <div className={`inline-block px-4 py-2 border-2 font-mono text-sm font-bold uppercase tracking-wider ${
+              isAbove75 
+                ? 'bg-emerald-400 text-slate-900 border-emerald-300' 
+                : 'bg-orange-400 text-slate-900 border-orange-300'
+            } pixel-badge`}>
+              {isAbove75 ? 'ABOVE 75%' : 'BELOW 75%'}
+            </div>
           </div>
           
-          {/* Progress Bar */}
-          <div className="w-full bg-gray-200 rounded-full h-4 mb-6 overflow-hidden">
+          {/* Pixel Art Progress Bar */}
+          <div className="w-full h-8 bg-slate-800 border-2 border-slate-600 mb-8 pixel-progress-container">
             <div 
-              className={`h-4 rounded-full transition-all duration-700 ${
+              className={`h-full transition-all duration-1000 ease-out ${
                 isAbove75 
-                  ? 'bg-gradient-to-r from-emerald-500 to-green-500' 
-                  : 'bg-gradient-to-r from-orange-500 to-red-500'
-              }`}
+                  ? 'bg-emerald-400 border-r-2 border-emerald-300' 
+                  : 'bg-orange-400 border-r-2 border-orange-300'
+              } pixel-progress-bar`}
               style={{ width: `${Math.min(percentage, 100)}%` }}
-            ></div>
+            >
+              <div className="w-full h-full bg-gradient-to-b from-white/20 to-transparent"></div>
+            </div>
           </div>
         </div>
         
-        <div className={`p-5 rounded-xl border-2 ${
+        <div className={`p-6 border-4 ${
           isAbove75 
-            ? 'bg-gradient-to-r from-emerald-50 to-green-50 border-emerald-200' 
-            : 'bg-gradient-to-r from-orange-50 to-red-50 border-orange-200'
-        }`}>
-          <div className="flex items-start gap-3">
-            {isAbove75 ? (
-              <TrendingUp className="w-6 h-6 mt-0.5 text-emerald-600" />
-            ) : (
-              <TrendingDown className="w-6 h-6 mt-0.5 text-orange-600" />
-            )}
+            ? 'bg-emerald-900/30 border-emerald-400' 
+            : 'bg-orange-900/30 border-orange-400'
+        } pixel-recommendation-box`}>
+          <div className="flex items-start gap-4">
+            <div className={`w-8 h-8 flex items-center justify-center border-2 pixel-icon ${
+              isAbove75 
+                ? 'bg-emerald-400 border-emerald-300' 
+                : 'bg-orange-400 border-orange-300'
+            }`}>
+              <span className="text-slate-900 text-lg">
+                {isAbove75 ? '↗' : '↘'}
+              </span>
+            </div>
             <div>
-              <p className={`font-bold text-lg mb-2 ${
-                isAbove75 ? 'text-emerald-800' : 'text-orange-800'
+              <p className={`font-bold text-lg mb-3 font-mono uppercase tracking-wider ${
+                isAbove75 ? 'text-emerald-400' : 'text-orange-400'
               }`}>
-                {recommendation.type === 'can_miss' ? 'Great Job! 🎉' : 'Action Needed! ⚡'}
+                {recommendation.type === 'can_miss' ? 'GREAT JOB!' : 'ACTION NEEDED!'}
               </p>
-              <p className={`text-sm leading-relaxed ${
-                isAbove75 ? 'text-emerald-700' : 'text-orange-700'
+              <p className={`text-sm leading-relaxed font-mono ${
+                isAbove75 ? 'text-emerald-300' : 'text-orange-300'
               }`}>
                 {recommendation.message}
               </p>

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import AttendanceForm from '@/components/AttendanceForm';
 import AttendanceResult from '@/components/AttendanceResult';
@@ -12,6 +13,12 @@ import {
 } from '@/utils/supabaseUtils';
 import { useToast } from '@/hooks/use-toast';
 import { Linkedin } from 'lucide-react';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent
+} from '@/components/ui/accordion';
 
 const Index = () => {
   const [currentResult, setCurrentResult] = useState<{
@@ -166,42 +173,85 @@ const Index = () => {
           get smart recommendations, and stay above the 75% requirement effortlessly.
         </p>
         
-        {/* Quick Access to 7th Semester Subjects */}
-        <div className="bg-slate-800 border-4 border-emerald-600 p-6 max-w-4xl mx-auto pixel-recommendation-box mb-8">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="w-10 h-10 bg-emerald-400 border-2 border-emerald-300 flex items-center justify-center pixel-icon">
-              <span className="text-slate-900 text-lg font-bold">7</span>
-            </div>
-            <h2 className="text-xl font-bold text-emerald-400 font-mono uppercase tracking-wider">
-              7th Semester Quick Access
-            </h2>
-          </div>
-          <p className="text-emerald-300 font-mono text-sm mb-4 uppercase tracking-wider">
-            Click on any subject to track attendance with dedicated sidebar navigation
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            {[
-              { code: 'pre-project', name: 'Pre-project work' },
-              { code: 'ces-414', name: 'CES-414 Seminar' },
-              { code: 'cet-415', name: 'CET-415 Process Dynamics' },
-              { code: 'cet-416', name: 'CET-416 Process Economics' },
-              { code: 'cet-417', name: 'CET-417 Biochemical Engineering' },
-              { code: 'cel-418', name: 'CEL-418 Process Dynamics Lab' },
-              { code: 'cel-419', name: 'CEL-419 Mass Transfer Lab' },
-              { code: 'cet-020-24', name: 'CET-020-24 Elective – I' },
-              { code: 'cet-025-29', name: 'CET-025-29 Elective – II' }
-            ].map((subject) => (
-              <a
-                key={subject.code}
-                href={`/subject/${subject.code}`}
-                className="block p-3 bg-slate-700 border-2 border-slate-600 hover:border-emerald-400 hover:bg-slate-600 transition-colors pixel-button"
-              >
-                <span className="text-emerald-300 font-mono text-xs uppercase tracking-wider block truncate">
-                  {subject.name}
-                </span>
-              </a>
-            ))}
-          </div>
+        {/* Quick Access to 7th and 8th Semester Subjects */}
+        <div className="space-y-4 max-w-4xl mx-auto mb-8">
+          <Accordion type="multiple" className="rounded-lg">
+            {/* 7th Semester Accordion */}
+            <AccordionItem value="7th-sem">
+              <AccordionTrigger className="bg-slate-800 border-4 border-emerald-600 p-3 px-6 rounded-t-lg focus:outline-none group text-lg font-bold text-emerald-400 font-mono uppercase tracking-wider">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-emerald-400 border-2 border-emerald-300 flex items-center justify-center pixel-icon">
+                    <span className="text-slate-900 text-lg font-bold">7</span>
+                  </div>
+                  7th Semester Quick Access
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="bg-slate-800 border-x-4 border-b-4 border-emerald-600 rounded-b-lg">
+                <p className="text-emerald-300 font-mono text-sm mb-4 mt-2 uppercase tracking-wider">
+                  Click on any subject to track attendance with dedicated sidebar navigation
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                  {[
+                    { code: 'pre-project', name: 'Pre-project work' },
+                    { code: 'ces-414', name: 'CES-414 Seminar' },
+                    { code: 'cet-415', name: 'CET-415 Process Dynamics' },
+                    { code: 'cet-416', name: 'CET-416 Process Economics' },
+                    { code: 'cet-417', name: 'CET-417 Biochemical Engineering' },
+                    { code: 'cel-418', name: 'CEL-418 Process Dynamics Lab' },
+                    { code: 'cel-419', name: 'CEL-419 Mass Transfer Lab' },
+                    { code: 'cet-020-24', name: 'CET-020-24 Elective – I' },
+                    { code: 'cet-025-29', name: 'CET-025-29 Elective – II' }
+                  ].map((subject) => (
+                    <a
+                      key={subject.code}
+                      href={`/subject/${subject.code}`}
+                      className="block p-3 bg-slate-700 border-2 border-slate-600 hover:border-emerald-400 hover:bg-slate-600 transition-colors pixel-button"
+                    >
+                      <span className="text-emerald-300 font-mono text-xs uppercase tracking-wider block truncate">
+                        {subject.name}
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+            {/* 8th Semester Accordion */}
+            <AccordionItem value="8th-sem">
+              <AccordionTrigger className="bg-slate-800 border-4 border-emerald-600 p-3 px-6 rounded-t-lg focus:outline-none group text-lg font-bold text-emerald-400 font-mono uppercase tracking-wider">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-emerald-400 border-2 border-emerald-300 flex items-center justify-center pixel-icon">
+                    <span className="text-slate-900 text-lg font-bold">8</span>
+                  </div>
+                  8th Semester Quick Access
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="bg-slate-800 border-x-4 border-b-4 border-emerald-600 rounded-b-lg">
+                <p className="text-emerald-300 font-mono text-sm mb-4 mt-2 uppercase tracking-wider">
+                  Click on any subject to track attendance with dedicated sidebar navigation
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                  {[
+                    { code: 'cet-465', name: 'CET-465 Project Work' },
+                    { code: 'cel-466', name: 'CEL-466 Biochemical Engineering Lab' },
+                    { code: 'cet-467', name: 'CET-467 Modeling & Simulation of Chemical Process Systems' },
+                    { code: 'cet-468', name: 'CET-468 Industrial Pollution Abatement' },
+                    { code: 'cet-069-72', name: 'CET-069-72 Elective – III' },
+                    { code: 'cet-073-76', name: 'CET-073-76 Elective – IV' }
+                  ].map((subject) => (
+                    <a
+                      key={subject.code}
+                      href={`/subject/${subject.code}`}
+                      className="block p-3 bg-slate-700 border-2 border-slate-600 hover:border-emerald-400 hover:bg-slate-600 transition-colors pixel-button"
+                    >
+                      <span className="text-emerald-300 font-mono text-xs uppercase tracking-wider block truncate">
+                        {subject.name}
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
       </div>
 

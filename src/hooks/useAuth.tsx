@@ -10,7 +10,6 @@ interface AuthContextType {
   loading: boolean;
   signUp: (email: string, password: string) => Promise<{ error: any }>;
   signIn: (email: string, password: string) => Promise<{ error: any }>;
-  signInWithGoogle: () => Promise<{ error: any }>;
   signOut: () => Promise<void>;
 }
 
@@ -49,10 +48,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           const isNewUser = timeDiff < 60000; // Less than 1 minute ago
           
           if (isNewUser) {
-            // Determine signup method based on user metadata
-            const signupMethod = session.user.app_metadata?.provider === 'google' ? 'google' : 'email';
+            // Email signup method since Google is removed
             setTimeout(() => {
-              trackUserSignup(signupMethod);
+              trackUserSignup('email');
             }, 0);
           }
         }
@@ -126,33 +124,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const signInWithGoogle = async () => {
-    console.log('Starting Google signin...');
-    setLoading(true);
-    
-    try {
-      const redirectUrl = `${window.location.origin}/`;
-      console.log('Using Google redirect URL:', redirectUrl);
-      
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: redirectUrl,
-        },
-      });
-      
-      console.log('Google sign in result:', { error });
-      if (error) {
-        setLoading(false);
-      }
-      return { error };
-    } catch (err) {
-      console.error('Google sign in catch error:', err);
-      setLoading(false);
-      return { error: err };
-    }
-  };
-
   const signOut = async () => {
     console.log('Starting signout...');
     try {
@@ -173,7 +144,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     loading,
     signUp,
     signIn,
-    signInWithGoogle,
     signOut,
   };
 

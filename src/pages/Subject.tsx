@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import AttendanceForm from '@/components/AttendanceForm';
@@ -15,15 +14,45 @@ import { useToast } from '@/hooks/use-toast';
 import { Book } from 'lucide-react';
 
 const subjectNames: Record<string, string> = {
+  // 5th Semester
+  'cet-305': 'Process Equipment Design– I',
+  'cet-306': 'Chemical Reaction Engineering',
+  'cet-307': 'Mass Transfer-I',
+  'cet-308': 'Chemical Technology – I',
+  'hst-309': 'Basic Management Principles',
+  'mat-310': 'Numerical Methods',
+  'cel-311': 'Heat Transfer Lab',
+  'cel-312': 'Computer Simulation Lab',
+  
+  // 6th Semester
+  'cet-355': 'Process Equipment Design -II',
+  'cet-356': 'Mass Transfer – II',
+  'cet-357': 'Chemical Technology – II',
+  'cet-358': 'Energy Technology',
+  'cet-359': 'Chemical Process Safety',
+  'cet-360': 'Transport Phenomena',
+  'cel-361': 'Energy Technology Lab',
+  'cel-362': 'Thermodynamics & Reaction Engineering Lab',
+  'cei-363': 'Industrial Training & Presentation',
+  
+  // 7th Semester
   'pre-project': 'Pre-project work',
   'ces-414': 'CES-414 Seminar',
-  'cet-415': 'CET-415 Process Dynamics & Control',
-  'cet-416': 'CET-416 Process Economics & Plant Design',
+  'cet-415': 'CET-415 Process Dynamics',
+  'cet-416': 'CET-416 Process Economics',
   'cet-417': 'CET-417 Biochemical Engineering',
-  'cel-418': 'CEL-418 Process Dynamics & Control Lab',
+  'cel-418': 'CEL-418 Process Dynamics Lab',
   'cel-419': 'CEL-419 Mass Transfer Lab',
   'cet-020-24': 'CET-020-24 Elective – I',
-  'cet-025-29': 'CET-025-29 Elective – II'
+  'cet-025-29': 'CET-025-29 Elective – II',
+  
+  // 8th Semester
+  'cet-465': 'Project Work',
+  'cel-466': 'Biochemical Engineering Lab',
+  'cet-467': 'Modeling & Simulation of Chemical Process Systems',
+  'cet-468': 'Industrial Pollution Abatement',
+  'cet-069-72': 'Elective – III',
+  'cet-073-76': 'Elective – IV'
 };
 
 const Subject = () => {

@@ -105,7 +105,7 @@ export function SubjectSidebar() {
                       >
                         <subject.icon className="w-4 h-4 flex-shrink-0" />
                         {!isCollapsed && (
-                          <span className="text-xs uppercase tracking-wider truncate">
+                          <span className="text-xs uppercase tracking-wider">
                             {subject.name}
                           </span>
                         )}

@@ -30,6 +30,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log('Setting up auth state listener...');
+    
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
@@ -58,21 +60,35 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     );
 
     // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      console.log('Initial session:', session);
+    console.log('Getting initial session...');
+    supabase.auth.getSession().then(({ data: { session }, error }) => {
+      console.log('Initial session result:', { session, error });
+      if (error) {
+        console.error('Error getting initial session:', error);
+      }
       setSession(session);
       setUser(session?.user ?? null);
       setLoading(false);
+    }).catch((err) => {
+      console.error('Error in getSession:', err);
+      setLoading(false);
     });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      console.log('Cleaning up auth subscription');
+      subscription.unsubscribe();
+    };
   }, []);
 
   const signUp = async (email: string, password: string) => {
+    console.log('Starting signup process for:', email);
+    setLoading(true);
+    
     try {
       const redirectUrl = `${window.location.origin}/`;
+      console.log('Using redirect URL:', redirectUrl);
       
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
@@ -80,34 +96,43 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         }
       });
       
-      console.log('Sign up result:', { error });
+      console.log('Sign up result:', { data, error });
+      setLoading(false);
       return { error };
     } catch (err) {
-      console.error('Sign up error:', err);
+      console.error('Sign up catch error:', err);
+      setLoading(false);
       return { error: err };
     }
   };
 
   const signIn = async (email: string, password: string) => {
+    console.log('Starting signin process for:', email);
+    setLoading(true);
+    
     try {
-      console.log('Attempting sign in for:', email);
-      
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
       
-      console.log('Sign in result:', { error });
+      console.log('Sign in result:', { data, error });
+      setLoading(false);
       return { error };
     } catch (err) {
-      console.error('Sign in error:', err);
+      console.error('Sign in catch error:', err);
+      setLoading(false);
       return { error: err };
     }
   };
 
   const signInWithGoogle = async () => {
+    console.log('Starting Google signin...');
+    setLoading(true);
+    
     try {
       const redirectUrl = `${window.location.origin}/`;
+      console.log('Using Google redirect URL:', redirectUrl);
       
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
@@ -117,19 +142,28 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       });
       
       console.log('Google sign in result:', { error });
+      if (error) {
+        setLoading(false);
+      }
       return { error };
     } catch (err) {
-      console.error('Google sign in error:', err);
+      console.error('Google sign in catch error:', err);
+      setLoading(false);
       return { error: err };
     }
   };
 
   const signOut = async () => {
+    console.log('Starting signout...');
     try {
-      await supabase.auth.signOut();
-      console.log('Signed out successfully');
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        console.error('Sign out error:', error);
+      } else {
+        console.log('Signed out successfully');
+      }
     } catch (err) {
-      console.error('Sign out error:', err);
+      console.error('Sign out catch error:', err);
     }
   };
 

@@ -26,39 +26,59 @@ const Auth = () => {
 
   const handleEmailSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('Form submit - signup attempt for:', email);
+    
+    if (!email || !password) {
+      toast({
+        title: "Missing information",
+        description: "Please enter both email and password",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setLoading(true);
 
     try {
+      console.log('Calling signUp function...');
       const { error } = await signUp(email, password);
 
       if (error) {
-        console.error('Signup error:', error);
+        console.error('Signup error received:', error);
         
-        // Handle specific error cases
-        if (error.message?.includes('User already registered')) {
-          toast({
-            title: "Account already exists",
-            description: "This email is already registered. Please try signing in instead.",
-            variant: "destructive",
-          });
-        } else {
-          toast({
-            title: "Sign up failed",
-            description: error.message || "An error occurred during sign up",
-            variant: "destructive",
-          });
+        let errorMessage = "An error occurred during sign up";
+        
+        if (error.message) {
+          if (error.message.includes('User already registered')) {
+            errorMessage = "This email is already registered. Please try signing in instead.";
+          } else if (error.message.includes('Invalid email')) {
+            errorMessage = "Please enter a valid email address.";
+          } else if (error.message.includes('Password')) {
+            errorMessage = "Password must be at least 6 characters long.";
+          } else {
+            errorMessage = error.message;
+          }
         }
-      } else {
+        
         toast({
-          title: "Check your email",
-          description: "We've sent you a confirmation link.",
+          title: "Sign up failed",
+          description: errorMessage,
+          variant: "destructive",
         });
+      } else {
+        console.log('Signup successful');
+        toast({
+          title: "Account created!",
+          description: "Please check your email for a confirmation link.",
+        });
+        setEmail('');
+        setPassword('');
       }
     } catch (err) {
       console.error('Signup catch error:', err);
       toast({
-        title: "Sign up failed",
-        description: "An unexpected error occurred",
+        title: "Connection error",
+        description: "Unable to connect to authentication service. Please check your internet connection.",
         variant: "destructive",
       });
     }
@@ -68,35 +88,47 @@ const Auth = () => {
 
   const handleEmailSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('Form submit - signin attempt for:', email);
+    
+    if (!email || !password) {
+      toast({
+        title: "Missing information",
+        description: "Please enter both email and password",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setLoading(true);
 
     try {
+      console.log('Calling signIn function...');
       const { error } = await signIn(email, password);
 
       if (error) {
-        console.error('Signin error:', error);
+        console.error('Signin error received:', error);
         
-        // Handle specific error cases
-        if (error.message?.includes('Invalid login credentials')) {
-          toast({
-            title: "Invalid credentials",
-            description: "Please check your email and password and try again.",
-            variant: "destructive",
-          });
-        } else if (error.message?.includes('Email not confirmed')) {
-          toast({
-            title: "Email not confirmed",
-            description: "Please check your email and click the confirmation link.",
-            variant: "destructive",
-          });
-        } else {
-          toast({
-            title: "Sign in failed",
-            description: error.message || "An error occurred during sign in",
-            variant: "destructive",
-          });
+        let errorMessage = "An error occurred during sign in";
+        
+        if (error.message) {
+          if (error.message.includes('Invalid login credentials')) {
+            errorMessage = "Invalid email or password. Please check your credentials and try again.";
+          } else if (error.message.includes('Email not confirmed')) {
+            errorMessage = "Please check your email and click the confirmation link before signing in.";
+          } else if (error.message.includes('Too many requests')) {
+            errorMessage = "Too many sign in attempts. Please wait a moment and try again.";
+          } else {
+            errorMessage = error.message;
+          }
         }
+        
+        toast({
+          title: "Sign in failed",
+          description: errorMessage,
+          variant: "destructive",
+        });
       } else {
+        console.log('Signin successful');
         toast({
           title: "Welcome back!",
           description: "You've been signed in successfully.",
@@ -105,8 +137,8 @@ const Auth = () => {
     } catch (err) {
       console.error('Signin catch error:', err);
       toast({
-        title: "Sign in failed",
-        description: "An unexpected error occurred",
+        title: "Connection error",
+        description: "Unable to connect to authentication service. Please check your internet connection.",
         variant: "destructive",
       });
     }
@@ -115,6 +147,7 @@ const Auth = () => {
   };
 
   const handleGoogleSignIn = async () => {
+    console.log('Google signin button clicked');
     setLoading(true);
     
     try {
@@ -142,27 +175,27 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-violet-50 via-purple-50 to-indigo-100 flex items-center justify-center p-4">
-      <Card className="w-full max-w-md shadow-lg border-0 bg-white/80 backdrop-blur-sm">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black flex items-center justify-center p-4">
+      <Card className="w-full max-w-md shadow-2xl border border-gray-700 bg-gray-900/90 backdrop-blur-sm">
         <CardHeader className="text-center pb-4">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-violet-600 to-purple-600 rounded-2xl mb-4 mx-auto">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl mb-4 mx-auto">
             <span className="text-2xl">📊</span>
           </div>
-          <CardTitle className="text-2xl font-bold bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+          <CardTitle className="text-2xl font-bold bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
             Welcome to StudyTrack
           </CardTitle>
         </CardHeader>
         <CardContent>
           <Tabs defaultValue="signin" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-6">
-              <TabsTrigger value="signin">Sign In</TabsTrigger>
-              <TabsTrigger value="signup">Sign Up</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-2 mb-6 bg-gray-800 border-gray-700">
+              <TabsTrigger value="signin" className="data-[state=active]:bg-gray-700 data-[state=active]:text-white text-gray-300">Sign In</TabsTrigger>
+              <TabsTrigger value="signup" className="data-[state=active]:bg-gray-700 data-[state=active]:text-white text-gray-300">Sign Up</TabsTrigger>
             </TabsList>
 
             <TabsContent value="signin">
               <form onSubmit={handleEmailSignIn} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="signin-email">Email</Label>
+                  <Label htmlFor="signin-email" className="text-gray-200">Email</Label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                     <Input
@@ -171,14 +204,15 @@ const Auth = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Enter your email"
-                      className="pl-10"
+                      className="pl-10 bg-gray-800 border-gray-600 text-white placeholder:text-gray-400 focus:border-purple-400"
                       required
+                      disabled={loading}
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="signin-password">Password</Label>
+                  <Label htmlFor="signin-password" className="text-gray-200">Password</Label>
                   <div className="relative">
                     <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                     <Input
@@ -187,15 +221,16 @@ const Auth = () => {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="Enter your password"
-                      className="pl-10"
+                      className="pl-10 bg-gray-800 border-gray-600 text-white placeholder:text-gray-400 focus:border-purple-400"
                       required
+                      disabled={loading}
                     />
                   </div>
                 </div>
 
                 <Button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700"
+                  className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white"
                   disabled={loading}
                 >
                   <LogIn className="w-4 h-4 mr-2" />
@@ -207,7 +242,7 @@ const Auth = () => {
             <TabsContent value="signup">
               <form onSubmit={handleEmailSignUp} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="signup-email">Email</Label>
+                  <Label htmlFor="signup-email" className="text-gray-200">Email</Label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                     <Input
@@ -216,14 +251,15 @@ const Auth = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Enter your email"
-                      className="pl-10"
+                      className="pl-10 bg-gray-800 border-gray-600 text-white placeholder:text-gray-400 focus:border-purple-400"
                       required
+                      disabled={loading}
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="signup-password">Password</Label>
+                  <Label htmlFor="signup-password" className="text-gray-200">Password</Label>
                   <div className="relative">
                     <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                     <Input
@@ -231,17 +267,18 @@ const Auth = () => {
                       type="password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      placeholder="Create a password"
-                      className="pl-10"
+                      placeholder="Create a password (min 6 characters)"
+                      className="pl-10 bg-gray-800 border-gray-600 text-white placeholder:text-gray-400 focus:border-purple-400"
                       minLength={6}
                       required
+                      disabled={loading}
                     />
                   </div>
                 </div>
 
                 <Button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700"
+                  className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white"
                   disabled={loading}
                 >
                   <UserPlus className="w-4 h-4 mr-2" />
@@ -254,17 +291,17 @@ const Auth = () => {
           <div className="mt-6">
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t border-gray-300" />
+                <span className="w-full border-t border-gray-600" />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-white px-2 text-gray-500">Or continue with</span>
+                <span className="bg-gray-900 px-2 text-gray-400">Or continue with</span>
               </div>
             </div>
 
             <Button
               onClick={handleGoogleSignIn}
               variant="outline"
-              className="w-full mt-4 border-gray-300 hover:bg-gray-50"
+              className="w-full mt-4 border-gray-600 bg-gray-800 hover:bg-gray-700 text-white"
               disabled={loading}
             >
               <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24">

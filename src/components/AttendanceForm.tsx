@@ -9,6 +9,7 @@ import { Plus, UserCheck } from 'lucide-react';
 interface AttendanceFormProps {
   onSubmit: (data: {
     name: string;
+    subject: string;
     attended: number;
     total: number;
   }) => void;
@@ -16,6 +17,7 @@ interface AttendanceFormProps {
 
 const AttendanceForm = ({ onSubmit }: AttendanceFormProps) => {
   const [name, setName] = useState('');
+  const [subject, setSubject] = useState('');
   const [attended, setAttended] = useState('');
   const [total, setTotal] = useState('');
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -25,6 +27,10 @@ const AttendanceForm = ({ onSubmit }: AttendanceFormProps) => {
     
     const attendedNum = parseInt(attended);
     const totalNum = parseInt(total);
+    
+    if (!subject.trim()) {
+      newErrors.subject = 'Please enter a subject name';
+    }
     
     if (!attended || attendedNum < 0) {
       newErrors.attended = 'Please enter a valid number of attended classes';
@@ -48,12 +54,14 @@ const AttendanceForm = ({ onSubmit }: AttendanceFormProps) => {
     if (validateForm()) {
       onSubmit({
         name: name.trim() || 'Anonymous',
+        subject: subject.trim(),
         attended: parseInt(attended),
         total: parseInt(total),
       });
       
       // Reset form
       setName('');
+      setSubject('');
       setAttended('');
       setTotal('');
       setErrors({});
@@ -85,6 +93,27 @@ const AttendanceForm = ({ onSubmit }: AttendanceFormProps) => {
                 className="pl-12 h-12 bg-slate-800 border-2 border-emerald-600 text-emerald-100 font-mono placeholder:text-emerald-600 focus:border-emerald-400 focus:shadow-[0_0_10px_rgba(16,185,129,0.5)] transition-all duration-200 pixel-input"
               />
             </div>
+          </div>
+
+          <div className="space-y-3">
+            <Label htmlFor="subject" className="text-emerald-300 font-mono text-sm uppercase tracking-wider">Subject *</Label>
+            <div className="relative">
+              <div className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 bg-emerald-400 border border-emerald-300 pixel-icon-small"></div>
+              <Input
+                id="subject"
+                type="text"
+                value={subject}
+                onChange={(e) => setSubject(e.target.value)}
+                placeholder="e.g. Mathematics, Physics"
+                className={`pl-12 h-12 bg-slate-800 border-2 text-emerald-100 font-mono placeholder:text-emerald-600 focus:shadow-[0_0_10px_rgba(16,185,129,0.5)] transition-all duration-200 pixel-input ${
+                  errors.subject ? 'border-red-500 focus:border-red-400' : 'border-emerald-600 focus:border-emerald-400'
+                }`}
+                required
+              />
+            </div>
+            {errors.subject && (
+              <p className="text-xs text-red-400 font-mono uppercase">{errors.subject}</p>
+            )}
           </div>
           
           <div className="grid grid-cols-2 gap-4">

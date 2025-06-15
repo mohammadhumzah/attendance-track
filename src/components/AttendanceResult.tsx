@@ -6,6 +6,7 @@ import { CheckCircle, AlertTriangle, Calendar, TrendingUp, TrendingDown } from '
 
 interface AttendanceResultProps {
   name: string;
+  subject?: string;
   attended: number;
   total: number;
   percentage: number;
@@ -16,7 +17,7 @@ interface AttendanceResultProps {
   };
 }
 
-const AttendanceResult = ({ name, attended, total, percentage, recommendation }: AttendanceResultProps) => {
+const AttendanceResult = ({ name, subject, attended, total, percentage, recommendation }: AttendanceResultProps) => {
   const isAbove75 = percentage >= 75;
   
   return (
@@ -43,7 +44,14 @@ const AttendanceResult = ({ name, attended, total, percentage, recommendation }:
       </CardHeader>
       <CardContent className="space-y-6 p-6">
         <div className="text-center">
-          <h3 className="text-xl font-bold text-emerald-100 mb-6 font-mono uppercase tracking-wider">{name}</h3>
+          <h3 className="text-xl font-bold text-emerald-100 mb-2 font-mono uppercase tracking-wider">{name}</h3>
+          {subject && (
+            <div className="mb-6">
+              <Badge className="bg-emerald-400 text-slate-900 font-mono text-sm border-2 border-emerald-300 pixel-badge uppercase">
+                {subject}
+              </Badge>
+            </div>
+          )}
           
           <div className="grid grid-cols-2 gap-4 mb-8">
             <div className="bg-slate-800 border-2 border-emerald-600 p-4 pixel-stat-box">

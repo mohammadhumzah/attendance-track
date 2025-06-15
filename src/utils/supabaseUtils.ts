@@ -21,6 +21,7 @@ export const trackUserSignup = async (signupMethod: 'email' | 'google') => {
 // Save attendance entry to history
 export const saveAttendanceEntry = async (attendanceData: {
   name: string;
+  subject: string;
   attended: number;
   total: number;
   percentage: number;
@@ -34,8 +35,9 @@ export const saveAttendanceEntry = async (attendanceData: {
     .insert({
       user_id: user.id,
       entry_type: 'attendance_calculation',
+      subject: attendanceData.subject,
       entry_data: attendanceData,
-      entry_description: `Attendance calculated for ${attendanceData.name}: ${attendanceData.percentage.toFixed(1)}%`,
+      entry_description: `${attendanceData.subject}: ${attendanceData.percentage.toFixed(1)}% attendance for ${attendanceData.name}`,
     })
     .select()
     .single();
@@ -57,6 +59,28 @@ export const getAttendanceHistory = async () => {
     .order('created_at', { ascending: false });
 
   return { data: data || [], error };
+};
+
+// Update attendance entry
+export const updateAttendanceEntry = async (entryId: string, attendanceData: {
+  name: string;
+  subject: string;
+  attended: number;
+  total: number;
+  percentage: number;
+}) => {
+  const { data, error } = await supabase
+    .from('entries_history')
+    .update({
+      entry_data: attendanceData,
+      entry_description: `${attendanceData.subject}: ${attendanceData.percentage.toFixed(1)}% attendance for ${attendanceData.name}`,
+      updated_at: new Date().toISOString(),
+    })
+    .eq('id', entryId)
+    .select()
+    .single();
+
+  return { data, error };
 };
 
 // Delete attendance entry from Supabase

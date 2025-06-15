@@ -38,12 +38,20 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setLoading(false);
 
         // Track signup when a new user is created
-        if (event === 'SIGNED_UP' && session?.user) {
-          // Determine signup method based on user metadata
-          const signupMethod = session.user.app_metadata?.provider === 'google' ? 'google' : 'email';
-          setTimeout(() => {
-            trackUserSignup(signupMethod);
-          }, 0);
+        if (event === 'SIGNED_IN' && session?.user) {
+          // Check if this is a new user by looking at created_at timestamp
+          const userCreatedAt = new Date(session.user.created_at);
+          const now = new Date();
+          const timeDiff = now.getTime() - userCreatedAt.getTime();
+          const isNewUser = timeDiff < 60000; // Less than 1 minute ago
+          
+          if (isNewUser) {
+            // Determine signup method based on user metadata
+            const signupMethod = session.user.app_metadata?.provider === 'google' ? 'google' : 'email';
+            setTimeout(() => {
+              trackUserSignup(signupMethod);
+            }, 0);
+          }
         }
       }
     );

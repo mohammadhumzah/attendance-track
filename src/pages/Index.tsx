@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import AttendanceForm from '@/components/AttendanceForm';
 import AttendanceResult from '@/components/AttendanceResult';
@@ -175,6 +174,19 @@ const Index = () => {
         
         {/* Quick Access to 7th and 8th Semester Subjects */}
         <div className="space-y-4 max-w-4xl mx-auto mb-8">
+          {/* Chemical Engineering header above accordions */}
+          <div className="flex flex-col md:flex-row md:gap-8 mb-2">
+            <div className="w-full md:w-1/2 flex flex-col items-center">
+              <span className="block text-lg font-extrabold text-emerald-400 mb-2 font-mono uppercase tracking-wide">
+                Chemical Engineering
+              </span>
+            </div>
+            <div className="w-full md:w-1/2 flex flex-col items-center">
+              <span className="block text-lg font-extrabold text-emerald-400 mb-2 font-mono uppercase tracking-wide md:hidden">
+                Chemical Engineering
+              </span>
+            </div>
+          </div>
           <Accordion type="multiple" className="rounded-lg">
             {/* 7th Semester Accordion */}
             <AccordionItem value="7th-sem">

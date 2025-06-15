@@ -11,6 +11,7 @@ import {
   deleteAttendanceEntry 
 } from '@/utils/supabaseUtils';
 import { useToast } from '@/hooks/use-toast';
+import { Linkedin } from 'lucide-react';
 
 const Index = () => {
   const [currentResult, setCurrentResult] = useState<{
@@ -126,15 +127,15 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700">
       <Header />
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent mb-4">
+          <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent mb-4">
             Track Your Progress
           </h1>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
             Keep track of your class attendance with style. Calculate your percentage, 
             get smart recommendations, and stay above the 75% requirement effortlessly.
           </p>
@@ -165,10 +166,10 @@ const Index = () => {
           {/* History Section */}
           {loading ? (
             <div className="text-center py-8">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl mb-4">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-2xl mb-4">
                 <span className="text-2xl">📊</span>
               </div>
-              <p className="text-purple-400">Loading attendance history...</p>
+              <p className="text-emerald-400">Loading attendance history...</p>
             </div>
           ) : (
             <AttendanceHistory
@@ -180,17 +181,32 @@ const Index = () => {
           
           {/* Info Section */}
           <div className="mt-12 text-center">
-            <div className="bg-gradient-to-r from-gray-800 to-gray-700 border border-gray-600 rounded-2xl p-8 max-w-2xl mx-auto">
-              <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-xl mb-4">
+            <div className="bg-gradient-to-r from-slate-800 to-slate-700 border border-slate-600 rounded-2xl p-8 max-w-2xl mx-auto">
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-xl mb-4">
                 <span className="text-white text-xl">💡</span>
               </div>
-              <h3 className="text-xl font-bold text-purple-400 mb-3">
+              <h3 className="text-xl font-bold text-emerald-400 mb-3">
                 Pro Tip
               </h3>
-              <p className="text-gray-300 leading-relaxed">
-                Most institutions require 75% attendance. StudyTrack helps you stay on track 
+              <p className="text-slate-300 leading-relaxed">
+                Most institutions require 75% attendance. Attendance Tracker helps you stay on track 
                 by showing exactly how many classes you can miss or need to attend.
               </p>
+            </div>
+          </div>
+
+          {/* LinkedIn Contact Section */}
+          <div className="mt-12 pt-8 border-t border-slate-700">
+            <div className="flex items-center justify-center">
+              <a
+                href="https://www.linkedin.com/in/mohammadhumzah"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-slate-300 hover:text-emerald-400 transition-colors text-sm"
+              >
+                <Linkedin className="w-4 h-4" />
+                Contact me
+              </a>
             </div>
           </div>
         </div>

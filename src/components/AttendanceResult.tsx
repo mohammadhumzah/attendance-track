@@ -98,22 +98,24 @@ const AttendanceResult = ({ name, subject, attended, total, percentage, recommen
           </div>
         </div>
         
-        <div className={`p-6 border-4 ${
+        <div className={`p-6 rounded-xl border-2 ${
           isAbove75 
-            ? 'bg-emerald-900/30 border-emerald-400' 
-            : 'bg-orange-900/30 border-orange-400'
-        } pixel-recommendation-box`}>
+            ? 'bg-emerald-900/20 border-emerald-400/50' 
+            : 'bg-orange-900/20 border-orange-400/50'
+        } backdrop-blur-sm`}>
           <div className="flex items-start gap-4">
-            <div className={`w-8 h-8 flex items-center justify-center border-2 pixel-icon ${
+            <div className={`w-10 h-10 flex items-center justify-center rounded-full border-2 ${
               isAbove75 
                 ? 'bg-emerald-400 border-emerald-300' 
                 : 'bg-orange-400 border-orange-300'
             }`}>
-              <span className="text-slate-900 text-lg">
-                {isAbove75 ? '↗' : '↘'}
-              </span>
+              {isAbove75 ? (
+                <TrendingUp className="w-5 h-5 text-slate-900" />
+              ) : (
+                <TrendingDown className="w-5 h-5 text-slate-900" />
+              )}
             </div>
-            <div>
+            <div className="flex-1">
               <p className={`font-bold text-lg mb-3 font-mono uppercase tracking-wider ${
                 isAbove75 ? 'text-emerald-400' : 'text-orange-400'
               }`}>

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -187,31 +186,23 @@ const AttendanceHistory = ({ records, onDeleteRecord, onUpdateRecord }: Attendan
                         </div>
                         
                         <div className="text-center">
-                          <div className={`p-2 border-2 pixel-recommendation-box text-xs ${
+                          <div className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg border text-xs font-mono font-bold uppercase ${
                             calculation.recommendation.type === 'can_miss'
-                              ? 'bg-emerald-900/30 border-emerald-600'
-                              : 'bg-orange-900/30 border-orange-600'
+                              ? 'bg-emerald-900/30 border-emerald-500/50 text-emerald-400'
+                              : 'bg-orange-900/30 border-orange-500/50 text-orange-400'
                           }`}>
-                            <div className="flex items-center gap-1 mb-1">
-                              {calculation.recommendation.type === 'can_miss' ? (
-                                <TrendingUp className="w-3 h-3 text-emerald-400" />
-                              ) : (
-                                <TrendingDown className="w-3 h-3 text-orange-400" />
-                              )}
-                              <span className={`font-mono font-bold uppercase ${
-                                calculation.recommendation.type === 'can_miss'
-                                  ? 'text-emerald-400'
-                                  : 'text-orange-400'
-                              }`}>
+                            {calculation.recommendation.type === 'can_miss' ? (
+                              <TrendingUp className="w-3 h-3" />
+                            ) : (
+                              <TrendingDown className="w-3 h-3" />
+                            )}
+                            <div className="text-center">
+                              <div className="leading-tight">
                                 {calculation.recommendation.type === 'can_miss' ? 'CAN MISS' : 'MUST ATTEND'}
-                              </span>
-                            </div>
-                            <div className={`font-mono ${
-                              calculation.recommendation.type === 'can_miss'
-                                ? 'text-emerald-300'
-                                : 'text-orange-300'
-                            }`}>
-                              {calculation.recommendation.classes} {calculation.recommendation.classes === 1 ? 'CLASS' : 'CLASSES'}
+                              </div>
+                              <div className="text-[10px] opacity-80">
+                                {calculation.recommendation.classes} {calculation.recommendation.classes === 1 ? 'CLASS' : 'CLASSES'}
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -319,13 +310,13 @@ const AttendanceHistory = ({ records, onDeleteRecord, onUpdateRecord }: Attendan
                       </div>
                       
                       {/* Recommendation Section */}
-                      <div className={`p-4 border-4 mb-4 pixel-recommendation-box ${
+                      <div className={`p-4 rounded-xl border-2 mb-4 ${
                         calculation.recommendation.type === 'can_miss'
-                          ? 'bg-emerald-900/30 border-emerald-400'
-                          : 'bg-orange-900/30 border-orange-400'
-                      }`}>
+                          ? 'bg-emerald-900/20 border-emerald-400/50'
+                          : 'bg-orange-900/20 border-orange-400/50'
+                      } backdrop-blur-sm`}>
                         <div className="flex items-start gap-3">
-                          <div className={`w-8 h-8 flex items-center justify-center border-2 pixel-icon ${
+                          <div className={`w-8 h-8 flex items-center justify-center rounded-full border-2 ${
                             calculation.recommendation.type === 'can_miss'
                               ? 'bg-emerald-400 border-emerald-300'
                               : 'bg-orange-400 border-orange-300'

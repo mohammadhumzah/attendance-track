@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -8,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Mail, Lock, UserPlus, LogIn, Linkedin } from 'lucide-react';
+import { Mail, Lock, UserPlus, LogIn, Linkedin, Github } from 'lucide-react';
 
 const Auth = () => {
   const [email, setEmail] = useState('');
@@ -156,6 +155,9 @@ const Auth = () => {
           <CardTitle className="text-2xl font-bold bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent">
             Welcome to Attendance Tracker
           </CardTitle>
+          <p className="text-slate-300 text-sm mt-2">
+            Simple. Fast. For NIT Srinagar Students
+          </p>
         </CardHeader>
         <CardContent>
           <Tabs defaultValue="signin" className="w-full">
@@ -209,6 +211,34 @@ const Auth = () => {
                   {loading ? "Signing in..." : "Sign In"}
                 </Button>
               </form>
+
+              <div className="mt-6 pt-6 border-t border-slate-700">
+                <div className="text-center space-y-3">
+                  <div className="flex items-center justify-center gap-4">
+                    <a
+                      href="https://www.linkedin.com/in/mohammadhumzah"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-slate-300 hover:text-emerald-400 transition-colors text-sm"
+                    >
+                      <Linkedin className="w-4 h-4" />
+                      Contact me
+                    </a>
+                    <a
+                      href="https://github.com/mohammadhumzah"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-slate-300 hover:text-emerald-400 transition-colors text-sm"
+                    >
+                      <Github className="w-4 h-4" />
+                      GitHub
+                    </a>
+                  </div>
+                  <p className="text-slate-400 text-xs">
+                    Built by Mohammad Humzah
+                  </p>
+                </div>
+              </div>
             </TabsContent>
 
             <TabsContent value="signup">

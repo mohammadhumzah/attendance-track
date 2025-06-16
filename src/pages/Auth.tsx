@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Mail, Lock, UserPlus, LogIn, Linkedin, Github } from 'lucide-react';
+import { Mail, Lock, UserPlus, LogIn, Linkedin } from 'lucide-react';
 
 const Auth = () => {
   const [email, setEmail] = useState('');
@@ -214,7 +214,7 @@ const Auth = () => {
 
               <div className="mt-6 pt-6 border-t border-slate-700">
                 <div className="text-center space-y-3">
-                  <div className="flex items-center justify-center gap-4">
+                  <div className="flex items-center justify-center">
                     <a
                       href="https://www.linkedin.com/in/mohammadhumzah"
                       target="_blank"
@@ -223,15 +223,6 @@ const Auth = () => {
                     >
                       <Linkedin className="w-4 h-4" />
                       Contact me
-                    </a>
-                    <a
-                      href="https://github.com/mohammadhumzah"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-slate-300 hover:text-emerald-400 transition-colors text-sm"
-                    >
-                      <Github className="w-4 h-4" />
-                      GitHub
                     </a>
                   </div>
                   <p className="text-slate-400 text-xs">

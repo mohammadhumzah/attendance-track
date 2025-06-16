@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import AttendanceForm from '@/components/AttendanceForm';
@@ -227,8 +228,8 @@ const Subject = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 flex justify-center">
-      <div className="w-full max-w-6xl mx-auto px-4 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 flex items-center justify-center px-4">
+      <div className="w-full max-w-6xl mx-auto py-8">
         {/* Header */}
         <div className="text-center mb-12">
           <div className="flex items-center justify-center gap-4 mb-4">
@@ -292,3 +293,4 @@ const Subject = () => {
 };
 
 export default Subject;
+

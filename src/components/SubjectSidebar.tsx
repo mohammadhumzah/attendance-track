@@ -63,49 +63,49 @@ export function SubjectSidebar() {
   const isCollapsed = state === 'collapsed';
 
   return (
-    <Sidebar className="border-r-4 border-emerald-600 !bg-slate-900">
-      <SidebarHeader className="border-b-4 border-emerald-600 p-4 bg-slate-900">
+    <Sidebar className="!bg-gray-900 border-r border-gray-700">
+      <SidebarHeader className="border-b border-gray-700 p-4 bg-gray-900">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-emerald-400 border-2 border-emerald-300 flex items-center justify-center pixel-icon">
-            <span className="text-slate-900 text-lg font-bold">📚</span>
+          <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
+            <span className="text-white text-lg font-bold">📚</span>
           </div>
           {!isCollapsed && (
             <div>
-              <h2 className="text-emerald-400 font-mono font-bold text-lg uppercase tracking-wider">
-                All Semesters
+              <h2 className="text-white font-semibold text-lg">
+                Subjects
               </h2>
-              <p className="text-emerald-300 font-mono text-xs uppercase tracking-wider">
-                Select Subject
+              <p className="text-gray-400 text-sm">
+                Select a subject
               </p>
             </div>
           )}
         </div>
       </SidebarHeader>
       
-      <SidebarContent className="bg-slate-900">
+      <SidebarContent className="bg-gray-900 p-2">
         {Object.entries(subjects).map(([semester, semesterSubjects]) => (
-          <SidebarGroup key={semester}>
-            <SidebarGroupLabel className="text-emerald-400 font-mono uppercase tracking-wider font-bold text-base mb-2">
+          <SidebarGroup key={semester} className="mb-6">
+            <SidebarGroupLabel className="text-gray-400 font-medium text-sm mb-3 px-3">
               {semester} Semester
             </SidebarGroupLabel>
             <SidebarGroupContent>
-              <SidebarMenu>
+              <SidebarMenu className="space-y-1">
                 {semesterSubjects.map((subject) => (
                   <SidebarMenuItem key={subject.code}>
                     <SidebarMenuButton asChild>
                       <NavLink
                         to={subject.path}
                         className={({ isActive }) =>
-                          `flex items-center gap-3 p-3 transition-colors font-mono ${
+                          `flex items-center gap-3 p-3 rounded-lg transition-all duration-200 ${
                             isActive
-                              ? 'bg-emerald-400 text-slate-900 border-2 border-emerald-300'
-                              : 'text-white hover:bg-slate-800 hover:text-emerald-300 border-2 border-transparent'
-                          } pixel-button`
+                              ? 'bg-blue-600 text-white'
+                              : 'text-gray-300 hover:bg-gray-800 hover:text-white'
+                          }`
                         }
                       >
                         <subject.icon className="w-5 h-5 flex-shrink-0" />
                         {!isCollapsed && (
-                          <span className="text-sm font-bold uppercase tracking-wider leading-tight">
+                          <span className="text-sm font-medium leading-tight">
                             {subject.name}
                           </span>
                         )}

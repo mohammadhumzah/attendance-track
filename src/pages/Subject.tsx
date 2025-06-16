@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import AttendanceForm from '@/components/AttendanceForm';
@@ -226,25 +227,25 @@ const Subject = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 p-8">
-      {/* Header */}
-      <div className="text-center mb-12">
-        <div className="flex items-center justify-center gap-4 mb-4">
-          <div className="w-12 h-12 bg-emerald-400 border-2 border-emerald-300 flex items-center justify-center pixel-icon">
-            <Book className="w-6 h-6 text-slate-900" />
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 flex justify-center">
+      <div className="w-full max-w-6xl mx-auto px-4 py-8">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <div className="flex items-center justify-center gap-4 mb-4">
+            <div className="w-12 h-12 bg-emerald-400 border-2 border-emerald-300 flex items-center justify-center pixel-icon">
+              <Book className="w-6 h-6 text-slate-900" />
+            </div>
+            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent font-mono uppercase tracking-wider">
+              {subjectName}
+            </h1>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent font-mono uppercase tracking-wider">
-            {subjectName}
-          </h1>
+          <p className="text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed font-mono">
+            Track your attendance for this subject. Calculate your percentage, 
+            get smart recommendations, and stay above the 75% requirement.
+          </p>
         </div>
-        <p className="text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed font-mono">
-          Track your attendance for this subject. Calculate your percentage, 
-          get smart recommendations, and stay above the 75% requirement.
-        </p>
-      </div>
 
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto">
+        {/* Main Content */}
         <div className="grid lg:grid-cols-2 gap-8 items-start mb-12">
           {/* Form Section */}
           <div className="space-y-6">

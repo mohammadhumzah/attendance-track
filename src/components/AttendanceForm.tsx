@@ -18,7 +18,7 @@ interface AttendanceFormProps {
 }
 
 const AttendanceForm = ({ onSubmit, defaultSubject = '', hideSubjectField = false }: AttendanceFormProps) => {
-  const [name, setName] = useState('');
+  const [name, setName] = useState('Student');
   const [subject, setSubject] = useState(defaultSubject);
   const [attended, setAttended] = useState<number>(0);
   const [total, setTotal] = useState<number>(0);
@@ -26,7 +26,7 @@ const AttendanceForm = ({ onSubmit, defaultSubject = '', hideSubjectField = fals
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!name.trim()) {
+    if (!hideSubjectField && !name.trim()) {
       alert('Please enter your name');
       return;
     }
@@ -47,7 +47,7 @@ const AttendanceForm = ({ onSubmit, defaultSubject = '', hideSubjectField = fals
     }
 
     onSubmit({
-      name: name.trim(),
+      name: hideSubjectField ? 'Student' : name.trim(),
       subject: hideSubjectField ? defaultSubject : subject.trim(),
       attended,
       total,
@@ -68,21 +68,23 @@ const AttendanceForm = ({ onSubmit, defaultSubject = '', hideSubjectField = fals
       </CardHeader>
       <CardContent className="p-6">
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="space-y-2">
-            <Label htmlFor="name" className="text-emerald-300 font-mono text-sm uppercase tracking-wider flex items-center gap-2">
-              <User className="w-4 h-4" />
-              Student Name
-            </Label>
-            <Input
-              id="name"
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="bg-slate-800 border-2 border-emerald-600 text-emerald-100 placeholder-emerald-400 focus:border-emerald-400 font-mono pixel-input"
-              placeholder="Enter your name"
-              required
-            />
-          </div>
+          {!hideSubjectField && (
+            <div className="space-y-2">
+              <Label htmlFor="name" className="text-emerald-300 font-mono text-sm uppercase tracking-wider flex items-center gap-2">
+                <User className="w-4 h-4" />
+                Student Name
+              </Label>
+              <Input
+                id="name"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="bg-slate-800 border-2 border-emerald-600 text-emerald-100 placeholder-emerald-400 focus:border-emerald-400 font-mono pixel-input"
+                placeholder="Enter your name"
+                required
+              />
+            </div>
+          )}
 
           {!hideSubjectField && (
             <div className="space-y-2">

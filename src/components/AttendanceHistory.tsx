@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -5,6 +6,14 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { History, Trash2, Clock, Edit3, Check, X, Plus, Minus, TrendingUp, TrendingDown } from 'lucide-react';
 import { calculateAttendance } from '@/utils/attendanceCalculator';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 
 export interface AttendanceRecord {
   id: string;
@@ -28,7 +37,7 @@ const AttendanceHistory = ({ records, onDeleteRecord, onUpdateRecord }: Attendan
 
   if (records.length === 0) {
     return (
-      <Card className="w-full max-w-5xl mx-auto border-4 border-emerald-400 bg-slate-900 shadow-[0_0_20px_rgba(16,185,129,0.3)] pixel-card">
+      <Card className="w-full max-w-7xl mx-auto border-4 border-emerald-400 bg-slate-900 shadow-[0_0_20px_rgba(16,185,129,0.3)] pixel-card">
         <CardHeader className="pb-4 border-b-4 border-emerald-400">
           <CardTitle className="flex items-center gap-3 text-emerald-400 font-mono text-lg">
             <div className="w-8 h-8 bg-emerald-400 flex items-center justify-center border-2 border-emerald-300 pixel-icon">
@@ -106,7 +115,7 @@ const AttendanceHistory = ({ records, onDeleteRecord, onUpdateRecord }: Attendan
   }, {} as { [key: string]: AttendanceRecord[] });
 
   return (
-    <Card className="w-full max-w-6xl mx-auto border-4 border-emerald-400 bg-slate-900 shadow-[0_0_20px_rgba(16,185,129,0.3)] pixel-card">
+    <Card className="w-full max-w-7xl mx-auto border-4 border-emerald-400 bg-slate-900 shadow-[0_0_20px_rgba(16,185,129,0.3)] pixel-card">
       <CardHeader className="pb-4 border-b-4 border-emerald-400">
         <CardTitle className="flex items-center gap-3 text-emerald-400 font-mono text-lg">
           <div className="w-8 h-8 bg-emerald-400 flex items-center justify-center border-2 border-emerald-300 pixel-icon">
@@ -128,153 +137,162 @@ const AttendanceHistory = ({ records, onDeleteRecord, onUpdateRecord }: Attendan
               
               {/* Desktop Table */}
               <div className="hidden md:block">
-                <div className="bg-slate-800 border-2 border-emerald-600 pixel-stat-box">
-                  <div className="grid grid-cols-8 gap-4 p-4 border-b-2 border-emerald-600 bg-slate-700">
-                    <div className="font-bold text-emerald-400 font-mono text-sm uppercase">Name</div>
-                    <div className="font-bold text-emerald-400 font-mono text-sm uppercase text-center">Attended</div>
-                    <div className="font-bold text-emerald-400 font-mono text-sm uppercase text-center">Total</div>
-                    <div className="font-bold text-emerald-400 font-mono text-sm uppercase text-center">Percentage</div>
-                    <div className="font-bold text-emerald-400 font-mono text-sm uppercase text-center">Recommendation</div>
-                    <div className="font-bold text-emerald-400 font-mono text-sm uppercase text-center">Quick Update</div>
-                    <div className="font-bold text-emerald-400 font-mono text-sm uppercase text-center">Date</div>
-                    <div className="font-bold text-emerald-400 font-mono text-sm uppercase text-center">Actions</div>
-                  </div>
-                  
-                  {subjectRecords.map((record) => {
-                    const calculation = calculateAttendance(record.attended, record.total);
-                    
-                    return (
-                      <div key={record.id} className="grid grid-cols-8 gap-4 p-4 border-b border-emerald-700 last:border-b-0 hover:bg-slate-750">
-                        <div className="font-bold text-emerald-100 font-mono">{record.name}</div>
+                <div className="bg-slate-800 border-4 border-emerald-600 rounded-lg overflow-hidden">
+                  <Table>
+                    <TableHeader>
+                      <TableRow className="border-b-4 border-emerald-600 bg-slate-700 hover:bg-slate-700">
+                        <TableHead className="font-bold text-emerald-400 font-mono text-sm uppercase px-6 py-4">NAME</TableHead>
+                        <TableHead className="font-bold text-emerald-400 font-mono text-sm uppercase text-center px-4 py-4">ATTENDED</TableHead>
+                        <TableHead className="font-bold text-emerald-400 font-mono text-sm uppercase text-center px-4 py-4">TOTAL</TableHead>
+                        <TableHead className="font-bold text-emerald-400 font-mono text-sm uppercase text-center px-4 py-4">PERCENTAGE</TableHead>
+                        <TableHead className="font-bold text-emerald-400 font-mono text-sm uppercase text-center px-4 py-4">RECOMMENDATION</TableHead>
+                        <TableHead className="font-bold text-emerald-400 font-mono text-sm uppercase text-center px-4 py-4">QUICK UPDATE</TableHead>
+                        <TableHead className="font-bold text-emerald-400 font-mono text-sm uppercase text-center px-4 py-4">DATE</TableHead>
+                        <TableHead className="font-bold text-emerald-400 font-mono text-sm uppercase text-center px-4 py-4">ACTIONS</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {subjectRecords.map((record) => {
+                        const calculation = calculateAttendance(record.attended, record.total);
                         
-                        <div className="text-center">
-                          {editingId === record.id ? (
-                            <Input
-                              type="number"
-                              value={editData.attended}
-                              onChange={(e) => setEditData(prev => ({ ...prev, attended: parseInt(e.target.value) || 0 }))}
-                              className="w-16 h-8 text-center bg-slate-700 border border-emerald-600 text-emerald-100 font-mono pixel-input"
-                            />
-                          ) : (
-                            <span className="font-mono text-emerald-100">{record.attended}</span>
-                          )}
-                        </div>
-                        
-                        <div className="text-center">
-                          {editingId === record.id ? (
-                            <Input
-                              type="number"
-                              value={editData.total}
-                              onChange={(e) => setEditData(prev => ({ ...prev, total: parseInt(e.target.value) || 0 }))}
-                              className="w-16 h-8 text-center bg-slate-700 border border-emerald-600 text-emerald-100 font-mono pixel-input"
-                            />
-                          ) : (
-                            <span className="font-mono text-emerald-100">{record.total}</span>
-                          )}
-                        </div>
-                        
-                        <div className="text-center">
-                          <Badge 
-                            className={`font-mono text-sm pixel-badge ${
-                              record.percentage >= 75 
-                                ? 'bg-emerald-400 text-slate-900 border-emerald-300' 
-                                : 'bg-orange-400 text-slate-900 border-orange-300'
-                            }`}
-                          >
-                            {record.percentage.toFixed(1)}%
-                          </Badge>
-                        </div>
-                        
-                        <div className="text-center">
-                          <div className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg border text-xs font-mono font-bold uppercase ${
-                            calculation.recommendation.type === 'can_miss'
-                              ? 'bg-emerald-900/30 border-emerald-500/50 text-emerald-400'
-                              : 'bg-orange-900/30 border-orange-500/50 text-orange-400'
-                          }`}>
-                            {calculation.recommendation.type === 'can_miss' ? (
-                              <TrendingUp className="w-3 h-3" />
-                            ) : (
-                              <TrendingDown className="w-3 h-3" />
-                            )}
-                            <div className="text-center">
-                              <div className="leading-tight">
-                                {calculation.recommendation.type === 'can_miss' ? 'CAN MISS' : 'MUST ATTEND'}
+                        return (
+                          <TableRow key={record.id} className="border-b-2 border-emerald-700/30 hover:bg-slate-700/50 transition-colors">
+                            <TableCell className="font-bold text-emerald-100 font-mono px-6 py-4">
+                              {record.name}
+                            </TableCell>
+                            
+                            <TableCell className="text-center px-4 py-4">
+                              {editingId === record.id ? (
+                                <Input
+                                  type="number"
+                                  value={editData.attended}
+                                  onChange={(e) => setEditData(prev => ({ ...prev, attended: parseInt(e.target.value) || 0 }))}
+                                  className="w-16 h-8 text-center bg-slate-700 border-2 border-emerald-600 text-emerald-100 font-mono"
+                                />
+                              ) : (
+                                <span className="font-mono text-emerald-100 text-lg">{record.attended}</span>
+                              )}
+                            </TableCell>
+                            
+                            <TableCell className="text-center px-4 py-4">
+                              {editingId === record.id ? (
+                                <Input
+                                  type="number"
+                                  value={editData.total}
+                                  onChange={(e) => setEditData(prev => ({ ...prev, total: parseInt(e.target.value) || 0 }))}
+                                  className="w-16 h-8 text-center bg-slate-700 border-2 border-emerald-600 text-emerald-100 font-mono"
+                                />
+                              ) : (
+                                <span className="font-mono text-emerald-100 text-lg">{record.total}</span>
+                              )}
+                            </TableCell>
+                            
+                            <TableCell className="text-center px-4 py-4">
+                              <Badge 
+                                className={`font-mono text-sm font-bold border-2 ${
+                                  record.percentage >= 75 
+                                    ? 'bg-emerald-400 text-slate-900 border-emerald-300' 
+                                    : 'bg-orange-400 text-slate-900 border-orange-300'
+                                }`}
+                              >
+                                {record.percentage.toFixed(1)}%
+                              </Badge>
+                            </TableCell>
+                            
+                            <TableCell className="text-center px-4 py-4">
+                              <div className={`inline-flex items-center gap-3 px-4 py-3 rounded-lg border-2 text-sm font-mono font-bold uppercase ${
+                                calculation.recommendation.type === 'can_miss'
+                                  ? 'bg-emerald-900/30 border-emerald-500/50 text-emerald-400'
+                                  : 'bg-orange-900/30 border-orange-500/50 text-orange-400'
+                              }`}>
+                                {calculation.recommendation.type === 'can_miss' ? (
+                                  <TrendingUp className="w-4 h-4" />
+                                ) : (
+                                  <TrendingDown className="w-4 h-4" />
+                                )}
+                                <div className="text-center">
+                                  <div className="leading-tight">
+                                    {calculation.recommendation.type === 'can_miss' ? 'CAN MISS' : 'MUST ATTEND'}
+                                  </div>
+                                  <div className="text-xs opacity-80 mt-1">
+                                    {calculation.recommendation.classes} {calculation.recommendation.classes === 1 ? 'CLASS' : 'CLASSES'}
+                                  </div>
+                                </div>
                               </div>
-                              <div className="text-[10px] opacity-80">
-                                {calculation.recommendation.classes} {calculation.recommendation.classes === 1 ? 'CLASS' : 'CLASSES'}
+                            </TableCell>
+                            
+                            <TableCell className="text-center px-4 py-4">
+                              {editingId !== record.id && (
+                                <div className="flex justify-center gap-2">
+                                  <Button
+                                    size="sm"
+                                    onClick={() => handleQuickUpdate(record, 'attend')}
+                                    className="h-10 w-10 p-0 bg-emerald-500 hover:bg-emerald-400 text-slate-900 border-2 border-emerald-300 font-bold text-lg"
+                                  >
+                                    <Plus className="w-4 h-4" />
+                                  </Button>
+                                  <Button
+                                    size="sm"
+                                    onClick={() => handleQuickUpdate(record, 'miss')}
+                                    className="h-10 w-10 p-0 bg-orange-500 hover:bg-orange-400 text-slate-900 border-2 border-orange-300 font-bold text-lg"
+                                  >
+                                    <Minus className="w-4 h-4" />
+                                  </Button>
+                                </div>
+                              )}
+                            </TableCell>
+                            
+                            <TableCell className="text-center px-4 py-4">
+                              <div className="text-xs text-emerald-300 font-mono flex items-center justify-center gap-2">
+                                <Clock className="w-3 h-3" />
+                                <span>{formatDate(record.date)}</span>
                               </div>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div className="flex justify-center gap-2">
-                          {editingId !== record.id && (
-                            <>
-                              <Button
-                                size="sm"
-                                onClick={() => handleQuickUpdate(record, 'attend')}
-                                className="h-8 w-8 p-0 bg-emerald-500 hover:bg-emerald-400 text-slate-900 border-2 border-emerald-300 pixel-button"
-                              >
-                                <Plus className="w-3 h-3" />
-                              </Button>
-                              <Button
-                                size="sm"
-                                onClick={() => handleQuickUpdate(record, 'miss')}
-                                className="h-8 w-8 p-0 bg-orange-500 hover:bg-orange-400 text-slate-900 border-2 border-orange-300 pixel-button"
-                              >
-                                <Minus className="w-3 h-3" />
-                              </Button>
-                            </>
-                          )}
-                        </div>
-                        
-                        <div className="text-center">
-                          <span className="text-xs text-emerald-300 font-mono flex items-center justify-center gap-1">
-                            <Clock className="w-3 h-3" />
-                            {formatDate(record.date)}
-                          </span>
-                        </div>
-                        
-                        <div className="flex justify-center gap-2">
-                          {editingId === record.id ? (
-                            <>
-                              <Button
-                                size="sm"
-                                onClick={() => handleSave(record)}
-                                className="h-8 w-8 p-0 bg-emerald-500 hover:bg-emerald-400 text-slate-900 border-2 border-emerald-300 pixel-button"
-                              >
-                                <Check className="w-3 h-3" />
-                              </Button>
-                              <Button
-                                size="sm"
-                                onClick={handleCancel}
-                                className="h-8 w-8 p-0 bg-orange-500 hover:bg-orange-400 text-slate-900 border-2 border-orange-300 pixel-button"
-                              >
-                                <X className="w-3 h-3" />
-                              </Button>
-                            </>
-                          ) : (
-                            <>
-                              <Button
-                                size="sm"
-                                onClick={() => handleEdit(record)}
-                                className="h-8 w-8 p-0 bg-emerald-500 hover:bg-emerald-400 text-slate-900 border-2 border-emerald-300 pixel-button"
-                              >
-                                <Edit3 className="w-3 h-3" />
-                              </Button>
-                              <Button
-                                size="sm"
-                                onClick={() => onDeleteRecord(record.id)}
-                                className="h-8 w-8 p-0 bg-red-500 hover:bg-red-400 text-white border-2 border-red-300 pixel-button"
-                              >
-                                <Trash2 className="w-3 h-3" />
-                              </Button>
-                            </>
-                          )}
-                        </div>
-                      </div>
-                    );
-                  })}
+                            </TableCell>
+                            
+                            <TableCell className="text-center px-4 py-4">
+                              <div className="flex justify-center gap-2">
+                                {editingId === record.id ? (
+                                  <>
+                                    <Button
+                                      size="sm"
+                                      onClick={() => handleSave(record)}
+                                      className="h-10 w-10 p-0 bg-emerald-500 hover:bg-emerald-400 text-slate-900 border-2 border-emerald-300"
+                                    >
+                                      <Check className="w-4 h-4" />
+                                    </Button>
+                                    <Button
+                                      size="sm"
+                                      onClick={handleCancel}
+                                      className="h-10 w-10 p-0 bg-orange-500 hover:bg-orange-400 text-slate-900 border-2 border-orange-300"
+                                    >
+                                      <X className="w-4 h-4" />
+                                    </Button>
+                                  </>
+                                ) : (
+                                  <>
+                                    <Button
+                                      size="sm"
+                                      onClick={() => handleEdit(record)}
+                                      className="h-10 w-10 p-0 bg-emerald-500 hover:bg-emerald-400 text-slate-900 border-2 border-emerald-300"
+                                    >
+                                      <Edit3 className="w-4 h-4" />
+                                    </Button>
+                                    <Button
+                                      size="sm"
+                                      onClick={() => onDeleteRecord(record.id)}
+                                      className="h-10 w-10 p-0 bg-red-500 hover:bg-red-400 text-white border-2 border-red-300"
+                                    >
+                                      <Trash2 className="w-4 h-4" />
+                                    </Button>
+                                  </>
+                                )}
+                              </div>
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
+                    </TableBody>
+                  </Table>
                 </div>
               </div>
               
@@ -284,11 +302,11 @@ const AttendanceHistory = ({ records, onDeleteRecord, onUpdateRecord }: Attendan
                   const calculation = calculateAttendance(record.attended, record.total);
                   
                   return (
-                    <div key={record.id} className="bg-slate-800 border-4 border-emerald-600 p-5 pixel-recommendation-box">
+                    <div key={record.id} className="bg-slate-800 border-4 border-emerald-600 p-5 rounded-lg">
                       <div className="flex justify-between items-start mb-4">
                         <h4 className="font-bold text-emerald-100 text-lg font-mono uppercase">{record.name}</h4>
                         <Badge 
-                          className={`font-mono text-sm pixel-badge ${
+                          className={`font-mono text-sm border-2 ${
                             record.percentage >= 75 
                               ? 'bg-emerald-400 text-slate-900 border-emerald-300' 
                               : 'bg-orange-400 text-slate-900 border-orange-300'
@@ -299,11 +317,11 @@ const AttendanceHistory = ({ records, onDeleteRecord, onUpdateRecord }: Attendan
                       </div>
                       
                       <div className="grid grid-cols-2 gap-3 mb-4">
-                        <div className="bg-slate-700 border-2 border-emerald-600 p-3 pixel-stat-box">
+                        <div className="bg-slate-700 border-2 border-emerald-600 p-3 rounded">
                           <span className="text-emerald-300 block text-xs font-mono uppercase">Attended:</span>
                           <span className="font-bold text-lg text-emerald-100 font-mono">{record.attended}</span>
                         </div>
-                        <div className="bg-slate-700 border-2 border-emerald-600 p-3 pixel-stat-box">
+                        <div className="bg-slate-700 border-2 border-emerald-600 p-3 rounded">
                           <span className="text-emerald-300 block text-xs font-mono uppercase">Total:</span>
                           <span className="font-bold text-lg text-emerald-100 font-mono">{record.total}</span>
                         </div>
@@ -347,7 +365,7 @@ const AttendanceHistory = ({ records, onDeleteRecord, onUpdateRecord }: Attendan
                           <Button
                             size="sm"
                             onClick={() => handleQuickUpdate(record, 'attend')}
-                            className="bg-emerald-500 hover:bg-emerald-400 text-slate-900 border-2 border-emerald-300 font-mono text-xs pixel-button"
+                            className="bg-emerald-500 hover:bg-emerald-400 text-slate-900 border-2 border-emerald-300 font-mono text-xs"
                           >
                             <Plus className="w-3 h-3 mr-1" />
                             ATTEND
@@ -355,7 +373,7 @@ const AttendanceHistory = ({ records, onDeleteRecord, onUpdateRecord }: Attendan
                           <Button
                             size="sm"
                             onClick={() => handleQuickUpdate(record, 'miss')}
-                            className="bg-orange-500 hover:bg-orange-400 text-slate-900 border-2 border-orange-300 font-mono text-xs pixel-button"
+                            className="bg-orange-500 hover:bg-orange-400 text-slate-900 border-2 border-orange-300 font-mono text-xs"
                           >
                             <Minus className="w-3 h-3 mr-1" />
                             MISS
@@ -366,14 +384,14 @@ const AttendanceHistory = ({ records, onDeleteRecord, onUpdateRecord }: Attendan
                           <Button
                             size="sm"
                             onClick={() => handleEdit(record)}
-                            className="bg-emerald-500 hover:bg-emerald-400 text-slate-900 border-2 border-emerald-300 pixel-button"
+                            className="bg-emerald-500 hover:bg-emerald-400 text-slate-900 border-2 border-emerald-300"
                           >
                             <Edit3 className="w-3 h-3" />
                           </Button>
                           <Button
                             size="sm"
                             onClick={() => onDeleteRecord(record.id)}
-                            className="bg-red-500 hover:bg-red-400 text-white border-2 border-red-300 pixel-button"
+                            className="bg-red-500 hover:bg-red-400 text-white border-2 border-red-300"
                           >
                             <Trash2 className="w-3 h-3" />
                           </Button>

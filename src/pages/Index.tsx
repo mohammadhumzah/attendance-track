@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import AttendanceForm from '@/components/AttendanceForm';
 import AttendanceResult from '@/components/AttendanceResult';
@@ -11,7 +12,7 @@ import {
   deleteAttendanceEntry 
 } from '@/utils/supabaseUtils';
 import { useToast } from '@/hooks/use-toast';
-import { Linkedin } from 'lucide-react';
+import { Linkedin, Github } from 'lucide-react';
 import {
   Accordion,
   AccordionItem,
@@ -392,15 +393,26 @@ const Index = () => {
             <p className="text-slate-400 font-mono text-sm uppercase tracking-wider">
               Built by Mohammad Humzah
             </p>
-            <a
-              href="https://www.linkedin.com/in/mohammadhumzah"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-slate-300 hover:text-emerald-400 transition-colors text-sm font-mono uppercase tracking-wider border-2 border-slate-600 hover:border-emerald-600 px-4 py-2 pixel-button"
-            >
-              <Linkedin className="w-4 h-4" />
-              Contact me
-            </a>
+            <div className="flex justify-center gap-4">
+              <a
+                href="https://www.linkedin.com/in/mohammadhumzah"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-slate-300 hover:text-emerald-400 transition-colors text-sm font-mono uppercase tracking-wider border-2 border-slate-600 hover:border-emerald-600 px-4 py-2 pixel-button"
+              >
+                <Linkedin className="w-4 h-4" />
+                LinkedIn
+              </a>
+              <a
+                href="https://github.com/mohammadhumzah"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-slate-300 hover:text-emerald-400 transition-colors text-sm font-mono uppercase tracking-wider border-2 border-slate-600 hover:border-emerald-600 px-4 py-2 pixel-button"
+              >
+                <Github className="w-4 h-4" />
+                GitHub
+              </a>
+            </div>
           </div>
         </div>
       </div>

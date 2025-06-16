@@ -85,7 +85,7 @@ export function SubjectSidebar() {
       <SidebarContent className="bg-slate-900">
         {Object.entries(subjects).map(([semester, semesterSubjects]) => (
           <SidebarGroup key={semester}>
-            <SidebarGroupLabel className="text-emerald-300 font-mono uppercase tracking-wider font-bold text-sm">
+            <SidebarGroupLabel className="text-emerald-400 font-mono uppercase tracking-wider font-bold text-base mb-2">
               {semester} Semester
             </SidebarGroupLabel>
             <SidebarGroupContent>
@@ -99,13 +99,13 @@ export function SubjectSidebar() {
                           `flex items-center gap-3 p-3 transition-colors font-mono ${
                             isActive
                               ? 'bg-emerald-400 text-slate-900 border-2 border-emerald-300'
-                              : 'text-slate-100 hover:bg-slate-800 hover:text-emerald-400 border-2 border-transparent'
+                              : 'text-white hover:bg-slate-800 hover:text-emerald-300 border-2 border-transparent'
                           } pixel-button`
                         }
                       >
-                        <subject.icon className="w-4 h-4 flex-shrink-0" />
+                        <subject.icon className="w-5 h-5 flex-shrink-0" />
                         {!isCollapsed && (
-                          <span className="text-xs uppercase tracking-wider font-semibold">
+                          <span className="text-sm font-bold uppercase tracking-wider leading-tight">
                             {subject.name}
                           </span>
                         )}

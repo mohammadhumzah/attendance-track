@@ -1,7 +1,7 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Book, Calculator, Factory, DollarSign, Dna, FlaskConical, TestTube, GraduationCap, Plus, Beaker, Wrench, Zap, Shield, Waves, Cpu, BarChart3, Microscope, Building, Trash2 } from 'lucide-react';
+import { Book, Calculator, Factory, DollarSign, Dna, FlaskConical, TestTube, GraduationCap, Plus, Beaker, Wrench, Zap, Shield, Waves, Cpu, BarChart3, Microscope, Building, Trash2, ChevronDown, ChevronRight } from 'lucide-react';
 import {
   Sidebar,
   SidebarContent,
@@ -14,6 +14,11 @@ import {
   SidebarHeader,
   useSidebar,
 } from '@/components/ui/sidebar';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui/collapsible';
 
 const subjects = {
   '5th': [
@@ -61,6 +66,21 @@ const subjects = {
 export function SubjectSidebar() {
   const { state } = useSidebar();
   const isCollapsed = state === 'collapsed';
+  
+  // State to track which semesters are expanded
+  const [expandedSemesters, setExpandedSemesters] = useState<Record<string, boolean>>({
+    '5th': false,
+    '6th': false,
+    '7th': false,
+    '8th': false,
+  });
+
+  const toggleSemester = (semester: string) => {
+    setExpandedSemesters(prev => ({
+      ...prev,
+      [semester]: !prev[semester]
+    }));
+  };
 
   return (
     <Sidebar className="!bg-gray-900 border-r border-gray-700">
@@ -84,37 +104,52 @@ export function SubjectSidebar() {
       
       <SidebarContent className="bg-gray-900 p-2">
         {Object.entries(subjects).map(([semester, semesterSubjects]) => (
-          <SidebarGroup key={semester} className="mb-6">
-            <SidebarGroupLabel className="text-gray-400 font-medium text-sm mb-3 px-3">
-              {semester} Semester
-            </SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu className="space-y-1">
-                {semesterSubjects.map((subject) => (
-                  <SidebarMenuItem key={subject.code}>
-                    <SidebarMenuButton asChild>
-                      <NavLink
-                        to={subject.path}
-                        className={({ isActive }) =>
-                          `flex items-center gap-3 p-3 rounded-lg transition-all duration-200 ${
-                            isActive
-                              ? 'bg-blue-600 text-white'
-                              : 'text-gray-300 hover:bg-gray-800 hover:text-white'
-                          }`
-                        }
-                      >
-                        <subject.icon className="w-5 h-5 flex-shrink-0" />
-                        {!isCollapsed && (
-                          <span className="text-sm font-medium leading-tight">
-                            {subject.name}
-                          </span>
-                        )}
-                      </NavLink>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
+          <SidebarGroup key={semester} className="mb-2">
+            <Collapsible
+              open={expandedSemesters[semester]}
+              onOpenChange={() => toggleSemester(semester)}
+            >
+              <CollapsibleTrigger asChild>
+                <SidebarGroupLabel className="text-gray-300 font-medium text-sm mb-2 px-3 hover:text-white cursor-pointer flex items-center justify-between group">
+                  <span>{semester} Semester</span>
+                  {!isCollapsed && (
+                    expandedSemesters[semester] ? 
+                    <ChevronDown className="w-4 h-4 transition-transform group-hover:text-blue-400" /> :
+                    <ChevronRight className="w-4 h-4 transition-transform group-hover:text-blue-400" />
+                  )}
+                </SidebarGroupLabel>
+              </CollapsibleTrigger>
+              
+              <CollapsibleContent>
+                <SidebarGroupContent>
+                  <SidebarMenu className="space-y-1">
+                    {semesterSubjects.map((subject) => (
+                      <SidebarMenuItem key={subject.code}>
+                        <SidebarMenuButton asChild>
+                          <NavLink
+                            to={subject.path}
+                            className={({ isActive }) =>
+                              `flex items-center gap-3 p-3 rounded-lg transition-all duration-200 ${
+                                isActive
+                                  ? 'bg-blue-600 text-white'
+                                  : 'text-gray-300 hover:bg-gray-800 hover:text-white'
+                              }`
+                            }
+                          >
+                            <subject.icon className="w-5 h-5 flex-shrink-0" />
+                            {!isCollapsed && (
+                              <span className="text-sm font-medium leading-tight">
+                                {subject.name}
+                              </span>
+                            )}
+                          </NavLink>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    ))}
+                  </SidebarMenu>
+                </SidebarGroupContent>
+              </CollapsibleContent>
+            </Collapsible>
           </SidebarGroup>
         ))}
       </SidebarContent>

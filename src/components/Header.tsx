@@ -54,15 +54,16 @@ const Header = () => {
             </span>
           </div>
           
-          <Button
+          {/* Updated Sign Out Button with same styling as AppLayout */}
+          <button
+            type="button"
             onClick={handleSignOut}
-            variant="outline"
-            size="sm"
-            className="border-slate-600 text-slate-200 hover:bg-slate-800 hover:text-white"
+            className="inline-flex items-center gap-2 text-slate-300 hover:text-emerald-400 transition-colors text-sm font-mono uppercase tracking-wider border-2 border-slate-600 hover:border-emerald-600 px-4 py-2 pixel-button"
+            aria-label="Sign Out"
           >
-            <LogOut className="w-4 h-4 mr-1" />
-            <span className="hidden sm:inline">Sign Out</span>
-          </Button>
+            <LogOut className="w-4 h-4" />
+            Sign Out
+          </button>
         </div>
       </div>
     </header>

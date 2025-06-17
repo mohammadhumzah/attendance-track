@@ -186,7 +186,7 @@ const Index = () => {
               </AccordionTrigger>
               <AccordionContent className="bg-slate-800 border-x-4 border-b-4 border-emerald-400 rounded-b-2xl">
                 <p className="text-emerald-300 font-mono text-sm mb-4 mt-2 uppercase tracking-wider">
-                  Click on any subject to track attendance with dedicated sidebar navigation
+                  Click on any subject to track its attendance
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                   {[
@@ -225,7 +225,7 @@ const Index = () => {
               </AccordionTrigger>
               <AccordionContent className="bg-slate-800 border-x-4 border-b-4 border-emerald-400 rounded-b-2xl">
                 <p className="text-emerald-300 font-mono text-sm mb-4 mt-2 uppercase tracking-wider">
-                  Click on any subject to track attendance with dedicated sidebar navigation
+                  Click on any subject to track its attendance
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                   {[
@@ -265,7 +265,7 @@ const Index = () => {
               </AccordionTrigger>
               <AccordionContent className="bg-slate-800 border-x-4 border-b-4 border-emerald-400 rounded-b-2xl">
                 <p className="text-emerald-300 font-mono text-sm mb-4 mt-2 uppercase tracking-wider">
-                  Click on any subject to track attendance with dedicated sidebar navigation
+                  Click on any subject to track its attendance
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                   {[
@@ -305,7 +305,7 @@ const Index = () => {
               </AccordionTrigger>
               <AccordionContent className="bg-slate-800 border-x-4 border-b-4 border-emerald-400 rounded-b-2xl">
                 <p className="text-emerald-300 font-mono text-sm mb-4 mt-2 uppercase tracking-wider">
-                  Click on any subject to track attendance with dedicated sidebar navigation
+                  Click on any subject to track its attendance
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                   {[
@@ -335,15 +335,17 @@ const Index = () => {
 
       {/* Main Content - Centered */}
       <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-8 items-start mb-12 justify-center">
-          {/* Form Section */}
+        <div className="flex justify-center mb-12">
+          {/* Form Section - Centered */}
           <div className="space-y-6">
             <AttendanceForm onSubmit={handleFormSubmit} />
           </div>
-          
-          {/* Result Section */}
-          <div className="space-y-6">
-            {currentResult && (
+        </div>
+
+        {/* Result Section - Only show when there's a result */}
+        {currentResult && (
+          <div className="flex justify-center mb-12">
+            <div className="space-y-6">
               <AttendanceResult
                 name={currentResult.name}
                 attended={currentResult.attended}
@@ -351,9 +353,9 @@ const Index = () => {
                 percentage={currentResult.percentage}
                 recommendation={currentResult.recommendation}
               />
-            )}
+            </div>
           </div>
-        </div>
+        )}
         
         {/* History Section - Centered */}
         {loading ? (

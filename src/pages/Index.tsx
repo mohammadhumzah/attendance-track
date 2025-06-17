@@ -165,11 +165,11 @@ const Index = () => {
     <div className="container mx-auto px-4 py-8">
       {/* Header */}
       <div className="mb-12">
-        {/* Left-aligned Quick Access Section */}
-        <div className="space-y-4 max-w-4xl mx-0 mb-8">
-          {/* Chemical Engineering header above accordions */}
-          <div className="flex flex-col">
-            <span className="block text-lg font-extrabold text-emerald-400 mb-4 font-mono uppercase tracking-wide text-left">
+        {/* Centered Quick Access Section */}
+        <div className="space-y-4 max-w-4xl mx-auto mb-8">
+          {/* Chemical Engineering header above accordions - centered */}
+          <div className="flex flex-col items-center">
+            <span className="block text-lg font-extrabold text-emerald-400 mb-4 font-mono uppercase tracking-wide text-center">
               CHEMICAL ENGINEERING
             </span>
           </div>
@@ -333,9 +333,9 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Main Content */}
+      {/* Main Content - Centered */}
       <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-8 items-start mb-12">
+        <div className="grid lg:grid-cols-2 gap-8 items-start mb-12 justify-center">
           {/* Form Section */}
           <div className="space-y-6">
             <AttendanceForm onSubmit={handleFormSubmit} />
@@ -355,7 +355,7 @@ const Index = () => {
           </div>
         </div>
         
-        {/* History Section */}
+        {/* History Section - Centered */}
         {loading ? (
           <div className="text-center py-8">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-slate-800 border-4 border-emerald-400 mb-4 pixel-icon">
@@ -371,7 +371,7 @@ const Index = () => {
           />
         )}
         
-        {/* Info Section */}
+        {/* Info Section - Already centered */}
         <div className="mt-12 text-center">
           <div className="bg-slate-800 border-4 border-emerald-600 p-8 max-w-2xl mx-auto pixel-recommendation-box">
             <div className="inline-flex items-center justify-center w-12 h-12 bg-emerald-400 border-2 border-emerald-300 mb-4 pixel-icon">
@@ -387,7 +387,7 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Credit and Contact Section */}
+        {/* Credit and Contact Section - Already centered */}
         <div className="mt-12 pt-8 border-t-4 border-slate-700">
           <div className="text-center space-y-4">
             <p className="text-slate-400 font-mono text-sm uppercase tracking-wider">

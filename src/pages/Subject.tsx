@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import AttendanceForm from '@/components/AttendanceForm';
@@ -247,8 +245,8 @@ const Subject = () => {
         </div>
 
         {/* Main Content */}
-        <div className="grid lg:grid-cols-2 gap-8 items-start mb-12">
-          {/* Form Section */}
+        <div className="flex justify-center mb-12">
+          {/* Form Section - Centered */}
           <div className="space-y-6">
             <AttendanceForm 
               onSubmit={handleFormSubmit} 
@@ -256,10 +254,12 @@ const Subject = () => {
               hideSubjectField={true}
             />
           </div>
-          
-          {/* Result Section */}
-          <div className="space-y-6">
-            {currentResult && (
+        </div>
+        
+        {/* Result Section - Only show when there's a result */}
+        {currentResult && (
+          <div className="flex justify-center mb-12">
+            <div className="space-y-6">
               <AttendanceResult
                 name={currentResult.name}
                 subject={currentResult.subject}
@@ -268,9 +268,9 @@ const Subject = () => {
                 percentage={currentResult.percentage}
                 recommendation={currentResult.recommendation}
               />
-            )}
+            </div>
           </div>
-        </div>
+        )}
         
         {/* History Section */}
         {loading ? (
@@ -293,4 +293,3 @@ const Subject = () => {
 };
 
 export default Subject;
-

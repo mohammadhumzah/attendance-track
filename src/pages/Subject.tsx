@@ -209,15 +209,15 @@ const Subject = () => {
 
   if (!subjectCode || !subjectName || subjectName === 'Unknown Subject') {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <div className="inline-flex items-center justify-center w-12 h-12 bg-gray-600 rounded-xl mb-4">
-            <span className="text-white text-xl">!</span>
+          <div className="inline-flex items-center justify-center w-12 h-12 bg-muted rounded-xl mb-4">
+            <span className="text-foreground text-xl">!</span>
           </div>
-          <h1 className="text-2xl font-medium text-black mb-2 nothing-text heading">
+          <h1 className="text-2xl font-medium text-foreground mb-2 nothing-text heading">
             Subject Not Found
           </h1>
-          <p className="text-gray-600 nothing-text">
+          <p className="text-muted-foreground nothing-text">
             The requested subject could not be found.
           </p>
         </div>
@@ -226,19 +226,19 @@ const Subject = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-12">
         {/* Header */}
         <div className="text-center mb-16">
           <div className="flex items-center justify-center gap-4 mb-6">
-            <div className="w-12 h-12 bg-black rounded-xl flex items-center justify-center">
-              <Book className="w-6 h-6 text-white" />
+            <div className="w-12 h-12 bg-foreground rounded-xl flex items-center justify-center">
+              <Book className="w-6 h-6 text-background" />
             </div>
-            <h1 className="text-3xl font-semibold text-black nothing-text heading">
+            <h1 className="text-3xl font-semibold text-foreground nothing-text heading">
               {subjectName}
             </h1>
           </div>
-          <p className="text-gray-600 text-lg nothing-text max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-lg nothing-text max-w-2xl mx-auto">
             Track your attendance for this subject and stay above the 75% requirement
           </p>
         </div>
@@ -271,10 +271,10 @@ const Subject = () => {
           {/* History Section */}
           {loading ? (
             <div className="text-center py-12">
-              <div className="inline-flex items-center justify-center w-12 h-12 bg-gray-100 rounded-xl mb-4">
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-muted rounded-xl mb-4">
                 <span className="text-xl">📊</span>
               </div>
-              <p className="text-gray-600 nothing-text">Loading attendance history...</p>
+              <p className="text-muted-foreground nothing-text">Loading attendance history...</p>
             </div>
           ) : (
             <AttendanceHistory

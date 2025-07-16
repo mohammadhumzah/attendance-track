@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import AttendanceForm from '@/components/AttendanceForm';
 import AttendanceResult from '@/components/AttendanceResult';
@@ -162,17 +161,17 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-12">
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-black rounded-2xl mb-6">
-            <span className="text-white text-2xl">📊</span>
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-foreground rounded-2xl mb-6">
+            <span className="text-background text-2xl">📊</span>
           </div>
-          <h1 className="text-4xl font-semibold text-black mb-4 nothing-text heading">
+          <h1 className="text-4xl font-semibold text-foreground mb-4 nothing-text heading">
             Attendance Tracker
           </h1>
-          <p className="text-gray-600 text-lg nothing-text max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-lg nothing-text max-w-2xl mx-auto">
             Track your attendance with precision and clarity
           </p>
         </div>
@@ -180,10 +179,10 @@ const Index = () => {
         {/* Quick Access Section */}
         <div className="max-w-4xl mx-auto mb-16">
           <div className="text-center mb-8">
-            <h2 className="text-xl font-medium text-black mb-2 nothing-text heading">
+            <h2 className="text-xl font-medium text-foreground mb-2 nothing-text heading">
               Chemical Engineering
             </h2>
-            <p className="text-gray-500 text-sm nothing-text">
+            <p className="text-muted-foreground text-sm nothing-text">
               Quick access to semester subjects
             </p>
           </div>
@@ -193,14 +192,14 @@ const Index = () => {
             <AccordionItem value="5th-sem" className="nothing-accordion rounded-xl border-0">
               <AccordionTrigger className="px-6 py-4 text-left hover:no-underline">
                 <div className="flex items-center gap-4">
-                  <div className="w-8 h-8 bg-black text-white rounded-lg flex items-center justify-center text-sm font-medium">
+                  <div className="w-8 h-8 bg-foreground text-background rounded-lg flex items-center justify-center text-sm font-medium">
                     5
                   </div>
-                  <span className="text-lg font-medium text-black nothing-text">5th Semester</span>
+                  <span className="text-lg font-medium text-foreground nothing-text">5th Semester</span>
                 </div>
               </AccordionTrigger>
               <AccordionContent className="px-6 pb-6">
-                <p className="text-gray-600 text-sm mb-4 nothing-text">
+                <p className="text-muted-foreground text-sm mb-4 nothing-text">
                   Click on any subject to track its attendance
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -217,9 +216,9 @@ const Index = () => {
                     <a
                       key={subject.code}
                       href={`/subject/${subject.code}`}
-                      className="block p-4 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors nothing-glow"
+                      className="block p-4 bg-muted hover:bg-accent rounded-lg transition-colors nothing-glow"
                     >
-                      <span className="text-sm text-gray-900 nothing-text block">
+                      <span className="text-sm text-foreground nothing-text block">
                         {subject.name}
                       </span>
                     </a>
@@ -232,14 +231,14 @@ const Index = () => {
             <AccordionItem value="6th-sem" className="nothing-accordion rounded-xl border-0">
               <AccordionTrigger className="px-6 py-4 text-left hover:no-underline">
                 <div className="flex items-center gap-4">
-                  <div className="w-8 h-8 bg-black text-white rounded-lg flex items-center justify-center text-sm font-medium">
+                  <div className="w-8 h-8 bg-foreground text-background rounded-lg flex items-center justify-center text-sm font-medium">
                     6
                   </div>
-                  <span className="text-lg font-medium text-black nothing-text">6th Semester</span>
+                  <span className="text-lg font-medium text-foreground nothing-text">6th Semester</span>
                 </div>
               </AccordionTrigger>
               <AccordionContent className="px-6 pb-6">
-                <p className="text-gray-600 text-sm mb-4 nothing-text">
+                <p className="text-muted-foreground text-sm mb-4 nothing-text">
                   Click on any subject to track its attendance
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -257,9 +256,9 @@ const Index = () => {
                     <a
                       key={subject.code}
                       href={`/subject/${subject.code}`}
-                      className="block p-4 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors nothing-glow"
+                      className="block p-4 bg-muted hover:bg-accent rounded-lg transition-colors nothing-glow"
                     >
-                      <span className="text-sm text-gray-900 nothing-text block">
+                      <span className="text-sm text-foreground nothing-text block">
                         {subject.name}
                       </span>
                     </a>
@@ -272,14 +271,14 @@ const Index = () => {
             <AccordionItem value="7th-sem" className="nothing-accordion rounded-xl border-0">
               <AccordionTrigger className="px-6 py-4 text-left hover:no-underline">
                 <div className="flex items-center gap-4">
-                  <div className="w-8 h-8 bg-black text-white rounded-lg flex items-center justify-center text-sm font-medium">
+                  <div className="w-8 h-8 bg-foreground text-background rounded-lg flex items-center justify-center text-sm font-medium">
                     7
                   </div>
-                  <span className="text-lg font-medium text-black nothing-text">7th Semester</span>
+                  <span className="text-lg font-medium text-foreground nothing-text">7th Semester</span>
                 </div>
               </AccordionTrigger>
               <AccordionContent className="px-6 pb-6">
-                <p className="text-gray-600 text-sm mb-4 nothing-text">
+                <p className="text-muted-foreground text-sm mb-4 nothing-text">
                   Click on any subject to track its attendance
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -297,9 +296,9 @@ const Index = () => {
                     <a
                       key={subject.code}
                       href={`/subject/${subject.code}`}
-                      className="block p-4 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors nothing-glow"
+                      className="block p-4 bg-muted hover:bg-accent rounded-lg transition-colors nothing-glow"
                     >
-                      <span className="text-sm text-gray-900 nothing-text block">
+                      <span className="text-sm text-foreground nothing-text block">
                         {subject.name}
                       </span>
                     </a>
@@ -312,14 +311,14 @@ const Index = () => {
             <AccordionItem value="8th-sem" className="nothing-accordion rounded-xl border-0">
               <AccordionTrigger className="px-6 py-4 text-left hover:no-underline">
                 <div className="flex items-center gap-4">
-                  <div className="w-8 h-8 bg-black text-white rounded-lg flex items-center justify-center text-sm font-medium">
+                  <div className="w-8 h-8 bg-foreground text-background rounded-lg flex items-center justify-center text-sm font-medium">
                     8
                   </div>
-                  <span className="text-lg font-medium text-black nothing-text">8th Semester</span>
+                  <span className="text-lg font-medium text-foreground nothing-text">8th Semester</span>
                 </div>
               </AccordionTrigger>
               <AccordionContent className="px-6 pb-6">
-                <p className="text-gray-600 text-sm mb-4 nothing-text">
+                <p className="text-muted-foreground text-sm mb-4 nothing-text">
                   Click on any subject to track its attendance
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -334,9 +333,9 @@ const Index = () => {
                     <a
                       key={subject.code}
                       href={`/subject/${subject.code}`}
-                      className="block p-4 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors nothing-glow"
+                      className="block p-4 bg-muted hover:bg-accent rounded-lg transition-colors nothing-glow"
                     >
-                      <span className="text-sm text-gray-900 nothing-text block">
+                      <span className="text-sm text-foreground nothing-text block">
                         {subject.name}
                       </span>
                     </a>
@@ -370,10 +369,10 @@ const Index = () => {
           {/* History Section */}
           {loading ? (
             <div className="text-center py-12">
-              <div className="inline-flex items-center justify-center w-12 h-12 bg-gray-100 rounded-xl mb-4">
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-muted rounded-xl mb-4">
                 <span className="text-xl">📊</span>
               </div>
-              <p className="text-gray-600 nothing-text">Loading attendance history...</p>
+              <p className="text-muted-foreground nothing-text">Loading attendance history...</p>
             </div>
           ) : (
             <AttendanceHistory
@@ -386,13 +385,13 @@ const Index = () => {
           {/* Info Section */}
           <div className="mt-16 text-center">
             <div className="nothing-card p-8 max-w-lg mx-auto">
-              <div className="inline-flex items-center justify-center w-10 h-10 bg-gray-100 rounded-lg mb-4">
-                <span className="text-gray-600 text-lg">💡</span>
+              <div className="inline-flex items-center justify-center w-10 h-10 bg-muted rounded-lg mb-4">
+                <span className="text-muted-foreground text-lg">💡</span>
               </div>
-              <h3 className="text-lg font-medium text-black mb-3 nothing-text heading">
+              <h3 className="text-lg font-medium text-foreground mb-3 nothing-text heading">
                 Pro Tip
               </h3>
-              <p className="text-gray-600 text-sm leading-relaxed nothing-text">
+              <p className="text-muted-foreground text-sm leading-relaxed nothing-text">
                 Most institutions require 75% attendance. Use quick update buttons (+/-) 
                 to track new classes or edit records manually for precise control.
               </p>
@@ -400,9 +399,9 @@ const Index = () => {
           </div>
 
           {/* Credit Section */}
-          <div className="mt-12 pt-8 border-t border-gray-100">
+          <div className="mt-12 pt-8 border-t border-border">
             <div className="text-center space-y-4">
-              <p className="text-gray-600 text-sm nothing-text">
+              <p className="text-muted-foreground text-sm nothing-text">
                 Built by Mohammad Humzah
               </p>
               <div className="flex justify-center gap-6">
@@ -410,7 +409,7 @@ const Index = () => {
                   href="https://www.linkedin.com/in/mohammadhumzah"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-gray-600 hover:text-black transition-colors text-sm nothing-text"
+                  className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm nothing-text"
                 >
                   <Linkedin className="w-4 h-4" />
                   LinkedIn
@@ -419,7 +418,7 @@ const Index = () => {
                   href="https://github.com/mohammadhumzah"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-gray-600 hover:text-black transition-colors text-sm nothing-text"
+                  className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm nothing-text"
                 >
                   <Github className="w-4 h-4" />
                   GitHub

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -147,32 +146,32 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center p-4">
+    <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <div className="w-full max-w-md nothing-card nothing-glow">
         <div className="p-8">
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-12 h-12 bg-black rounded-xl mb-6">
-              <span className="text-white text-xl">📊</span>
+            <div className="inline-flex items-center justify-center w-12 h-12 bg-foreground rounded-xl mb-6">
+              <span className="text-background text-xl">📊</span>
             </div>
-            <h1 className="text-2xl font-semibold text-black mb-2 nothing-text heading">
+            <h1 className="text-2xl font-semibold text-foreground mb-2 nothing-text heading">
               Attendance Tracker
             </h1>
-            <p className="text-gray-600 text-sm nothing-text">
+            <p className="text-muted-foreground text-sm nothing-text">
               Simple. Clean. Effective.
             </p>
           </div>
 
           <Tabs defaultValue="signin" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-8 bg-gray-50 p-1 rounded-lg">
+            <TabsList className="grid w-full grid-cols-2 mb-8 bg-muted p-1 rounded-lg">
               <TabsTrigger 
                 value="signin" 
-                className="text-sm font-medium data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm"
+                className="text-sm font-medium data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm"
               >
                 Sign In
               </TabsTrigger>
               <TabsTrigger 
                 value="signup" 
-                className="text-sm font-medium data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm"
+                className="text-sm font-medium data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm"
               >
                 Sign Up
               </TabsTrigger>
@@ -181,11 +180,11 @@ const Auth = () => {
             <TabsContent value="signin">
               <form onSubmit={handleEmailSignIn} className="space-y-6">
                 <div className="space-y-2">
-                  <Label htmlFor="signin-email" className="text-sm font-medium text-gray-900">
+                  <Label htmlFor="signin-email" className="text-sm font-medium text-foreground">
                     Email
                   </Label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                     <Input
                       id="signin-email"
                       type="email"
@@ -200,11 +199,11 @@ const Auth = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="signin-password" className="text-sm font-medium text-gray-900">
+                  <Label htmlFor="signin-password" className="text-sm font-medium text-foreground">
                     Password
                   </Label>
                   <div className="relative">
-                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                     <Input
                       id="signin-password"
                       type="password"
@@ -228,20 +227,20 @@ const Auth = () => {
                 </Button>
               </form>
 
-              <div className="mt-8 pt-6 border-t border-gray-100">
+              <div className="mt-8 pt-6 border-t border-border">
                 <div className="text-center space-y-3">
                   <div className="flex items-center justify-center">
                     <a
                       href="https://www.linkedin.com/in/mohammadhumzah"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-gray-600 hover:text-black transition-colors text-sm nothing-text"
+                      className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm nothing-text"
                     >
                       <Linkedin className="w-4 h-4" />
                       Contact me
                     </a>
                   </div>
-                  <p className="text-gray-400 text-xs nothing-text">
+                  <p className="text-muted-foreground text-xs nothing-text">
                     Built by Mohammad Humzah
                   </p>
                 </div>
@@ -251,11 +250,11 @@ const Auth = () => {
             <TabsContent value="signup">
               <form onSubmit={handleEmailSignUp} className="space-y-6">
                 <div className="space-y-2">
-                  <Label htmlFor="signup-email" className="text-sm font-medium text-gray-900">
+                  <Label htmlFor="signup-email" className="text-sm font-medium text-foreground">
                     Email
                   </Label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                     <Input
                       id="signup-email"
                       type="email"
@@ -270,11 +269,11 @@ const Auth = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="signup-password" className="text-sm font-medium text-gray-900">
+                  <Label htmlFor="signup-password" className="text-sm font-medium text-foreground">
                     Password
                   </Label>
                   <div className="relative">
-                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                     <Input
                       id="signup-password"
                       type="password"
@@ -299,13 +298,13 @@ const Auth = () => {
                 </Button>
               </form>
 
-              <div className="mt-8 pt-6 border-t border-gray-100">
+              <div className="mt-8 pt-6 border-t border-border">
                 <div className="flex items-center justify-center">
                   <a
                     href="https://www.linkedin.com/in/mohammadhumzah"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-gray-600 hover:text-black transition-colors text-sm nothing-text"
+                    className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm nothing-text"
                   >
                     <Linkedin className="w-4 h-4" />
                     Contact me

@@ -162,33 +162,48 @@ const Index = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      {/* Header */}
-      <div className="mb-12">
-        {/* Centered Quick Access Section */}
-        <div className="space-y-4 max-w-4xl mx-auto mb-8">
-          {/* Chemical Engineering header above accordions - centered */}
-          <div className="flex flex-col items-center">
-            <span className="block text-lg font-extrabold text-emerald-400 mb-4 font-mono uppercase tracking-wide text-center">
-              CHEMICAL ENGINEERING
-            </span>
+    <div className="min-h-screen bg-white">
+      <div className="container mx-auto px-4 py-12">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-black rounded-2xl mb-6">
+            <span className="text-white text-2xl">📊</span>
           </div>
-          <Accordion type="multiple" className="rounded-2xl shadow-lg">
-            {/* 5th Semester Accordion */}
-            <AccordionItem value="5th-sem">
-              <AccordionTrigger className="bg-slate-800 border-4 border-emerald-400 p-3 px-6 rounded-2xl focus:outline-none group text-lg font-bold text-emerald-400 font-mono uppercase tracking-wider">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-emerald-400 border-2 border-emerald-300 flex items-center justify-center pixel-icon rounded-md shadow-[2px_2px_0_0_rgba(52,211,153,0.8)]">
-                    <span className="text-slate-900 text-2xl font-bold">5</span>
+          <h1 className="text-4xl font-semibold text-black mb-4 nothing-text heading">
+            Attendance Tracker
+          </h1>
+          <p className="text-gray-600 text-lg nothing-text max-w-2xl mx-auto">
+            Track your attendance with precision and clarity
+          </p>
+        </div>
+
+        {/* Quick Access Section */}
+        <div className="max-w-4xl mx-auto mb-16">
+          <div className="text-center mb-8">
+            <h2 className="text-xl font-medium text-black mb-2 nothing-text heading">
+              Chemical Engineering
+            </h2>
+            <p className="text-gray-500 text-sm nothing-text">
+              Quick access to semester subjects
+            </p>
+          </div>
+          
+          <Accordion type="multiple" className="space-y-4">
+            {/* 5th Semester */}
+            <AccordionItem value="5th-sem" className="nothing-accordion rounded-xl border-0">
+              <AccordionTrigger className="px-6 py-4 text-left hover:no-underline">
+                <div className="flex items-center gap-4">
+                  <div className="w-8 h-8 bg-black text-white rounded-lg flex items-center justify-center text-sm font-medium">
+                    5
                   </div>
-                  5TH SEMESTER QUICK ACCESS
+                  <span className="text-lg font-medium text-black nothing-text">5th Semester</span>
                 </div>
               </AccordionTrigger>
-              <AccordionContent className="bg-slate-800 border-x-4 border-b-4 border-emerald-400 rounded-b-2xl">
-                <p className="text-emerald-300 font-mono text-sm mb-4 mt-2 uppercase tracking-wider">
+              <AccordionContent className="px-6 pb-6">
+                <p className="text-gray-600 text-sm mb-4 nothing-text">
                   Click on any subject to track its attendance
                 </p>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                   {[
                     { code: 'cet-305', name: 'Process Equipment Design– I' },
                     { code: 'cet-306', name: 'Chemical Reaction Engineering' },
@@ -202,9 +217,9 @@ const Index = () => {
                     <a
                       key={subject.code}
                       href={`/subject/${subject.code}`}
-                      className="block p-3 bg-slate-700 border-2 border-slate-600 hover:border-emerald-400 hover:bg-slate-600 transition-colors pixel-button rounded-md"
+                      className="block p-4 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors nothing-glow"
                     >
-                      <span className="text-emerald-300 font-mono text-xs uppercase tracking-wider block truncate">
+                      <span className="text-sm text-gray-900 nothing-text block">
                         {subject.name}
                       </span>
                     </a>
@@ -213,21 +228,21 @@ const Index = () => {
               </AccordionContent>
             </AccordionItem>
             
-            {/* 6th Semester Accordion */}
-            <AccordionItem value="6th-sem">
-              <AccordionTrigger className="bg-slate-800 border-4 border-emerald-400 p-3 px-6 rounded-2xl focus:outline-none group text-lg font-bold text-emerald-400 font-mono uppercase tracking-wider mt-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-emerald-400 border-2 border-emerald-300 flex items-center justify-center pixel-icon rounded-md shadow-[2px_2px_0_0_rgba(52,211,153,0.8)]">
-                    <span className="text-slate-900 text-2xl font-bold">6</span>
+            {/* 6th Semester */}
+            <AccordionItem value="6th-sem" className="nothing-accordion rounded-xl border-0">
+              <AccordionTrigger className="px-6 py-4 text-left hover:no-underline">
+                <div className="flex items-center gap-4">
+                  <div className="w-8 h-8 bg-black text-white rounded-lg flex items-center justify-center text-sm font-medium">
+                    6
                   </div>
-                  6TH SEMESTER QUICK ACCESS
+                  <span className="text-lg font-medium text-black nothing-text">6th Semester</span>
                 </div>
               </AccordionTrigger>
-              <AccordionContent className="bg-slate-800 border-x-4 border-b-4 border-emerald-400 rounded-b-2xl">
-                <p className="text-emerald-300 font-mono text-sm mb-4 mt-2 uppercase tracking-wider">
+              <AccordionContent className="px-6 pb-6">
+                <p className="text-gray-600 text-sm mb-4 nothing-text">
                   Click on any subject to track its attendance
                 </p>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                   {[
                     { code: 'cet-355', name: 'Process Equipment Design -II' },
                     { code: 'cet-356', name: 'Mass Transfer – II' },
@@ -242,9 +257,9 @@ const Index = () => {
                     <a
                       key={subject.code}
                       href={`/subject/${subject.code}`}
-                      className="block p-3 bg-slate-700 border-2 border-slate-600 hover:border-emerald-400 hover:bg-slate-600 transition-colors pixel-button rounded-md"
+                      className="block p-4 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors nothing-glow"
                     >
-                      <span className="text-emerald-300 font-mono text-xs uppercase tracking-wider block truncate">
+                      <span className="text-sm text-gray-900 nothing-text block">
                         {subject.name}
                       </span>
                     </a>
@@ -253,21 +268,21 @@ const Index = () => {
               </AccordionContent>
             </AccordionItem>
             
-            {/* 7th Semester Accordion */}
-            <AccordionItem value="7th-sem">
-              <AccordionTrigger className="bg-slate-800 border-4 border-emerald-400 p-3 px-6 rounded-2xl focus:outline-none group text-lg font-bold text-emerald-400 font-mono uppercase tracking-wider mt-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-emerald-400 border-2 border-emerald-300 flex items-center justify-center pixel-icon rounded-md shadow-[2px_2px_0_0_rgba(52,211,153,0.8)]">
-                    <span className="text-slate-900 text-2xl font-bold">7</span>
+            {/* 7th Semester */}
+            <AccordionItem value="7th-sem" className="nothing-accordion rounded-xl border-0">
+              <AccordionTrigger className="px-6 py-4 text-left hover:no-underline">
+                <div className="flex items-center gap-4">
+                  <div className="w-8 h-8 bg-black text-white rounded-lg flex items-center justify-center text-sm font-medium">
+                    7
                   </div>
-                  7TH SEMESTER QUICK ACCESS
+                  <span className="text-lg font-medium text-black nothing-text">7th Semester</span>
                 </div>
               </AccordionTrigger>
-              <AccordionContent className="bg-slate-800 border-x-4 border-b-4 border-emerald-400 rounded-b-2xl">
-                <p className="text-emerald-300 font-mono text-sm mb-4 mt-2 uppercase tracking-wider">
+              <AccordionContent className="px-6 pb-6">
+                <p className="text-gray-600 text-sm mb-4 nothing-text">
                   Click on any subject to track its attendance
                 </p>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                   {[
                     { code: 'pre-project', name: 'Pre-project work' },
                     { code: 'ces-414', name: 'CES-414 Seminar' },
@@ -282,9 +297,9 @@ const Index = () => {
                     <a
                       key={subject.code}
                       href={`/subject/${subject.code}`}
-                      className="block p-3 bg-slate-700 border-2 border-slate-600 hover:border-emerald-400 hover:bg-slate-600 transition-colors pixel-button rounded-md"
+                      className="block p-4 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors nothing-glow"
                     >
-                      <span className="text-emerald-300 font-mono text-xs uppercase tracking-wider block truncate">
+                      <span className="text-sm text-gray-900 nothing-text block">
                         {subject.name}
                       </span>
                     </a>
@@ -293,21 +308,21 @@ const Index = () => {
               </AccordionContent>
             </AccordionItem>
             
-            {/* 8th Semester Accordion */}
-            <AccordionItem value="8th-sem">
-              <AccordionTrigger className="bg-slate-800 border-4 border-emerald-400 p-3 px-6 rounded-2xl focus:outline-none group text-lg font-bold text-emerald-400 font-mono uppercase tracking-wider mt-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-emerald-400 border-2 border-emerald-300 flex items-center justify-center pixel-icon rounded-md shadow-[2px_2px_0_0_rgba(52,211,153,0.8)]">
-                    <span className="text-slate-900 text-2xl font-bold">8</span>
+            {/* 8th Semester */}
+            <AccordionItem value="8th-sem" className="nothing-accordion rounded-xl border-0">
+              <AccordionTrigger className="px-6 py-4 text-left hover:no-underline">
+                <div className="flex items-center gap-4">
+                  <div className="w-8 h-8 bg-black text-white rounded-lg flex items-center justify-center text-sm font-medium">
+                    8
                   </div>
-                  8TH SEMESTER QUICK ACCESS
+                  <span className="text-lg font-medium text-black nothing-text">8th Semester</span>
                 </div>
               </AccordionTrigger>
-              <AccordionContent className="bg-slate-800 border-x-4 border-b-4 border-emerald-400 rounded-b-2xl">
-                <p className="text-emerald-300 font-mono text-sm mb-4 mt-2 uppercase tracking-wider">
+              <AccordionContent className="px-6 pb-6">
+                <p className="text-gray-600 text-sm mb-4 nothing-text">
                   Click on any subject to track its attendance
                 </p>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                   {[
                     { code: 'cet-465', name: 'Project Work' },
                     { code: 'cel-466', name: 'Biochemical Engineering Lab' },
@@ -319,9 +334,9 @@ const Index = () => {
                     <a
                       key={subject.code}
                       href={`/subject/${subject.code}`}
-                      className="block p-3 bg-slate-700 border-2 border-slate-600 hover:border-emerald-400 hover:bg-slate-600 transition-colors pixel-button rounded-md"
+                      className="block p-4 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors nothing-glow"
                     >
-                      <span className="text-emerald-300 font-mono text-xs uppercase tracking-wider block truncate">
+                      <span className="text-sm text-gray-900 nothing-text block">
                         {subject.name}
                       </span>
                     </a>
@@ -331,21 +346,17 @@ const Index = () => {
             </AccordionItem>
           </Accordion>
         </div>
-      </div>
 
-      {/* Main Content - Centered */}
-      <div className="max-w-7xl mx-auto">
-        <div className="flex justify-center mb-12">
-          {/* Form Section - Centered */}
-          <div className="space-y-6">
+        {/* Main Content */}
+        <div className="max-w-2xl mx-auto">
+          {/* Form Section */}
+          <div className="mb-12">
             <AttendanceForm onSubmit={handleFormSubmit} />
           </div>
-        </div>
 
-        {/* Result Section - Only show when there's a result */}
-        {currentResult && (
-          <div className="flex justify-center mb-12">
-            <div className="space-y-6">
+          {/* Result Section */}
+          {currentResult && (
+            <div className="mb-12">
               <AttendanceResult
                 name={currentResult.name}
                 attended={currentResult.attended}
@@ -354,66 +365,66 @@ const Index = () => {
                 recommendation={currentResult.recommendation}
               />
             </div>
-          </div>
-        )}
-        
-        {/* History Section - Centered */}
-        {loading ? (
-          <div className="text-center py-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-slate-800 border-4 border-emerald-400 mb-4 pixel-icon">
-              <span className="text-2xl">📊</span>
+          )}
+          
+          {/* History Section */}
+          {loading ? (
+            <div className="text-center py-12">
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-gray-100 rounded-xl mb-4">
+                <span className="text-xl">📊</span>
+              </div>
+              <p className="text-gray-600 nothing-text">Loading attendance history...</p>
             </div>
-            <p className="text-emerald-400 font-mono uppercase">Loading attendance history...</p>
-          </div>
-        ) : (
-          <AttendanceHistory
-            records={records}
-            onDeleteRecord={handleDeleteRecord}
-            onUpdateRecord={handleUpdateRecord}
-          />
-        )}
-        
-        {/* Info Section - Already centered */}
-        <div className="mt-12 text-center">
-          <div className="bg-slate-800 border-4 border-emerald-600 p-8 max-w-2xl mx-auto pixel-recommendation-box">
-            <div className="inline-flex items-center justify-center w-12 h-12 bg-emerald-400 border-2 border-emerald-300 mb-4 pixel-icon">
-              <span className="text-slate-900 text-xl">💡</span>
+          ) : (
+            <AttendanceHistory
+              records={records}
+              onDeleteRecord={handleDeleteRecord}
+              onUpdateRecord={handleUpdateRecord}
+            />
+          )}
+          
+          {/* Info Section */}
+          <div className="mt-16 text-center">
+            <div className="nothing-card p-8 max-w-lg mx-auto">
+              <div className="inline-flex items-center justify-center w-10 h-10 bg-gray-100 rounded-lg mb-4">
+                <span className="text-gray-600 text-lg">💡</span>
+              </div>
+              <h3 className="text-lg font-medium text-black mb-3 nothing-text heading">
+                Pro Tip
+              </h3>
+              <p className="text-gray-600 text-sm leading-relaxed nothing-text">
+                Most institutions require 75% attendance. Use quick update buttons (+/-) 
+                to track new classes or edit records manually for precise control.
+              </p>
             </div>
-            <h3 className="text-xl font-bold text-emerald-400 mb-3 font-mono uppercase">
-              PRO TIP
-            </h3>
-            <p className="text-emerald-300 leading-relaxed font-mono text-sm">
-              Most institutions require 75% attendance. Use quick update buttons (+/-) 
-              to track new classes or edit records manually for precise control.
-            </p>
           </div>
-        </div>
 
-        {/* Credit and Contact Section - Already centered */}
-        <div className="mt-12 pt-8 border-t-4 border-slate-700">
-          <div className="text-center space-y-4">
-            <p className="text-slate-400 font-mono text-sm uppercase tracking-wider">
-              Built by Mohammad Humzah
-            </p>
-            <div className="flex justify-center gap-4">
-              <a
-                href="https://www.linkedin.com/in/mohammadhumzah"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-slate-300 hover:text-emerald-400 transition-colors text-sm font-mono uppercase tracking-wider border-2 border-slate-600 hover:border-emerald-600 px-4 py-2 pixel-button"
-              >
-                <Linkedin className="w-4 h-4" />
-                LinkedIn
-              </a>
-              <a
-                href="https://github.com/mohammadhumzah"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-slate-300 hover:text-emerald-400 transition-colors text-sm font-mono uppercase tracking-wider border-2 border-slate-600 hover:border-emerald-600 px-4 py-2 pixel-button"
-              >
-                <Github className="w-4 h-4" />
-                GitHub
-              </a>
+          {/* Credit Section */}
+          <div className="mt-12 pt-8 border-t border-gray-100">
+            <div className="text-center space-y-4">
+              <p className="text-gray-600 text-sm nothing-text">
+                Built by Mohammad Humzah
+              </p>
+              <div className="flex justify-center gap-6">
+                <a
+                  href="https://www.linkedin.com/in/mohammadhumzah"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-gray-600 hover:text-black transition-colors text-sm nothing-text"
+                >
+                  <Linkedin className="w-4 h-4" />
+                  LinkedIn
+                </a>
+                <a
+                  href="https://github.com/mohammadhumzah"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-gray-600 hover:text-black transition-colors text-sm nothing-text"
+                >
+                  <Github className="w-4 h-4" />
+                  GitHub
+                </a>
+              </div>
             </div>
           </div>
         </div>

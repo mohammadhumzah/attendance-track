@@ -1,6 +1,5 @@
 
 import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -55,22 +54,21 @@ const AttendanceForm = ({ onSubmit, defaultSubject = '', hideSubjectField = fals
   };
 
   return (
-    <Card className="w-full max-w-md mx-auto border-4 border-emerald-600 bg-slate-900 shadow-[0_0_20px_rgba(16,185,129,0.3)] pixel-card">
-      <CardHeader className="pb-4 border-b-4 border-emerald-600">
-        <CardTitle className="flex items-center gap-3">
-          <div className="w-8 h-8 flex items-center justify-center bg-emerald-400 border-2 border-emerald-300 pixel-icon">
-            <Calculator className="w-4 h-4 text-slate-900" />
+    <div className="w-full max-w-md mx-auto nothing-card nothing-glow">
+      <div className="p-6">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-8 h-8 flex items-center justify-center bg-black rounded-lg">
+            <Calculator className="w-4 h-4 text-white" />
           </div>
-          <span className="font-mono text-lg uppercase tracking-wider text-emerald-400">
-            CALCULATE ATTENDANCE
-          </span>
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="p-6">
+          <h2 className="text-lg font-medium text-black nothing-text heading">
+            Calculate Attendance
+          </h2>
+        </div>
+
         <form onSubmit={handleSubmit} className="space-y-6">
           {!hideSubjectField && (
             <div className="space-y-2">
-              <Label htmlFor="name" className="text-emerald-300 font-mono text-sm uppercase tracking-wider flex items-center gap-2">
+              <Label htmlFor="name" className="text-sm font-medium text-gray-900 flex items-center gap-2">
                 <User className="w-4 h-4" />
                 Student Name
               </Label>
@@ -79,7 +77,7 @@ const AttendanceForm = ({ onSubmit, defaultSubject = '', hideSubjectField = fals
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="bg-slate-800 border-2 border-emerald-600 text-emerald-100 placeholder-emerald-400 focus:border-emerald-400 font-mono pixel-input"
+                className="nothing-input"
                 placeholder="Enter your name"
                 required
               />
@@ -88,7 +86,7 @@ const AttendanceForm = ({ onSubmit, defaultSubject = '', hideSubjectField = fals
 
           {!hideSubjectField && (
             <div className="space-y-2">
-              <Label htmlFor="subject" className="text-emerald-300 font-mono text-sm uppercase tracking-wider flex items-center gap-2">
+              <Label htmlFor="subject" className="text-sm font-medium text-gray-900 flex items-center gap-2">
                 <BookOpen className="w-4 h-4" />
                 Subject
               </Label>
@@ -97,7 +95,7 @@ const AttendanceForm = ({ onSubmit, defaultSubject = '', hideSubjectField = fals
                 type="text"
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
-                className="bg-slate-800 border-2 border-emerald-600 text-emerald-100 placeholder-emerald-400 focus:border-emerald-400 font-mono pixel-input"
+                className="nothing-input"
                 placeholder="Enter subject name"
                 required
               />
@@ -106,7 +104,7 @@ const AttendanceForm = ({ onSubmit, defaultSubject = '', hideSubjectField = fals
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="attended" className="text-emerald-300 font-mono text-sm uppercase tracking-wider flex items-center gap-2">
+              <Label htmlFor="attended" className="text-sm font-medium text-gray-900 flex items-center gap-2">
                 <Hash className="w-3 h-3" />
                 Attended
               </Label>
@@ -116,14 +114,14 @@ const AttendanceForm = ({ onSubmit, defaultSubject = '', hideSubjectField = fals
                 min="0"
                 value={attended}
                 onChange={(e) => setAttended(parseInt(e.target.value) || 0)}
-                className="bg-slate-800 border-2 border-emerald-600 text-emerald-100 placeholder-emerald-400 focus:border-emerald-400 font-mono pixel-input text-center"
+                className="nothing-input text-center"
                 placeholder="0"
                 required
               />
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="total" className="text-emerald-300 font-mono text-sm uppercase tracking-wider flex items-center gap-2">
+              <Label htmlFor="total" className="text-sm font-medium text-gray-900 flex items-center gap-2">
                 <Hash className="w-3 h-3" />
                 Total
               </Label>
@@ -133,7 +131,7 @@ const AttendanceForm = ({ onSubmit, defaultSubject = '', hideSubjectField = fals
                 min="1"
                 value={total}
                 onChange={(e) => setTotal(parseInt(e.target.value) || 0)}
-                className="bg-slate-800 border-2 border-emerald-600 text-emerald-100 placeholder-emerald-400 focus:border-emerald-400 font-mono pixel-input text-center"
+                className="nothing-input text-center"
                 placeholder="0"
                 required
               />
@@ -142,13 +140,13 @@ const AttendanceForm = ({ onSubmit, defaultSubject = '', hideSubjectField = fals
 
           <Button 
             type="submit" 
-            className="w-full bg-emerald-400 hover:bg-emerald-500 text-slate-900 font-bold border-2 border-emerald-300 hover:border-emerald-400 font-mono uppercase tracking-wider pixel-button"
+            className="w-full nothing-button primary"
           >
             Calculate Attendance
           </Button>
         </form>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };
 

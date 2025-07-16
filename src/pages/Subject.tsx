@@ -209,15 +209,15 @@ const Subject = () => {
 
   if (!subjectCode || !subjectName || subjectName === 'Unknown Subject') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-slate-800 border-4 border-orange-400 mb-4 pixel-icon">
-            <span className="text-orange-400 text-2xl">!</span>
+          <div className="inline-flex items-center justify-center w-12 h-12 bg-gray-600 rounded-xl mb-4">
+            <span className="text-white text-xl">!</span>
           </div>
-          <h1 className="text-2xl font-bold text-orange-400 mb-2 font-mono uppercase">
+          <h1 className="text-2xl font-medium text-black mb-2 nothing-text heading">
             Subject Not Found
           </h1>
-          <p className="text-orange-300 font-mono">
+          <p className="text-gray-600 nothing-text">
             The requested subject could not be found.
           </p>
         </div>
@@ -226,40 +226,37 @@ const Subject = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 flex items-center justify-center px-4">
-      <div className="w-full max-w-6xl mx-auto py-8">
+    <div className="min-h-screen bg-white">
+      <div className="container mx-auto px-4 py-12">
         {/* Header */}
-        <div className="text-center mb-12">
-          <div className="flex items-center justify-center gap-4 mb-4">
-            <div className="w-12 h-12 bg-emerald-400 border-2 border-emerald-300 flex items-center justify-center pixel-icon">
-              <Book className="w-6 h-6 text-slate-900" />
+        <div className="text-center mb-16">
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <div className="w-12 h-12 bg-black rounded-xl flex items-center justify-center">
+              <Book className="w-6 h-6 text-white" />
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent font-mono uppercase tracking-wider">
+            <h1 className="text-3xl font-semibold text-black nothing-text heading">
               {subjectName}
             </h1>
           </div>
-          <p className="text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed font-mono">
-            Track your attendance for this subject. Calculate your percentage, 
-            get smart recommendations, and stay above the 75% requirement.
+          <p className="text-gray-600 text-lg nothing-text max-w-2xl mx-auto">
+            Track your attendance for this subject and stay above the 75% requirement
           </p>
         </div>
 
         {/* Main Content */}
-        <div className="flex justify-center mb-12">
-          {/* Form Section - Centered */}
-          <div className="space-y-6">
+        <div className="max-w-2xl mx-auto">
+          {/* Form Section */}
+          <div className="mb-12">
             <AttendanceForm 
               onSubmit={handleFormSubmit} 
               defaultSubject={subjectName}
               hideSubjectField={true}
             />
           </div>
-        </div>
-        
-        {/* Result Section - Only show when there's a result */}
-        {currentResult && (
-          <div className="flex justify-center mb-12">
-            <div className="space-y-6">
+          
+          {/* Result Section */}
+          {currentResult && (
+            <div className="mb-12">
               <AttendanceResult
                 name={currentResult.name}
                 subject={currentResult.subject}
@@ -269,24 +266,24 @@ const Subject = () => {
                 recommendation={currentResult.recommendation}
               />
             </div>
-          </div>
-        )}
-        
-        {/* History Section */}
-        {loading ? (
-          <div className="text-center py-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-slate-800 border-4 border-emerald-400 mb-4 pixel-icon">
-              <span className="text-2xl">📊</span>
+          )}
+          
+          {/* History Section */}
+          {loading ? (
+            <div className="text-center py-12">
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-gray-100 rounded-xl mb-4">
+                <span className="text-xl">📊</span>
+              </div>
+              <p className="text-gray-600 nothing-text">Loading attendance history...</p>
             </div>
-            <p className="text-emerald-400 font-mono uppercase">Loading attendance history...</p>
-          </div>
-        ) : (
-          <AttendanceHistory
-            records={records}
-            onDeleteRecord={handleDeleteRecord}
-            onUpdateRecord={handleUpdateRecord}
-          />
-        )}
+          ) : (
+            <AttendanceHistory
+              records={records}
+              onDeleteRecord={handleDeleteRecord}
+              onUpdateRecord={handleUpdateRecord}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

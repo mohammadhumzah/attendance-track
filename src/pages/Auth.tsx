@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -146,39 +147,52 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 flex items-center justify-center p-4">
-      <Card className="w-full max-w-md shadow-2xl border border-slate-600 bg-slate-900/90 backdrop-blur-sm">
-        <CardHeader className="text-center pb-4">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-2xl mb-4 mx-auto">
-            <span className="text-2xl">📊</span>
+    <div className="min-h-screen bg-white flex items-center justify-center p-4">
+      <div className="w-full max-w-md nothing-card nothing-glow">
+        <div className="p-8">
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center justify-center w-12 h-12 bg-black rounded-xl mb-6">
+              <span className="text-white text-xl">📊</span>
+            </div>
+            <h1 className="text-2xl font-semibold text-black mb-2 nothing-text heading">
+              Attendance Tracker
+            </h1>
+            <p className="text-gray-600 text-sm nothing-text">
+              Simple. Clean. Effective.
+            </p>
           </div>
-          <CardTitle className="text-2xl font-bold bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent">
-            Welcome to Attendance Tracker
-          </CardTitle>
-          <p className="text-slate-300 text-sm mt-2">
-            Simple. Fast. For NIT Srinagar Students
-          </p>
-        </CardHeader>
-        <CardContent>
+
           <Tabs defaultValue="signin" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-6 bg-slate-800 border-slate-600">
-              <TabsTrigger value="signin" className="data-[state=active]:bg-slate-700 data-[state=active]:text-white text-slate-300">Sign In</TabsTrigger>
-              <TabsTrigger value="signup" className="data-[state=active]:bg-slate-700 data-[state=active]:text-white text-slate-300">Sign Up</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-2 mb-8 bg-gray-50 p-1 rounded-lg">
+              <TabsTrigger 
+                value="signin" 
+                className="text-sm font-medium data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm"
+              >
+                Sign In
+              </TabsTrigger>
+              <TabsTrigger 
+                value="signup" 
+                className="text-sm font-medium data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm"
+              >
+                Sign Up
+              </TabsTrigger>
             </TabsList>
 
             <TabsContent value="signin">
-              <form onSubmit={handleEmailSignIn} className="space-y-4">
+              <form onSubmit={handleEmailSignIn} className="space-y-6">
                 <div className="space-y-2">
-                  <Label htmlFor="signin-email" className="text-slate-200">Email</Label>
+                  <Label htmlFor="signin-email" className="text-sm font-medium text-gray-900">
+                    Email
+                  </Label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
+                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                     <Input
                       id="signin-email"
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Enter your email"
-                      className="pl-10 bg-slate-800 border-slate-600 text-white placeholder:text-slate-400 focus:border-emerald-400"
+                      className="pl-10 nothing-input"
                       required
                       disabled={loading}
                     />
@@ -186,16 +200,18 @@ const Auth = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="signin-password" className="text-slate-200">Password</Label>
+                  <Label htmlFor="signin-password" className="text-sm font-medium text-gray-900">
+                    Password
+                  </Label>
                   <div className="relative">
-                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
+                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                     <Input
                       id="signin-password"
                       type="password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="Enter your password"
-                      className="pl-10 bg-slate-800 border-slate-600 text-white placeholder:text-slate-400 focus:border-emerald-400"
+                      className="pl-10 nothing-input"
                       required
                       disabled={loading}
                     />
@@ -204,7 +220,7 @@ const Auth = () => {
 
                 <Button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white"
+                  className="w-full nothing-button primary"
                   disabled={loading}
                 >
                   <LogIn className="w-4 h-4 mr-2" />
@@ -212,20 +228,20 @@ const Auth = () => {
                 </Button>
               </form>
 
-              <div className="mt-6 pt-6 border-t border-slate-700">
+              <div className="mt-8 pt-6 border-t border-gray-100">
                 <div className="text-center space-y-3">
                   <div className="flex items-center justify-center">
                     <a
                       href="https://www.linkedin.com/in/mohammadhumzah"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-slate-300 hover:text-emerald-400 transition-colors text-sm"
+                      className="flex items-center gap-2 text-gray-600 hover:text-black transition-colors text-sm nothing-text"
                     >
                       <Linkedin className="w-4 h-4" />
                       Contact me
                     </a>
                   </div>
-                  <p className="text-slate-400 text-xs">
+                  <p className="text-gray-400 text-xs nothing-text">
                     Built by Mohammad Humzah
                   </p>
                 </div>
@@ -233,18 +249,20 @@ const Auth = () => {
             </TabsContent>
 
             <TabsContent value="signup">
-              <form onSubmit={handleEmailSignUp} className="space-y-4">
+              <form onSubmit={handleEmailSignUp} className="space-y-6">
                 <div className="space-y-2">
-                  <Label htmlFor="signup-email" className="text-slate-200">Email</Label>
+                  <Label htmlFor="signup-email" className="text-sm font-medium text-gray-900">
+                    Email
+                  </Label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
+                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                     <Input
                       id="signup-email"
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Enter your email"
-                      className="pl-10 bg-slate-800 border-slate-600 text-white placeholder:text-slate-400 focus:border-emerald-400"
+                      className="pl-10 nothing-input"
                       required
                       disabled={loading}
                     />
@@ -252,16 +270,18 @@ const Auth = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="signup-password" className="text-slate-200">Password</Label>
+                  <Label htmlFor="signup-password" className="text-sm font-medium text-gray-900">
+                    Password
+                  </Label>
                   <div className="relative">
-                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
+                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                     <Input
                       id="signup-password"
                       type="password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="Create a password (min 6 characters)"
-                      className="pl-10 bg-slate-800 border-slate-600 text-white placeholder:text-slate-400 focus:border-emerald-400"
+                      className="pl-10 nothing-input"
                       minLength={6}
                       required
                       disabled={loading}
@@ -271,7 +291,7 @@ const Auth = () => {
 
                 <Button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white"
+                  className="w-full nothing-button primary"
                   disabled={loading}
                 >
                   <UserPlus className="w-4 h-4 mr-2" />
@@ -279,13 +299,13 @@ const Auth = () => {
                 </Button>
               </form>
 
-              <div className="mt-6 pt-6 border-t border-slate-700">
+              <div className="mt-8 pt-6 border-t border-gray-100">
                 <div className="flex items-center justify-center">
                   <a
                     href="https://www.linkedin.com/in/mohammadhumzah"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-slate-300 hover:text-emerald-400 transition-colors text-sm"
+                    className="flex items-center gap-2 text-gray-600 hover:text-black transition-colors text-sm nothing-text"
                   >
                     <Linkedin className="w-4 h-4" />
                     Contact me
@@ -294,8 +314,8 @@ const Auth = () => {
               </div>
             </TabsContent>
           </Tabs>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 };

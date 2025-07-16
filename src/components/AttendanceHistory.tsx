@@ -37,22 +37,22 @@ const AttendanceHistory = ({ records, onDeleteRecord, onUpdateRecord }: Attendan
 
   if (records.length === 0) {
     return (
-      <Card className="w-full max-w-7xl mx-auto border-4 border-emerald-400 bg-slate-900 shadow-[0_0_20px_rgba(16,185,129,0.3)] pixel-card">
-        <CardHeader className="pb-4 border-b-4 border-emerald-400">
-          <CardTitle className="flex items-center gap-3 text-emerald-400 font-mono text-lg">
-            <div className="w-8 h-8 bg-emerald-400 flex items-center justify-center border-2 border-emerald-300 pixel-icon">
-              <span className="text-slate-900 text-xl">📊</span>
+      <Card className="w-full max-w-7xl mx-auto nothing-card nothing-glow">
+        <CardHeader className="pb-4 border-b border-border">
+          <CardTitle className="flex items-center gap-3 text-foreground font-mono text-lg nothing-text heading">
+            <div className="w-8 h-8 bg-foreground text-background flex items-center justify-center border border-border rounded-lg">
+              <span className="text-lg">📊</span>
             </div>
             ATTENDANCE HISTORY
           </CardTitle>
         </CardHeader>
         <CardContent className="p-6">
-          <div className="text-center py-12 text-emerald-300">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-slate-800 border-2 border-emerald-600 mb-4 pixel-icon">
-              <History className="w-8 h-8 text-emerald-400" />
+          <div className="text-center py-12 text-muted-foreground">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-muted border border-border mb-4 rounded-lg">
+              <History className="w-8 h-8 text-foreground" />
             </div>
-            <h3 className="text-lg font-bold text-emerald-400 mb-2 font-mono uppercase">NO RECORDS YET</h3>
-            <p className="font-mono text-sm">Add your first attendance record above to get started!</p>
+            <h3 className="text-lg font-bold text-foreground mb-2 font-mono uppercase nothing-text heading">NO RECORDS YET</h3>
+            <p className="font-mono text-sm nothing-text">Add your first attendance record above to get started!</p>
           </div>
         </CardContent>
       </Card>
@@ -115,14 +115,14 @@ const AttendanceHistory = ({ records, onDeleteRecord, onUpdateRecord }: Attendan
   }, {} as { [key: string]: AttendanceRecord[] });
 
   return (
-    <Card className="w-full max-w-7xl mx-auto border-4 border-emerald-400 bg-slate-900 shadow-[0_0_20px_rgba(16,185,129,0.3)] pixel-card">
-      <CardHeader className="pb-4 border-b-4 border-emerald-400">
-        <CardTitle className="flex items-center gap-3 text-emerald-400 font-mono text-lg">
-          <div className="w-8 h-8 bg-emerald-400 flex items-center justify-center border-2 border-emerald-300 pixel-icon">
-            <span className="text-slate-900 text-xl">📊</span>
+    <Card className="w-full max-w-7xl mx-auto nothing-card nothing-glow">
+      <CardHeader className="pb-4 border-b border-border">
+        <CardTitle className="flex items-center gap-3 text-foreground font-mono text-lg nothing-text heading">
+          <div className="w-8 h-8 bg-foreground text-background flex items-center justify-center border border-border rounded-lg">
+            <span className="text-lg">📊</span>
           </div>
           ATTENDANCE HISTORY
-          <Badge className="ml-auto bg-emerald-400 text-slate-900 font-mono border-2 border-emerald-300 pixel-badge">
+          <Badge className="ml-auto nothing-badge">
             {records.length} RECORDS
           </Badge>
         </CardTitle>
@@ -131,24 +131,24 @@ const AttendanceHistory = ({ records, onDeleteRecord, onUpdateRecord }: Attendan
         <div className="space-y-8">
           {Object.entries(groupedRecords).map(([subject, subjectRecords]) => (
             <div key={subject} className="space-y-4">
-              <h3 className="text-xl font-bold text-emerald-400 font-mono uppercase tracking-wider border-b-2 border-emerald-600 pb-2">
+              <h3 className="text-xl font-bold text-foreground font-mono uppercase tracking-wider border-b-2 border-border pb-2 nothing-text heading">
                 {subject}
               </h3>
               
               {/* Desktop Table */}
               <div className="hidden md:block">
-                <div className="bg-slate-800 border-4 border-emerald-600 rounded-lg overflow-hidden">
+                <div className="bg-card border border-border rounded-lg overflow-hidden nothing-card">
                   <Table>
                     <TableHeader>
-                      <TableRow className="border-b-4 border-emerald-600 bg-slate-700 hover:bg-slate-700">
-                        <TableHead className="font-bold text-emerald-400 font-mono text-sm uppercase px-6 py-4">NAME</TableHead>
-                        <TableHead className="font-bold text-emerald-400 font-mono text-sm uppercase text-center px-4 py-4">ATTENDED</TableHead>
-                        <TableHead className="font-bold text-emerald-400 font-mono text-sm uppercase text-center px-4 py-4">TOTAL</TableHead>
-                        <TableHead className="font-bold text-emerald-400 font-mono text-sm uppercase text-center px-4 py-4">PERCENTAGE</TableHead>
-                        <TableHead className="font-bold text-emerald-400 font-mono text-sm uppercase text-center px-4 py-4">RECOMMENDATION</TableHead>
-                        <TableHead className="font-bold text-emerald-400 font-mono text-sm uppercase text-center px-4 py-4">QUICK UPDATE</TableHead>
-                        <TableHead className="font-bold text-emerald-400 font-mono text-sm uppercase text-center px-4 py-4">DATE</TableHead>
-                        <TableHead className="font-bold text-emerald-400 font-mono text-sm uppercase text-center px-4 py-4">ACTIONS</TableHead>
+                      <TableRow className="border-b border-border bg-muted hover:bg-muted">
+                        <TableHead className="font-bold text-foreground font-mono text-sm uppercase px-6 py-4 nothing-text heading">NAME</TableHead>
+                        <TableHead className="font-bold text-foreground font-mono text-sm uppercase text-center px-4 py-4 nothing-text heading">ATTENDED</TableHead>
+                        <TableHead className="font-bold text-foreground font-mono text-sm uppercase text-center px-4 py-4 nothing-text heading">TOTAL</TableHead>
+                        <TableHead className="font-bold text-foreground font-mono text-sm uppercase text-center px-4 py-4 nothing-text heading">PERCENTAGE</TableHead>
+                        <TableHead className="font-bold text-foreground font-mono text-sm uppercase text-center px-4 py-4 nothing-text heading">RECOMMENDATION</TableHead>
+                        <TableHead className="font-bold text-foreground font-mono text-sm uppercase text-center px-4 py-4 nothing-text heading">QUICK UPDATE</TableHead>
+                        <TableHead className="font-bold text-foreground font-mono text-sm uppercase text-center px-4 py-4 nothing-text heading">DATE</TableHead>
+                        <TableHead className="font-bold text-foreground font-mono text-sm uppercase text-center px-4 py-4 nothing-text heading">ACTIONS</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -156,8 +156,8 @@ const AttendanceHistory = ({ records, onDeleteRecord, onUpdateRecord }: Attendan
                         const calculation = calculateAttendance(record.attended, record.total);
                         
                         return (
-                          <TableRow key={record.id} className="border-b-2 border-emerald-700/30 hover:bg-slate-700/50 transition-colors">
-                            <TableCell className="font-bold text-emerald-100 font-mono px-6 py-4">
+                          <TableRow key={record.id} className="border-b border-border/30 hover:bg-muted/50 transition-colors">
+                            <TableCell className="font-bold text-foreground font-mono px-6 py-4 nothing-text">
                               {record.name}
                             </TableCell>
                             
@@ -167,10 +167,10 @@ const AttendanceHistory = ({ records, onDeleteRecord, onUpdateRecord }: Attendan
                                   type="number"
                                   value={editData.attended}
                                   onChange={(e) => setEditData(prev => ({ ...prev, attended: parseInt(e.target.value) || 0 }))}
-                                  className="w-16 h-8 text-center bg-slate-700 border-2 border-emerald-600 text-emerald-100 font-mono"
+                                  className="w-16 h-8 text-center nothing-input"
                                 />
                               ) : (
-                                <span className="font-mono text-emerald-100 text-lg">{record.attended}</span>
+                                <span className="font-mono text-foreground text-lg nothing-text">{record.attended}</span>
                               )}
                             </TableCell>
                             
@@ -180,19 +180,19 @@ const AttendanceHistory = ({ records, onDeleteRecord, onUpdateRecord }: Attendan
                                   type="number"
                                   value={editData.total}
                                   onChange={(e) => setEditData(prev => ({ ...prev, total: parseInt(e.target.value) || 0 }))}
-                                  className="w-16 h-8 text-center bg-slate-700 border-2 border-emerald-600 text-emerald-100 font-mono"
+                                  className="w-16 h-8 text-center nothing-input"
                                 />
                               ) : (
-                                <span className="font-mono text-emerald-100 text-lg">{record.total}</span>
+                                <span className="font-mono text-foreground text-lg nothing-text">{record.total}</span>
                               )}
                             </TableCell>
                             
                             <TableCell className="text-center px-4 py-4">
                               <Badge 
-                                className={`font-mono text-sm font-bold border-2 ${
+                                className={`font-mono text-sm font-bold ${
                                   record.percentage >= 75 
-                                    ? 'bg-emerald-400 text-slate-900 border-emerald-300' 
-                                    : 'bg-orange-400 text-slate-900 border-orange-300'
+                                    ? 'nothing-success' 
+                                    : 'nothing-warning'
                                 }`}
                               >
                                 {record.percentage.toFixed(1)}%
@@ -200,10 +200,10 @@ const AttendanceHistory = ({ records, onDeleteRecord, onUpdateRecord }: Attendan
                             </TableCell>
                             
                             <TableCell className="text-center px-4 py-4">
-                              <div className={`inline-flex items-center gap-3 px-4 py-3 rounded-lg border-2 text-sm font-mono font-bold uppercase ${
+                              <div className={`inline-flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-mono font-bold uppercase ${
                                 calculation.recommendation.type === 'can_miss'
-                                  ? 'bg-emerald-900/30 border-emerald-500/50 text-emerald-400'
-                                  : 'bg-orange-900/30 border-orange-500/50 text-orange-400'
+                                  ? 'nothing-success-bg text-foreground'
+                                  : 'nothing-warning-bg text-muted-foreground'
                               }`}>
                                 {calculation.recommendation.type === 'can_miss' ? (
                                   <TrendingUp className="w-4 h-4" />
@@ -211,10 +211,10 @@ const AttendanceHistory = ({ records, onDeleteRecord, onUpdateRecord }: Attendan
                                   <TrendingDown className="w-4 h-4" />
                                 )}
                                 <div className="text-center">
-                                  <div className="leading-tight">
+                                  <div className="leading-tight nothing-text">
                                     {calculation.recommendation.type === 'can_miss' ? 'CAN MISS' : 'MUST ATTEND'}
                                   </div>
-                                  <div className="text-xs opacity-80 mt-1">
+                                  <div className="text-xs opacity-80 mt-1 nothing-text">
                                     {calculation.recommendation.classes} {calculation.recommendation.classes === 1 ? 'CLASS' : 'CLASSES'}
                                   </div>
                                 </div>
@@ -227,14 +227,14 @@ const AttendanceHistory = ({ records, onDeleteRecord, onUpdateRecord }: Attendan
                                   <Button
                                     size="sm"
                                     onClick={() => handleQuickUpdate(record, 'attend')}
-                                    className="h-10 w-10 p-0 bg-emerald-500 hover:bg-emerald-400 text-slate-900 border-2 border-emerald-300 font-bold text-lg"
+                                    className="h-10 w-10 p-0 nothing-button nothing-success"
                                   >
                                     <Plus className="w-4 h-4" />
                                   </Button>
                                   <Button
                                     size="sm"
                                     onClick={() => handleQuickUpdate(record, 'miss')}
-                                    className="h-10 w-10 p-0 bg-orange-500 hover:bg-orange-400 text-slate-900 border-2 border-orange-300 font-bold text-lg"
+                                    className="h-10 w-10 p-0 nothing-button nothing-warning"
                                   >
                                     <Minus className="w-4 h-4" />
                                   </Button>
@@ -243,7 +243,7 @@ const AttendanceHistory = ({ records, onDeleteRecord, onUpdateRecord }: Attendan
                             </TableCell>
                             
                             <TableCell className="text-center px-4 py-4">
-                              <div className="text-xs text-emerald-300 font-mono flex items-center justify-center gap-2">
+                              <div className="text-xs text-muted-foreground font-mono flex items-center justify-center gap-2 nothing-text">
                                 <Clock className="w-3 h-3" />
                                 <span>{formatDate(record.date)}</span>
                               </div>
@@ -256,14 +256,14 @@ const AttendanceHistory = ({ records, onDeleteRecord, onUpdateRecord }: Attendan
                                     <Button
                                       size="sm"
                                       onClick={() => handleSave(record)}
-                                      className="h-10 w-10 p-0 bg-emerald-500 hover:bg-emerald-400 text-slate-900 border-2 border-emerald-300"
+                                      className="h-10 w-10 p-0 nothing-button nothing-success"
                                     >
                                       <Check className="w-4 h-4" />
                                     </Button>
                                     <Button
                                       size="sm"
                                       onClick={handleCancel}
-                                      className="h-10 w-10 p-0 bg-orange-500 hover:bg-orange-400 text-slate-900 border-2 border-orange-300"
+                                      className="h-10 w-10 p-0 nothing-button nothing-warning"
                                     >
                                       <X className="w-4 h-4" />
                                     </Button>
@@ -273,14 +273,14 @@ const AttendanceHistory = ({ records, onDeleteRecord, onUpdateRecord }: Attendan
                                     <Button
                                       size="sm"
                                       onClick={() => handleEdit(record)}
-                                      className="h-10 w-10 p-0 bg-emerald-500 hover:bg-emerald-400 text-slate-900 border-2 border-emerald-300"
+                                      className="h-10 w-10 p-0 nothing-button"
                                     >
                                       <Edit3 className="w-4 h-4" />
                                     </Button>
                                     <Button
                                       size="sm"
                                       onClick={() => onDeleteRecord(record.id)}
-                                      className="h-10 w-10 p-0 bg-red-500 hover:bg-red-400 text-white border-2 border-red-300"
+                                      className="h-10 w-10 p-0 nothing-button text-destructive border-destructive hover:bg-destructive hover:text-destructive-foreground"
                                     >
                                       <Trash2 className="w-4 h-4" />
                                     </Button>
@@ -302,14 +302,14 @@ const AttendanceHistory = ({ records, onDeleteRecord, onUpdateRecord }: Attendan
                   const calculation = calculateAttendance(record.attended, record.total);
                   
                   return (
-                    <div key={record.id} className="bg-slate-800 border-4 border-emerald-600 p-5 rounded-lg">
+                    <div key={record.id} className="nothing-card p-5">
                       <div className="flex justify-between items-start mb-4">
-                        <h4 className="font-bold text-emerald-100 text-lg font-mono uppercase">{record.name}</h4>
+                        <h4 className="font-bold text-foreground text-lg font-mono uppercase nothing-text heading">{record.name}</h4>
                         <Badge 
-                          className={`font-mono text-sm border-2 ${
+                          className={`font-mono text-sm ${
                             record.percentage >= 75 
-                              ? 'bg-emerald-400 text-slate-900 border-emerald-300' 
-                              : 'bg-orange-400 text-slate-900 border-orange-300'
+                              ? 'nothing-success' 
+                              : 'nothing-warning'
                           }`}
                         >
                           {record.percentage.toFixed(1)}%
@@ -317,42 +317,42 @@ const AttendanceHistory = ({ records, onDeleteRecord, onUpdateRecord }: Attendan
                       </div>
                       
                       <div className="grid grid-cols-2 gap-3 mb-4">
-                        <div className="bg-slate-700 border-2 border-emerald-600 p-3 rounded">
-                          <span className="text-emerald-300 block text-xs font-mono uppercase">Attended:</span>
-                          <span className="font-bold text-lg text-emerald-100 font-mono">{record.attended}</span>
+                        <div className="bg-muted border border-border p-3 rounded-lg">
+                          <span className="text-muted-foreground block text-xs font-mono uppercase nothing-text">Attended:</span>
+                          <span className="font-bold text-lg text-foreground font-mono nothing-text">{record.attended}</span>
                         </div>
-                        <div className="bg-slate-700 border-2 border-emerald-600 p-3 rounded">
-                          <span className="text-emerald-300 block text-xs font-mono uppercase">Total:</span>
-                          <span className="font-bold text-lg text-emerald-100 font-mono">{record.total}</span>
+                        <div className="bg-muted border border-border p-3 rounded-lg">
+                          <span className="text-muted-foreground block text-xs font-mono uppercase nothing-text">Total:</span>
+                          <span className="font-bold text-lg text-foreground font-mono nothing-text">{record.total}</span>
                         </div>
                       </div>
                       
                       {/* Recommendation Section */}
-                      <div className={`p-4 rounded-xl border-2 mb-4 ${
+                      <div className={`p-4 rounded-xl mb-4 ${
                         calculation.recommendation.type === 'can_miss'
-                          ? 'bg-emerald-900/20 border-emerald-400/50'
-                          : 'bg-orange-900/20 border-orange-400/50'
+                          ? 'nothing-success-bg'
+                          : 'nothing-warning-bg'
                       } backdrop-blur-sm`}>
                         <div className="flex items-start gap-3">
-                          <div className={`w-8 h-8 flex items-center justify-center rounded-full border-2 ${
+                          <div className={`w-8 h-8 flex items-center justify-center rounded-full ${
                             calculation.recommendation.type === 'can_miss'
-                              ? 'bg-emerald-400 border-emerald-300'
-                              : 'bg-orange-400 border-orange-300'
+                              ? 'nothing-success'
+                              : 'nothing-warning'
                           }`}>
                             {calculation.recommendation.type === 'can_miss' ? (
-                              <TrendingUp className="w-4 h-4 text-slate-900" />
+                              <TrendingUp className="w-4 h-4" />
                             ) : (
-                              <TrendingDown className="w-4 h-4 text-slate-900" />
+                              <TrendingDown className="w-4 h-4" />
                             )}
                           </div>
                           <div>
-                            <p className={`font-bold text-sm mb-2 font-mono uppercase tracking-wider ${
-                              calculation.recommendation.type === 'can_miss' ? 'text-emerald-400' : 'text-orange-400'
+                            <p className={`font-bold text-sm mb-2 font-mono uppercase tracking-wider nothing-text heading ${
+                              calculation.recommendation.type === 'can_miss' ? 'text-foreground' : 'text-muted-foreground'
                             }`}>
                               {calculation.recommendation.type === 'can_miss' ? 'CAN MISS' : 'MUST ATTEND'}
                             </p>
-                            <p className={`text-xs leading-relaxed font-mono ${
-                              calculation.recommendation.type === 'can_miss' ? 'text-emerald-300' : 'text-orange-300'
+                            <p className={`text-xs leading-relaxed font-mono nothing-text ${
+                              calculation.recommendation.type === 'can_miss' ? 'text-muted-foreground' : 'text-muted-foreground'
                             }`}>
                               {calculation.recommendation.message}
                             </p>
@@ -365,7 +365,7 @@ const AttendanceHistory = ({ records, onDeleteRecord, onUpdateRecord }: Attendan
                           <Button
                             size="sm"
                             onClick={() => handleQuickUpdate(record, 'attend')}
-                            className="bg-emerald-500 hover:bg-emerald-400 text-slate-900 border-2 border-emerald-300 font-mono text-xs"
+                            className="nothing-button nothing-success font-mono text-xs"
                           >
                             <Plus className="w-3 h-3 mr-1" />
                             ATTEND
@@ -373,7 +373,7 @@ const AttendanceHistory = ({ records, onDeleteRecord, onUpdateRecord }: Attendan
                           <Button
                             size="sm"
                             onClick={() => handleQuickUpdate(record, 'miss')}
-                            className="bg-orange-500 hover:bg-orange-400 text-slate-900 border-2 border-orange-300 font-mono text-xs"
+                            className="nothing-button nothing-warning font-mono text-xs"
                           >
                             <Minus className="w-3 h-3 mr-1" />
                             MISS
@@ -384,21 +384,21 @@ const AttendanceHistory = ({ records, onDeleteRecord, onUpdateRecord }: Attendan
                           <Button
                             size="sm"
                             onClick={() => handleEdit(record)}
-                            className="bg-emerald-500 hover:bg-emerald-400 text-slate-900 border-2 border-emerald-300"
+                            className="nothing-button"
                           >
                             <Edit3 className="w-3 h-3" />
                           </Button>
                           <Button
                             size="sm"
                             onClick={() => onDeleteRecord(record.id)}
-                            className="bg-red-500 hover:bg-red-400 text-white border-2 border-red-300"
+                            className="nothing-button text-destructive border-destructive hover:bg-destructive hover:text-destructive-foreground"
                           >
                             <Trash2 className="w-3 h-3" />
                           </Button>
                         </div>
                       </div>
                       
-                      <div className="text-xs text-emerald-300 font-mono flex items-center gap-1">
+                      <div className="text-xs text-muted-foreground font-mono flex items-center gap-1 nothing-text">
                         <Clock className="w-3 h-3" />
                         {formatDate(record.date)}
                       </div>

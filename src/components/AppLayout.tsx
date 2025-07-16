@@ -29,7 +29,7 @@ const AppLayout = ({ children, showSidebar = false }: AppLayoutProps) => {
 
   if (!showSidebar) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700">
+      <div className="min-h-screen bg-background">
         <Header />
         {children}
       </div>
@@ -38,14 +38,14 @@ const AppLayout = ({ children, showSidebar = false }: AppLayoutProps) => {
 
   // Show custom header when sidebar is visible (i.e., on any /subject/* route)
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700">
+    <div className="min-h-screen bg-background">
       <SidebarProvider>
         <div className="flex min-h-screen w-full">
           <SubjectSidebar />
           <div className="flex-1 flex flex-col">
-            <header className="h-16 flex items-center justify-between border-b-4 border-slate-700 bg-slate-900 px-4">
+            <header className="h-16 flex items-center justify-between border-b border-border bg-card/80 backdrop-blur-sm px-4">
               <div className="flex items-center">
-                <SidebarTrigger className="mr-4 text-emerald-400 hover:text-emerald-300 border-2 border-emerald-600 hover:border-emerald-500 pixel-button" />
+                <SidebarTrigger className="mr-4 text-foreground hover:text-muted-foreground border border-border hover:border-foreground nothing-button" />
                 {/* Attendance Tracker clickable logo/text to return to home */}
                 <button
                   type="button"
@@ -53,10 +53,10 @@ const AppLayout = ({ children, showSidebar = false }: AppLayoutProps) => {
                   className="flex items-center gap-3 focus:outline-none group"
                   aria-label="Go to Home"
                 >
-                  <div className="w-8 h-8 bg-emerald-400 border-2 border-emerald-300 flex items-center justify-center pixel-icon group-hover:bg-emerald-300 transition-all">
-                    <span className="text-slate-900 text-lg font-bold">📊</span>
+                  <div className="w-8 h-8 bg-foreground text-background border border-border flex items-center justify-center rounded-lg group-hover:bg-muted-foreground transition-all">
+                    <span className="text-lg font-bold">📊</span>
                   </div>
-                  <h1 className="text-emerald-400 font-mono font-bold text-xl uppercase tracking-wider group-hover:text-emerald-300 transition-colors">
+                  <h1 className="text-foreground font-mono font-bold text-xl uppercase tracking-wider group-hover:text-muted-foreground transition-colors nothing-text heading">
                     Attendance Tracker
                   </h1>
                 </button>
@@ -64,19 +64,19 @@ const AppLayout = ({ children, showSidebar = false }: AppLayoutProps) => {
                 <button
                   type="button"
                   onClick={() => navigate('/')}
-                  className="ml-4 p-1 bg-slate-800 border border-slate-700 rounded-lg text-emerald-400 hover:bg-emerald-400 hover:text-slate-900 transition-colors duration-100 flex items-center group"
+                  className="ml-4 p-1 bg-muted border border-border rounded-lg text-foreground hover:bg-foreground hover:text-background transition-colors duration-100 flex items-center group"
                   aria-label="Go to Home"
                   style={{ height: 36, width: 36 }}
                 >
-                  <Home className="w-5 h-5 mx-auto group-hover:text-slate-900" />
+                  <Home className="w-5 h-5 mx-auto group-hover:text-background" />
                 </button>
               </div>
               
-              {/* Sign Out Button with GitHub/LinkedIn styling */}
+              {/* Sign Out Button with Nothing styling */}
               <button
                 type="button"
                 onClick={handleSignOut}
-                className="inline-flex items-center gap-2 text-slate-300 hover:text-emerald-400 transition-colors text-sm font-mono uppercase tracking-wider border-2 border-slate-600 hover:border-emerald-600 px-4 py-2 pixel-button"
+                className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm font-mono uppercase tracking-wider border border-border hover:border-foreground px-4 py-2 nothing-button"
                 aria-label="Sign Out"
               >
                 <LogOut className="w-4 h-4" />

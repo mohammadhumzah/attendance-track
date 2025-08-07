@@ -57,10 +57,10 @@ const AttendanceForm = ({ onSubmit, defaultSubject = '', hideSubjectField = fals
     <div className="w-full max-w-md mx-auto nothing-card nothing-glow">
       <div className="p-6">
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 flex items-center justify-center bg-black rounded-lg">
-            <Calculator className="w-4 h-4 text-white" />
+          <div className="w-8 h-8 flex items-center justify-center bg-primary rounded-lg">
+            <Calculator className="w-4 h-4 text-primary-foreground" />
           </div>
-          <h2 className="text-lg font-medium text-black nothing-text heading">
+          <h2 className="text-lg font-medium text-foreground nothing-text heading">
             Calculate Attendance
           </h2>
         </div>
@@ -68,7 +68,7 @@ const AttendanceForm = ({ onSubmit, defaultSubject = '', hideSubjectField = fals
         <form onSubmit={handleSubmit} className="space-y-6">
           {!hideSubjectField && (
             <div className="space-y-2">
-              <Label htmlFor="name" className="text-sm font-medium text-gray-900 flex items-center gap-2">
+              <Label htmlFor="name" className="text-sm font-medium text-foreground flex items-center gap-2">
                 <User className="w-4 h-4" />
                 Student Name
               </Label>
@@ -86,7 +86,7 @@ const AttendanceForm = ({ onSubmit, defaultSubject = '', hideSubjectField = fals
 
           {!hideSubjectField && (
             <div className="space-y-2">
-              <Label htmlFor="subject" className="text-sm font-medium text-gray-900 flex items-center gap-2">
+              <Label htmlFor="subject" className="text-sm font-medium text-foreground flex items-center gap-2">
                 <BookOpen className="w-4 h-4" />
                 Subject
               </Label>
@@ -104,7 +104,7 @@ const AttendanceForm = ({ onSubmit, defaultSubject = '', hideSubjectField = fals
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="attended" className="text-sm font-medium text-gray-900 flex items-center gap-2">
+              <Label htmlFor="attended" className="text-sm font-medium text-foreground flex items-center gap-2">
                 <Hash className="w-3 h-3" />
                 Attended
               </Label>
@@ -121,7 +121,7 @@ const AttendanceForm = ({ onSubmit, defaultSubject = '', hideSubjectField = fals
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="total" className="text-sm font-medium text-gray-900 flex items-center gap-2">
+              <Label htmlFor="total" className="text-sm font-medium text-foreground flex items-center gap-2">
                 <Hash className="w-3 h-3" />
                 Total
               </Label>

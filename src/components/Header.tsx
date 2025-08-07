@@ -5,6 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useAuth } from '@/hooks/useAuth';
 import { LogOut, User } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 const Header = () => {
   const { user, signOut } = useAuth();
@@ -30,26 +31,27 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white/80 backdrop-blur-sm border-b border-gray-100 px-4 py-3">
+    <header className="bg-background/80 backdrop-blur-sm border-b border-border px-4 py-3">
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="inline-flex items-center justify-center w-10 h-10 bg-black rounded-xl">
-            <span className="text-white text-lg">📊</span>
+          <div className="inline-flex items-center justify-center w-10 h-10 bg-primary rounded-xl">
+            <span className="text-primary-foreground text-lg">📊</span>
           </div>
-          <h1 className="text-xl font-medium text-black nothing-text heading">
+          <h1 className="text-xl font-medium text-foreground nothing-text heading">
             Attendance Tracker
           </h1>
         </div>
 
         <div className="flex items-center gap-4">
+          <ThemeToggle />
           <div className="flex items-center gap-3">
             <Avatar className="h-8 w-8">
               <AvatarImage src={user.user_metadata?.avatar_url} />
-              <AvatarFallback className="bg-gray-100 text-gray-900 text-sm">
+              <AvatarFallback className="bg-muted text-muted-foreground text-sm">
                 {getInitials()}
               </AvatarFallback>
             </Avatar>
-            <span className="text-sm font-medium text-gray-900 hidden sm:inline nothing-text">
+            <span className="text-sm font-medium text-foreground hidden sm:inline nothing-text">
               {getDisplayName()}
             </span>
           </div>
